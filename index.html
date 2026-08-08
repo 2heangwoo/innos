@@ -387,8 +387,6 @@
     font-family:var(--mono); font-size:12px; color:var(--concrete);
     max-width:none; text-align:right; white-space:nowrap;
   }
-
-
   /* about */
   .about-text{max-width:64ch; font-size:16px; color:#3d3c38; margin-bottom:52px;}
   .about-photo{position:relative; border:1px solid var(--hairline); overflow:hidden;}
@@ -1369,6 +1367,17 @@
 <details class="news-entry">
 <summary>
 <span class="news-date">2026.08</span>
+<span class="news-title">졸업생 정수연, 한국연구재단 박사과정생 연구장려금 지원사업 선정</span>
+<span class="news-tag">소식</span>
+<span aria-hidden="true" class="news-toggle"></span>
+</summary>
+<div class="news-detail">
+<p>우리 연구실 졸업생 정수연이 교육부와 한국연구재단이 지원하는 2026년도 인문사회분야 박사과정생 연구장려금 지원사업에 최종 선정되었습니다. 이번 선정을 진심으로 축하하며, 앞으로의 연구 활동과 성과를 응원합니다.</p>
+</div>
+</details>
+<details class="news-entry">
+<summary>
+<span class="news-date">2026.08</span>
 <span class="news-title">INNO Lab 공식 홈페이지를 개설했습니다.</span>
 <span class="news-tag">소식</span>
 <span aria-hidden="true" class="news-toggle"></span>
@@ -2264,9 +2273,6 @@
     render();
     setInterval(render, 2000);
   })();
-
-
-
   (function(){
     const target = document.querySelector('.leader-shake-target');
     if (!target || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -2362,7 +2368,6 @@
         setTimeout(playRandomAlumniEffects, 380);
       });
     }
-
   })();
 
   (function(){
@@ -2625,7 +2630,6 @@
 
     if(!reduce && !raf) raf=requestAnimationFrame(draw);
   })();
-
 </script>
 </body>
 </html>
