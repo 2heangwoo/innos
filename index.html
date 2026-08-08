@@ -930,9 +930,8 @@
   }
 
 
-  /* Lab leader + alumni portrait motion: the same gentle four-step rotation. */
-  .leader-shake-target.is-shaking,
-  .alumni-shake-target.is-shaking{
+  /* Lab leader portrait motion. */
+  .leader-shake-target.is-shaking{
     animation: leaderPhotoRotate 1.12s ease-in-out both;
     transform-origin:50% 55%;
     will-change:transform;
@@ -947,9 +946,58 @@
     75%{transform:rotate(1.7deg);}
     87.5%{transform:rotate(-1.1deg);}
   }
+
+  /* Alumni portraits: two people are chosen together and each receives one of several subtle motions. */
+  .alumni-shake-target{transform-origin:50% 55%; will-change:transform;}
+  .alumni-shake-target.alumni-fx-wiggle{animation:alumniFxWiggle 1.10s ease-in-out both;}
+  .alumni-shake-target.alumni-fx-sway{animation:alumniFxSway 1.04s ease-in-out both;}
+  .alumni-shake-target.alumni-fx-bob{animation:alumniFxBob 1.16s ease-in-out both;}
+  .alumni-shake-target.alumni-fx-pulse{animation:alumniFxPulse 1.02s ease-in-out both;}
+  .alumni-shake-target.alumni-fx-diagonal{animation:alumniFxDiagonal 1.12s ease-in-out both;}
+
+  @keyframes alumniFxWiggle{
+    0%,100%{transform:rotate(0deg);}
+    18%{transform:rotate(-2.5deg);}
+    36%{transform:rotate(2.2deg);}
+    54%{transform:rotate(-1.7deg);}
+    72%{transform:rotate(1.3deg);}
+    88%{transform:rotate(-.7deg);}
+  }
+  @keyframes alumniFxSway{
+    0%,100%{transform:translateX(0) rotate(0deg);}
+    20%{transform:translateX(-4px) rotate(-1.1deg);}
+    40%{transform:translateX(4px) rotate(1.1deg);}
+    60%{transform:translateX(-3px) rotate(-.8deg);}
+    80%{transform:translateX(2px) rotate(.5deg);}
+  }
+  @keyframes alumniFxBob{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    22%{transform:translateY(-4px) rotate(-.8deg);}
+    44%{transform:translateY(2px) rotate(.7deg);}
+    66%{transform:translateY(-2px) rotate(-.4deg);}
+    84%{transform:translateY(1px) rotate(.25deg);}
+  }
+  @keyframes alumniFxPulse{
+    0%,100%{transform:scale(1) rotate(0deg);}
+    24%{transform:scale(1.025) rotate(.7deg);}
+    48%{transform:scale(.992) rotate(-.6deg);}
+    70%{transform:scale(1.015) rotate(.35deg);}
+    88%{transform:scale(1.003) rotate(-.2deg);}
+  }
+  @keyframes alumniFxDiagonal{
+    0%,100%{transform:translate(0,0) rotate(0deg);}
+    20%{transform:translate(-3px,-3px) rotate(-1deg);}
+    40%{transform:translate(3px,2px) rotate(1deg);}
+    60%{transform:translate(-2px,2px) rotate(-.7deg);}
+    80%{transform:translate(2px,-1px) rotate(.45deg);}
+  }
   @media (prefers-reduced-motion: reduce){
     .leader-shake-target.is-shaking,
-    .alumni-shake-target.is-shaking{animation:none;}
+    .alumni-shake-target.alumni-fx-wiggle,
+    .alumni-shake-target.alumni-fx-sway,
+    .alumni-shake-target.alumni-fx-bob,
+    .alumni-shake-target.alumni-fx-pulse,
+    .alumni-shake-target.alumni-fx-diagonal{animation:none;}
   }
 </style>
 <meta property="og:type" content="website"/>
@@ -2221,7 +2269,14 @@
     const targets = Array.from(document.querySelectorAll('#panel-alumni .alumni-shake-target'));
     if (!panel || !targets.length) return;
 
-    let lastIndex = -1;
+    const fxClasses = [
+      'alumni-fx-wiggle',
+      'alumni-fx-sway',
+      'alumni-fx-bob',
+      'alumni-fx-pulse',
+      'alumni-fx-diagonal'
+    ];
+    let lastPairKey = '';
 
     const panelIsVisible = () => {
       if (panel.hidden) return false;
@@ -2229,32 +2284,57 @@
       return r.bottom > 0 && r.top < window.innerHeight;
     };
 
-    const rotateRandomAlumni = () => {
-      if (!panelIsVisible()) return;
-
-      let idx = Math.floor(Math.random() * targets.length);
-      if (targets.length > 1 && idx === lastIndex) {
-        idx = (idx + 1 + Math.floor(Math.random() * (targets.length - 1))) % targets.length;
-      }
-      lastIndex = idx;
-
-      targets.forEach((el, i) => {
-        if (i !== idx) el.classList.remove('is-shaking');
-      });
-
-      const target = targets[idx];
-      target.classList.remove('is-shaking');
-      void target.offsetWidth;
-      target.classList.add('is-shaking');
+    const clearAlumniEffects = () => {
+      targets.forEach((el) => el.classList.remove(...fxClasses));
     };
 
-    /* At a steady interval, choose one visible alumnus at random and replay the same rotation. */
-    setInterval(rotateRandomAlumni, 3200);
+    const randomPair = () => {
+      const count = Math.min(2, targets.length);
+      let picked = [];
+      let key = '';
+      let guard = 0;
+
+      do {
+        const indexes = targets.map((_, i) => i);
+        for (let i = indexes.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [indexes[i], indexes[j]] = [indexes[j], indexes[i]];
+        }
+        picked = indexes.slice(0, count);
+        key = [...picked].sort((a,b) => a-b).join('-');
+        guard += 1;
+      } while (targets.length > 2 && key === lastPairKey && guard < 8);
+
+      lastPairKey = key;
+      return picked;
+    };
+
+    const playRandomAlumniEffects = () => {
+      if (!panelIsVisible()) return;
+
+      clearAlumniEffects();
+      const picked = randomPair();
+      const usedEffects = [];
+
+      picked.forEach((idx) => {
+        let candidates = fxClasses.filter((fx) => !usedEffects.includes(fx));
+        if (!candidates.length) candidates = fxClasses;
+        const fx = candidates[Math.floor(Math.random() * candidates.length)];
+        usedEffects.push(fx);
+
+        const target = targets[idx];
+        void target.offsetWidth;
+        target.classList.add(fx);
+      });
+    };
+
+    /* Every interval, choose two different alumni and give them two randomly selected motion styles. */
+    setInterval(playRandomAlumniEffects, 3200);
 
     const alumniTab = document.getElementById('tab-alumni');
     if (alumniTab) {
       alumniTab.addEventListener('click', () => {
-        setTimeout(rotateRandomAlumni, 380);
+        setTimeout(playRandomAlumniEffects, 380);
       });
     }
   })();
