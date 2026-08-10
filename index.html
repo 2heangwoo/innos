@@ -718,6 +718,32 @@
   .member h4{font-family:var(--display); font-size:16px; font-weight:600; line-height:1.2; margin-bottom:3px; display:flex; align-items:center; gap:7px;}
   .member-leader{font-family:var(--mono); font-size:12px; font-style:normal; font-weight:700; line-height:1; letter-spacing:.035em; color:var(--amber);}
   .member span{display:block; font-family:var(--mono); font-size:10.5px; line-height:1.3; color:var(--concrete);}
+
+  .member[data-alumni-key]{scroll-margin-top:110px;}
+  .member.game-reveal-active .avatar{
+    position:relative;
+    outline:2px solid var(--amber);
+    outline-offset:5px;
+    animation:gameRevealAvatar 1.9s ease both;
+  }
+  .member.game-reveal-active .avatar img{
+    filter:grayscale(0%) !important;
+    transform:scale(1.022) !important;
+  }
+  .member.game-reveal-active h4{
+    color:var(--amber);
+    transition:color .25s ease;
+  }
+  @keyframes gameRevealAvatar{
+    0%{outline-color:rgba(255,153,51,0); outline-offset:10px;}
+    24%{outline-color:rgba(255,153,51,.95); outline-offset:5px;}
+    72%{outline-color:rgba(255,153,51,.78); outline-offset:5px;}
+    100%{outline-color:rgba(255,153,51,0); outline-offset:8px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .member.game-reveal-active .avatar{animation:none;}
+  }
+
   .member-empty{
     min-height:140px; display:flex; align-items:flex-start; justify-content:flex-start;
     color:var(--concrete); text-align:left;
@@ -1488,42 +1514,42 @@
 </div>
 <div aria-labelledby="tab-alumni" class="member-panel" hidden="" id="panel-alumni" role="tabpanel">
 <div class="member-grid">
-<div class="member">
+<div class="member" data-alumni-key="yeo-yena">
 <div class="avatar alumni-shake-target"><img alt="여예나 졸업생 사진" decoding="async" height="600" loading="lazy" src="yeo-yena.jpg" width="600"/></div>
 <h4>여예나</h4>
 <span>디에이건축(프로)</span>
 </div>
-<div class="member">
+<div class="member" data-alumni-key="chu-daun">
 <div class="avatar alumni-shake-target"><img alt="추다운 졸업생 사진" decoding="async" height="600" loading="lazy" src="chu-daun.jpg" width="600"/></div>
 <h4>추다운</h4>
 <span>원테크코리아(사원)</span>
 </div>
-<div class="member">
+<div class="member" data-alumni-key="kim-minseok">
 <div class="avatar alumni-shake-target"><img alt="김민석 졸업생 사진" decoding="async" height="600" loading="lazy" src="kim-minseok.jpg" width="600"/></div>
 <h4>김민석</h4>
 <span>디원솔루션(대표)</span>
 </div>
-<div class="member">
+<div class="member" data-alumni-key="lee-hyunmin">
 <div class="avatar alumni-shake-target"><img alt="이현민 졸업생 사진" decoding="async" height="600" loading="lazy" src="lee-hyunmin.jpg" width="600"/></div>
 <h4>이현민</h4>
 <span>디에이건축(프로)</span>
 </div>
-<div class="member">
+<div class="member" data-alumni-key="jeong-suyeon">
 <div class="avatar alumni-shake-target"><img alt="정수연 졸업생 사진" decoding="async" height="600" loading="lazy" src="jeong-suyeon.jpg" width="600"/></div>
 <h4>정수연</h4>
 <span>국민대학교 박사과정</span>
 </div>
-<div class="member">
+<div class="member" data-alumni-key="han-sowon">
 <div class="avatar alumni-shake-target"><img alt="한소원 졸업생 사진" decoding="async" height="600" loading="lazy" src="han-sowon.jpg" width="600"/></div>
 <h4>한소원</h4>
 <span>디에이건축(사원)</span>
 </div>
-<div class="member">
+<div class="member" data-alumni-key="lim-daeun">
 <div class="avatar alumni-shake-target"><img alt="임다은 졸업생 사진" decoding="async" height="600" loading="lazy" src="lim-daeun.jpg" width="600"/></div>
 <h4>임다은</h4>
 <span>예인건축(주임)</span>
 </div>
-<div class="member">
+<div class="member" data-alumni-key="jo-aram">
 <div class="avatar alumni-shake-target"><img alt="조아람 졸업생 사진" decoding="async" height="2000" loading="lazy" src="jo-aram.jpg" width="1500"/></div>
 <h4>조아람</h4>
 <span>디에이건축(사원)</span>
@@ -1563,6 +1589,17 @@
 </summary>
 <div class="news-detail">
 <p>이노베이티브 스페이스 랩(INNO Lab)의 연구와 구성원, 연구과제 및 출판 성과를 소개하는 공식 홈페이지를 개설했습니다. 홈페이지를 통해 채광·빛환경과 공간디자인을 연결하는 연구 활동과 연구실의 새로운 소식을 지속적으로 공유하겠습니다.</p>
+</div>
+</details>
+<details class="news-entry">
+<summary>
+<span class="news-date">2026.07</span>
+<span class="news-title">졸업생 이현민, 7월 디에이건축 프로로 특진</span>
+<span class="news-tag">소식</span>
+<span aria-hidden="true" class="news-toggle"></span>
+</summary>
+<div class="news-detail">
+<p>우리 연구실 졸업생 <strong>이현민</strong>이 <strong>디에이건축</strong>에서 <strong>프로로 특진</strong>하였습니다. 이번 특진은 이현민 졸업생의 뛰어난 실무 역량과 전문성을 인정받은 뜻깊은 성과로, <strong>우리 연구실이 배출한 인재들의 우수한 역량을 잘 보여주는 사례</strong>이기도 합니다. 진심으로 축하하며, 앞으로도 건축·공간디자인 분야에서 더욱 뛰어난 활약을 이어가길 응원합니다.</p>
 </div>
 </details>
 </div>
@@ -2898,6 +2935,48 @@
       timer = requestAnimationFrame(tick);
     }
 
+    function revealAlumniCard(key){
+      const alumniTab = document.getElementById('tab-alumni');
+      const target = document.querySelector(`#panel-alumni .member[data-alumni-key="${key}"]`);
+      if(!alumniTab || !target) return;
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* Use the existing tab behavior so Current Members -> Alumni changes exactly as usual. */
+      if(alumniTab.getAttribute('aria-selected') !== 'true'){
+        alumniTab.click();
+      }
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document.querySelectorAll('#panel-alumni .member.game-reveal-active')
+            .forEach(el => el.classList.remove('game-reveal-active'));
+
+          const avatar = target.querySelector('.alumni-shake-target');
+          if(avatar){
+            avatar.classList.remove(
+              'alumni-fx-wiggle',
+              'alumni-fx-sway',
+              'alumni-fx-bob',
+              'alumni-fx-pulse',
+              'alumni-fx-diagonal'
+            );
+          }
+
+          target.classList.add('game-reveal-active');
+          target.scrollIntoView({
+            behavior: reduceMotion ? 'auto' : 'smooth',
+            block: 'center',
+            inline: 'nearest'
+          });
+
+          window.setTimeout(() => {
+            target.classList.remove('game-reveal-active');
+          }, reduceMotion ? 1200 : 2300);
+        });
+      });
+    }
+
     function finish(){
       running = false;
       cancelAnimationFrame(timer);
@@ -2911,6 +2990,9 @@
       const best = readBest();
       if(!best || elapsed < best) saveBest(elapsed);
       bestEl.textContent = fmt(readBest());
+
+      /* Let the player see the completed portrait/name first, then connect it to the real Alumni profile. */
+      window.setTimeout(() => revealAlumniCard(person.key), 800);
     }
 
     function setPieceImage(el, index, fullSize, cellSize){
