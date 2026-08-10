@@ -488,6 +488,7 @@
 
   /* people */
   .prof-card{
+    position:relative;
     display:grid; grid-template-columns:200px 1fr; gap:36px; align-items:start;
     padding-bottom:44px; margin-bottom:44px; border-bottom:1px solid var(--hairline);
   }
@@ -502,6 +503,155 @@
   .prof-card h3{font-family:var(--display); font-size:22px; font-weight:600; margin-bottom:4px;}
   .prof-card .role{font-family:var(--mono); font-size:12.5px; color:var(--shadow-blue); margin-bottom:8px; display:block;}
   .prof-card p{font-size:15px; color:#4A4944; max-width:60ch;}
+
+
+
+
+  /* Professor-side desktop mini game: grayscale portrait + color-piece completion. */
+  .prof-copy{padding-right:294px;}
+  .portrait-puzzle-game{
+    position:absolute; right:-4px; top:-40px;
+    width:344px; height:316px; box-sizing:border-box;
+    padding:12px 12px 11px;
+    border:1px solid var(--hairline);
+    background:rgba(250,250,248,.76);
+    user-select:none;
+  }
+  .portrait-puzzle-head{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:8px;
+    margin-bottom:8px;
+  }
+  .portrait-puzzle-kicker{
+    display:block;
+    font-family:var(--mono); font-size:8.8px; line-height:1.15;
+    letter-spacing:.08em; color:var(--amber); text-transform:uppercase;
+  }
+  .portrait-puzzle-title{
+    display:block; margin-top:2px;
+    font-family:var(--display); font-size:15.5px; font-weight:600; line-height:1.16;
+  }
+  .portrait-puzzle-status{
+    flex:0 0 auto; padding-top:1px;
+    font-family:var(--mono); font-size:8.2px; line-height:1.2;
+    letter-spacing:.05em; color:#9B9892;
+  }
+  .portrait-puzzle-status.is-live{color:var(--amber);}
+  .portrait-puzzle-stats{
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:8px;
+    font-family:var(--mono); font-size:8px; line-height:1.2; color:#9A9791;
+  }
+  .portrait-puzzle-stats b{
+    margin-left:3px; font-size:10.5px; font-weight:600; color:#4B4944;
+    font-variant-numeric:tabular-nums;
+  }
+  .portrait-puzzle-stats .best b{color:var(--amber);}
+  .portrait-puzzle-play{
+    display:grid; grid-template-columns:192px 116px; gap:10px; align-items:start;
+  }
+  .portrait-puzzle-board{
+    position:relative; width:192px; height:192px;
+    border:1px solid rgba(183,180,173,.76);
+    background:#E8E7E2; overflow:hidden;
+  }
+  .portrait-puzzle-board::after{
+    content:""; position:absolute; inset:0; pointer-events:none; z-index:3;
+    background:
+      linear-gradient(to right, transparent 33.333%, rgba(250,250,248,.46) 33.333% 33.9%, transparent 33.9% 66.666%, rgba(250,250,248,.46) 66.666% 67.2%, transparent 67.2%),
+      linear-gradient(to bottom, transparent 33.333%, rgba(250,250,248,.46) 33.333% 33.9%, transparent 33.9% 66.666%, rgba(250,250,248,.46) 66.666% 67.2%, transparent 67.2%);
+  }
+  .portrait-puzzle-gray{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    filter:grayscale(100%) contrast(.97) brightness(1.02); z-index:0;
+  }
+  .portrait-puzzle-slots{
+    position:absolute; inset:0; z-index:2;
+    display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr);
+  }
+  .portrait-puzzle-slot{position:relative; border:0; background:transparent;}
+  .portrait-puzzle-slot.is-over{
+    background:rgba(255,153,51,.13);
+    box-shadow:inset 0 0 0 1px rgba(255,153,51,.62);
+  }
+  .portrait-puzzle-slot.is-filled{overflow:hidden;}
+  .portrait-puzzle-slot img{
+    position:absolute; display:block; max-width:none; pointer-events:none;
+    object-fit:cover;
+  }
+  .portrait-puzzle-tray{
+    min-height:192px; display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .portrait-puzzle-tray-label{
+    font-family:var(--mono); font-size:7.8px; line-height:1.2;
+    letter-spacing:.06em; color:#9F9C96;
+  }
+  .portrait-puzzle-pieces{
+    display:grid; grid-template-columns:repeat(3,34px); grid-auto-rows:34px;
+    gap:4px; align-content:start; justify-content:start;
+  }
+  .portrait-puzzle-piece{
+    position:relative; overflow:hidden;
+    width:34px; height:34px; padding:0;
+    border:1px solid rgba(184,181,174,.84);
+    background:#E8E7E2;
+    cursor:grab;
+    transition:transform .14s ease, opacity .14s ease, border-color .14s ease;
+  }
+  .portrait-puzzle-piece img{
+    position:absolute; display:block; max-width:none; pointer-events:none;
+    object-fit:cover;
+  }
+  .portrait-puzzle-piece:hover{transform:translateY(-1px); border-color:rgba(255,153,51,.68);}
+  .portrait-puzzle-piece:active{cursor:grabbing;}
+  .portrait-puzzle-piece.is-selected{outline:1px solid var(--amber); outline-offset:2px;}
+  .portrait-puzzle-piece.is-used{opacity:.10; pointer-events:none; transform:scale(.92);}
+  .portrait-puzzle-help{
+    width:100%;
+    align-self:stretch;
+    margin-top:8px;
+    font-family:var(--mono);
+    font-size:7.8px;
+    line-height:1.55;
+    color:#8F8C86;
+    text-align:left;
+  }
+  .portrait-puzzle-help b{
+    display:block;
+    margin-bottom:2px;
+    font-weight:600;
+    color:#5B5954;
+    text-align:left;
+  }
+  .portrait-puzzle-footer{
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    margin-top:8px; padding-top:7px; border-top:1px solid rgba(217,215,208,.82);
+  }
+  .portrait-puzzle-name{
+    min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+    font-family:var(--mono); font-size:10.5px; line-height:1.2; color:#7F7C76; letter-spacing:.015em;
+  }
+  .portrait-puzzle-name.is-clear{color:var(--amber); font-weight:700; font-size:13px;}
+  .portrait-puzzle-btn{
+    flex:0 0 auto; padding:4px 7px 3px;
+    border:1px solid rgba(255,153,51,.42);
+    background:rgba(255,153,51,.07); color:var(--amber);
+    font-family:var(--mono); font-size:8px; letter-spacing:.04em; cursor:pointer;
+  }
+  .portrait-puzzle-btn:hover{background:rgba(255,153,51,.13);}
+  .portrait-puzzle-game.is-miss .portrait-puzzle-board{
+    box-shadow:inset 0 0 0 1px rgba(160,157,150,.62);
+  }
+  .portrait-puzzle-game.is-clear .portrait-puzzle-board{
+    box-shadow:inset 0 0 0 1px rgba(255,153,51,.72), 0 0 0 1px rgba(255,153,51,.08);
+  }
+  @media (max-width:900px), (hover:none), (pointer:coarse){
+    .portrait-puzzle-game{display:none !important;}
+    .prof-copy{padding-right:0;}
+  }
+
+
+
+
 
   .member-directory{margin-top:28px;}
   .member-tabs{
@@ -1272,10 +1422,39 @@
 </div>
 <div class="prof-card">
 <div class="avatar"><img alt="이행우 교수 사진" decoding="async" height="800" loading="lazy" src="professor-lee-haengwoo.jpg" width="600"/></div>
-<div>
+<div class="prof-copy">
 <h3>이행우 교수</h3>
 <span class="role">상명대학교 스페이스디자인전공 교수 · 이노베이티브 스페이스 랩 지도교수</span>
 <p>인제대학교에서 공간디자인 전공으로 학사 및 석사학위를, 국민대학교에서 건축디자인 전공으로 박사학위를 취득하였습니다. 이후 국민대학교에서 연구교수와 조교수를 거쳐, 현재 상명대학교 천안캠퍼스 스페이스디자인전공 교수로 재직하며 이노베이티브 스페이스 랩(Innovative Space Lab)을 지도하고 있습니다. 주요 연구 분야는 채광 및 빛환경, 광선반·광정 시스템, 건물외피와 태양광 융합기술, 사용자 중심의 지능형 공간 및 외피 설계이며, 이와 함께 공간인지와 위계 등 공간디자인과 관련된 인문학적 연구에도 깊은 관심을 가지고 연구를 수행하고 있습니다.</p>
+</div>
+<div aria-label="졸업생 컬러 이미지 완성 미니게임" class="portrait-puzzle-game" id="portrait-puzzle-game">
+<div class="portrait-puzzle-head">
+<div>
+<span class="portrait-puzzle-kicker">INNO LAB MINI GAME</span>
+<strong class="portrait-puzzle-title">COLOR PORTRAIT PUZZLE</strong>
+</div>
+<span class="portrait-puzzle-status" id="portrait-puzzle-status">READY</span>
+</div>
+<div class="portrait-puzzle-stats">
+<span>TIME <b id="portrait-puzzle-time">0.0s</b></span>
+<span>PIECE <b id="portrait-puzzle-count">0/9</b></span>
+<span class="best">BEST <b id="portrait-puzzle-best">—</b></span>
+</div>
+<div class="portrait-puzzle-play">
+<div class="portrait-puzzle-board" id="portrait-puzzle-board">
+<img alt="졸업생 흑백 퍼즐 이미지" class="portrait-puzzle-gray" id="portrait-puzzle-gray"/>
+<div class="portrait-puzzle-slots" id="portrait-puzzle-slots"></div>
+</div>
+<div class="portrait-puzzle-tray">
+<span class="portrait-puzzle-tray-label">COLOR PIECES</span>
+<div class="portrait-puzzle-pieces" id="portrait-puzzle-pieces"></div>
+<div class="portrait-puzzle-help"><b>DRAG</b>컬러 조각을 흑백 이미지의<br/>같은 위치에 올려 사진을<br/>완성하세요.</div>
+</div>
+</div>
+<div class="portrait-puzzle-footer">
+<span class="portrait-puzzle-name" id="portrait-puzzle-name">WHO IS THIS?</span>
+<button class="portrait-puzzle-btn" id="portrait-puzzle-restart" type="button">NEW</button>
+</div>
 </div>
 </div>
 <div class="member-directory">
@@ -2630,5 +2809,233 @@
     if(!reduce && !raf) raf=requestAnimationFrame(draw);
   })();
 </script>
+
+
+
+
+<script>
+  (() => {
+    const root = document.getElementById('portrait-puzzle-game');
+    const gray = document.getElementById('portrait-puzzle-gray');
+    const slotsWrap = document.getElementById('portrait-puzzle-slots');
+    const piecesWrap = document.getElementById('portrait-puzzle-pieces');
+    const timeEl = document.getElementById('portrait-puzzle-time');
+    const countEl = document.getElementById('portrait-puzzle-count');
+    const bestEl = document.getElementById('portrait-puzzle-best');
+    const statusEl = document.getElementById('portrait-puzzle-status');
+    const nameEl = document.getElementById('portrait-puzzle-name');
+    const restartBtn = document.getElementById('portrait-puzzle-restart');
+    if(!root || !gray || !slotsWrap || !piecesWrap || !restartBtn) return;
+
+    const alumni = [
+      { key:'yeo-yena', name:'여예나', src:'yeo-yena.jpg' },
+      { key:'chu-daun', name:'추다운', src:'chu-daun.jpg' },
+      { key:'kim-minseok', name:'김민석', src:'kim-minseok.jpg' },
+      { key:'lee-hyunmin', name:'이현민', src:'lee-hyunmin.jpg' },
+      { key:'jeong-suyeon', name:'정수연', src:'jeong-suyeon.jpg' },
+      { key:'han-sowon', name:'한소원', src:'han-sowon.jpg' },
+      { key:'lim-daeun', name:'임다은', src:'lim-daeun.jpg' },
+      { key:'jo-aram', name:'조아람', src:'jo-aram.jpg' }
+    ];
+
+    const bestKey = 'innoPortraitPuzzleBestMs';
+    let person = null;
+    let selectedPiece = null;
+    let placed = new Set();
+    let startedAt = 0;
+    let timer = 0;
+    let running = false;
+    let lastPerson = '';
+
+    function readBest(){
+      try {
+        const v = Number(localStorage.getItem(bestKey) || 0);
+        return Number.isFinite(v) && v > 0 ? v : 0;
+      } catch(e){ return 0; }
+    }
+
+    function saveBest(ms){
+      try { localStorage.setItem(bestKey, String(ms)); } catch(e){}
+    }
+
+    function fmt(ms){ return (ms / 1000).toFixed(1) + 's'; }
+
+    function shuffle(arr){
+      const a = arr.slice();
+      for(let i=a.length-1; i>0; i--){
+        const j = Math.floor(Math.random() * (i+1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function makeSliceImage(index, fullSize, cellSize){
+      const col = index % 3;
+      const row = Math.floor(index / 3);
+      const img = document.createElement('img');
+      img.src = person.src;
+      img.alt = '';
+      img.draggable = false;
+      img.style.width = `${fullSize}px`;
+      img.style.height = `${fullSize}px`;
+      img.style.left = `${-col * cellSize}px`;
+      img.style.top = `${-row * cellSize}px`;
+      return img;
+    }
+
+    function startTimer(){
+      if(running) return;
+      running = true;
+      startedAt = performance.now();
+      statusEl.textContent = 'PLAY';
+      statusEl.classList.add('is-live');
+      timer = requestAnimationFrame(tick);
+    }
+
+    function tick(now){
+      if(!running) return;
+      timeEl.textContent = fmt(now - startedAt);
+      timer = requestAnimationFrame(tick);
+    }
+
+    function finish(){
+      running = false;
+      cancelAnimationFrame(timer);
+      const elapsed = performance.now() - startedAt;
+      timeEl.textContent = fmt(elapsed);
+      statusEl.textContent = 'CLEAR';
+      statusEl.classList.add('is-live');
+      nameEl.textContent = person.name;
+      nameEl.classList.add('is-clear');
+      root.classList.add('is-clear');
+      const best = readBest();
+      if(!best || elapsed < best) saveBest(elapsed);
+      bestEl.textContent = fmt(readBest());
+    }
+
+    function setPieceImage(el, index, fullSize, cellSize){
+      el.innerHTML = '';
+      el.appendChild(makeSliceImage(index, fullSize, cellSize));
+    }
+
+    function placePiece(index, slot){
+      if(placed.has(index)) return;
+      startTimer();
+      placed.add(index);
+      slot.classList.add('is-filled');
+      slot.dataset.filled = 'true';
+      setPieceImage(slot, index, 192, 64);
+      const piece = piecesWrap.querySelector(`[data-piece="${index}"]`);
+      if(piece){
+        piece.classList.add('is-used');
+        piece.classList.remove('is-selected');
+      }
+      selectedPiece = null;
+      countEl.textContent = `${placed.size}/9`;
+      if(placed.size === 9) finish();
+    }
+
+    function miss(){
+      root.classList.remove('is-miss');
+      void root.offsetWidth;
+      root.classList.add('is-miss');
+      statusEl.textContent = 'MISS';
+      statusEl.classList.remove('is-live');
+      setTimeout(() => {
+        root.classList.remove('is-miss');
+        if(running){
+          statusEl.textContent = 'PLAY';
+          statusEl.classList.add('is-live');
+        }
+      }, 260);
+    }
+
+    function makeSlots(){
+      slotsWrap.innerHTML = '';
+      for(let i=0; i<9; i++){
+        const slot = document.createElement('div');
+        slot.className = 'portrait-puzzle-slot';
+        slot.dataset.slot = i;
+        slot.addEventListener('dragover', e => {
+          if(placed.has(i)) return;
+          e.preventDefault();
+          slot.classList.add('is-over');
+        });
+        slot.addEventListener('dragleave', () => slot.classList.remove('is-over'));
+        slot.addEventListener('drop', e => {
+          e.preventDefault();
+          slot.classList.remove('is-over');
+          const idx = Number(e.dataTransfer.getData('text/plain'));
+          if(idx === i) placePiece(i, slot);
+          else miss();
+        });
+        slot.addEventListener('click', () => {
+          if(selectedPiece === null || placed.has(i)) return;
+          if(selectedPiece === i) placePiece(i, slot);
+          else miss();
+        });
+        slotsWrap.appendChild(slot);
+      }
+    }
+
+    function makePieces(){
+      piecesWrap.innerHTML = '';
+      shuffle([...Array(9).keys()]).forEach(index => {
+        const piece = document.createElement('button');
+        piece.type = 'button';
+        piece.className = 'portrait-puzzle-piece';
+        piece.draggable = true;
+        piece.dataset.piece = index;
+        piece.setAttribute('aria-label', `컬러 조각 ${index + 1}`);
+        setPieceImage(piece, index, 102, 34);
+
+        piece.addEventListener('dragstart', e => {
+          startTimer();
+          selectedPiece = index;
+          e.dataTransfer.setData('text/plain', String(index));
+          e.dataTransfer.effectAllowed = 'move';
+        });
+        piece.addEventListener('click', () => {
+          if(placed.has(index)) return;
+          startTimer();
+          piecesWrap.querySelectorAll('.portrait-puzzle-piece').forEach(p => p.classList.remove('is-selected'));
+          selectedPiece = index;
+          piece.classList.add('is-selected');
+        });
+        piecesWrap.appendChild(piece);
+      });
+    }
+
+    function newGame(){
+      running = false;
+      cancelAnimationFrame(timer);
+      placed = new Set();
+      selectedPiece = null;
+      root.classList.remove('is-clear','is-miss');
+      nameEl.textContent = 'WHO IS THIS?';
+      nameEl.classList.remove('is-clear');
+      statusEl.textContent = 'READY';
+      statusEl.classList.remove('is-live');
+      timeEl.textContent = '0.0s';
+      countEl.textContent = '0/9';
+
+      const options = alumni.filter(a => a.key !== lastPerson);
+      person = options[Math.floor(Math.random() * options.length)] || alumni[0];
+      lastPerson = person.key;
+
+      gray.src = person.src;
+      bestEl.textContent = readBest() ? fmt(readBest()) : '—';
+      makeSlots();
+      makePieces();
+    }
+
+    restartBtn.addEventListener('click', newGame);
+    newGame();
+  })();
+</script>
+
+
+
+
 </body>
 </html>
