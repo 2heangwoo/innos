@@ -721,6 +721,53 @@
     filter:grayscale(0%);
     transform:scale(1.018);
   }
+
+  .chae-profile-tooltip{
+    position:fixed;
+    left:0; top:0;
+    z-index:9999;
+    min-width:154px;
+    padding:10px 12px 9px;
+    border:1px solid rgba(255,153,51,.48);
+    background:rgba(250,250,248,.96);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    box-shadow:0 8px 24px rgba(35,33,29,.08);
+    opacity:0;
+    visibility:hidden;
+    transform:translate(14px,14px);
+    pointer-events:none;
+    transition:opacity .14s ease, visibility .14s ease;
+  }
+  .chae-profile-tooltip.is-visible{
+    opacity:1;
+    visibility:visible;
+  }
+  .chae-profile-tooltip-line{
+    display:grid;
+    grid-template-columns:58px 1fr;
+    gap:8px;
+    align-items:baseline;
+    font-family:var(--mono);
+    font-size:10px;
+    line-height:1.55;
+    white-space:nowrap;
+  }
+  .chae-profile-tooltip-line + .chae-profile-tooltip-line{margin-top:2px;}
+  .chae-profile-tooltip-key{
+    color:#9A9791;
+    letter-spacing:.02em;
+  }
+  .chae-profile-tooltip-value{
+    color:var(--ink);
+    font-weight:600;
+  }
+  .chae-profile-tooltip-line:first-child .chae-profile-tooltip-value{color:var(--amber);}
+
+  @media (hover:none), (pointer:coarse){
+    .chae-profile-tooltip{display:none !important;}
+  }
+
   @media (hover:none), (pointer:coarse){
     /* Mobile/touch: keep portraits grayscale until the user taps one. */
     .member .avatar img{filter:grayscale(100%); transform:none;}
@@ -1782,7 +1829,7 @@
 <div aria-labelledby="tab-current" class="member-panel" id="panel-current" role="tabpanel">
 <div class="member-grid">
 <div class="member">
-<div class="avatar leader-shake-target"><img alt="채지연 학부연구생 사진" decoding="async" height="600" loading="lazy" src="chae-jiyeon.jpg" width="600"/></div>
+<div aria-describedby="chae-profile-tooltip" class="avatar leader-shake-target" id="chae-profile-avatar"><img alt="채지연 학부연구생 사진" decoding="async" height="600" loading="lazy" src="chae-jiyeon.jpg" width="600"/></div>
 <h4>채지연 <em class="member-leader">랩장</em></h4>
 <span>학부연구생</span>
 </div>
@@ -3546,6 +3593,63 @@
     }else if(typeof desktopHoverQuery.addListener === 'function'){
       desktopHoverQuery.addListener(resetForInputMode);
     }
+  })();
+</script>
+
+
+<div aria-hidden="true" class="chae-profile-tooltip" id="chae-profile-tooltip" role="tooltip">
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Blood</span>
+    <span class="chae-profile-tooltip-value">AB</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">MBTI</span>
+    <span class="chae-profile-tooltip-value">ESFP</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Birthday</span>
+    <span class="chae-profile-tooltip-value">Nov 13</span>
+  </div>
+</div>
+
+
+<script>
+  (() => {
+    const avatar = document.getElementById('chae-profile-avatar');
+    const tooltip = document.getElementById('chae-profile-tooltip');
+    const finePointer = window.matchMedia('(hover:hover) and (pointer:fine)');
+    if(!avatar || !tooltip || !finePointer.matches) return;
+
+    const offset = 16;
+
+    function moveTooltip(event){
+      const rect = tooltip.getBoundingClientRect();
+      let x = event.clientX + offset;
+      let y = event.clientY + offset;
+
+      if(x + rect.width + 12 > window.innerWidth){
+        x = event.clientX - rect.width - offset;
+      }
+      if(y + rect.height + 12 > window.innerHeight){
+        y = event.clientY - rect.height - offset;
+      }
+
+      tooltip.style.left = `${Math.max(8, x)}px`;
+      tooltip.style.top = `${Math.max(8, y)}px`;
+    }
+
+    avatar.addEventListener('mouseenter', event => {
+      tooltip.classList.add('is-visible');
+      tooltip.setAttribute('aria-hidden', 'false');
+      moveTooltip(event);
+    });
+
+    avatar.addEventListener('mousemove', moveTooltip);
+
+    avatar.addEventListener('mouseleave', () => {
+      tooltip.classList.remove('is-visible');
+      tooltip.setAttribute('aria-hidden', 'true');
+    });
   })();
 </script>
 
