@@ -81,6 +81,21 @@
     transition:color .2s;
   }
   nav ul li a:hover, nav ul li a:focus-visible{color:var(--amber);}
+
+  #nav-lablog-link{
+    display:inline-flex;
+    justify-content:center;
+    min-width:82px;
+  }
+  .nav-lablog-label{
+    display:inline-block;
+    transition:opacity .16s ease, transform .16s ease;
+  }
+  .nav-lablog-label.is-switching{
+    opacity:0;
+    transform:translateY(-2px);
+  }
+
   nav ul li a:focus-visible{outline:2px solid var(--amber); outline-offset:4px; border-radius:2px;}
   .nav-toggle{
     display:none; width:38px; height:38px; padding:0; border:0; background:transparent;
@@ -730,10 +745,7 @@
     filter:grayscale(0%) !important;
     transform:scale(1.022) !important;
   }
-  .member.game-reveal-active h4{
-    color:var(--amber);
-    transition:color .25s ease;
-  }
+  .member.game-reveal-active h4{color:var(--amber); transition:color .25s ease;}
   @keyframes gameRevealAvatar{
     0%{outline-color:rgba(255,153,51,0); outline-offset:10px;}
     24%{outline-color:rgba(255,153,51,.95); outline-offset:5px;}
@@ -755,6 +767,103 @@
   .member-empty span{
     display:block; margin-top:5px; font-family:var(--mono); font-size:10.5px; line-height:1.5;
   }
+
+  /* news / resources tabs */
+  .lablog-tabs{
+    display:flex; align-items:flex-end; gap:26px;
+    width:100%; margin:0 0 18px; padding:0;
+    border-bottom:1px solid var(--hairline);
+  }
+  .lablog-tab{
+    appearance:none; position:relative;
+    margin:0; padding:0 0 12px;
+    border:0; background:transparent; cursor:pointer;
+    font-family:var(--display); font-size:14.5px; line-height:1.2;
+    color:#9A9892; white-space:nowrap;
+    transition:color .2s ease;
+  }
+  .lablog-tab::after{
+    content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    background:var(--amber); transform:scaleX(0); transform-origin:left center;
+    transition:transform .22s ease;
+  }
+  .lablog-tab:hover{color:#56544F;}
+  .lablog-tab[aria-selected="true"]{color:var(--ink);}
+  .lablog-tab[aria-selected="true"]::after{transform:scaleX(1);}
+  .lablog-tab:focus-visible{outline:2px solid var(--amber); outline-offset:5px;}
+  .lablog-panel[hidden]{display:none;}
+  .lablog-panel{animation:lablogPanelIn .24s ease both;}
+  @keyframes lablogPanelIn{
+    from{opacity:0; transform:translateY(4px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .resource-board{
+    border-top:1px solid var(--hairline);
+    border-bottom:1px solid var(--hairline);
+  }
+  .resource-board-head,
+  .resource-board-row{
+    display:grid;
+    grid-template-columns:120px minmax(0,1fr) 110px;
+    gap:20px; align-items:center;
+  }
+  .resource-board-head{
+    padding:11px 0;
+    border-bottom:1px solid var(--hairline);
+    font-family:var(--mono); font-size:9.5px;
+    letter-spacing:.04em; color:#9A9892;
+  }
+  .resource-board-row{
+    min-height:92px; padding:18px 0;
+    font-family:var(--sans); font-size:13px; color:#7F7C76;
+  }
+  .resource-empty{
+    grid-column:1 / -1;
+    display:flex; align-items:center; justify-content:center;
+    min-height:58px;
+    font-family:var(--mono); font-size:10.5px; line-height:1.5;
+    color:#A19E98; text-align:center;
+  }
+
+  .resource-date{
+    font-family:var(--mono);
+    font-size:10.5px;
+    color:#A19E98;
+    font-variant-numeric:tabular-nums;
+  }
+  .resource-title{
+    font-size:14px;
+    line-height:1.5;
+    color:#3F3E3A;
+  }
+  .resource-download{
+    justify-self:end;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:78px;
+    padding:7px 10px 6px;
+    border:1px solid rgba(255,153,51,.46);
+    color:var(--amber);
+    background:rgba(255,153,51,.06);
+    font-family:var(--mono);
+    font-size:9px;
+    letter-spacing:.04em;
+    transition:background-color .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .resource-download:hover,
+  .resource-download:focus-visible{
+    background:var(--amber);
+    color:#fffdf8;
+    border-color:var(--amber);
+  }
+  @media (max-width:600px){
+    .resource-date{display:block; margin-bottom:5px;}
+    .resource-title{display:block; margin-bottom:12px;}
+    .resource-download{justify-self:start;}
+  }
+
 
   /* news */
   .news-list{border-top:1px solid var(--hairline); background:transparent;}
@@ -960,6 +1069,8 @@
     .diagram-stat .v{font-size:15px;}
     .diagram-meta{font-size:8.5px;}
     .news-entry summary{grid-template-columns:1fr auto; gap:6px 14px; align-items:center;}
+    .lablog-tabs{gap:20px;}
+    .resource-board-head,.resource-board-row{grid-template-columns:88px minmax(0,1fr) 72px; gap:12px;}
     .news-date{grid-column:1;}
     .news-title{grid-column:1;}
     .news-tag{grid-column:1; justify-self:start;}
@@ -1016,6 +1127,18 @@
     #site-nav ul li:last-child{border-bottom:0;}
     #site-nav ul li a{display:block; padding:11px 2px; font-size:14px;}
 
+    #nav-lablog-link{
+      display:block;
+      min-width:0;
+    }
+    .nav-lablog-label,
+    .nav-lablog-label.is-switching{
+      opacity:1 !important;
+      transform:none !important;
+      transition:none !important;
+    }
+
+
     .hero{padding:48px 0 40px;}
     .hero-grid{gap:28px;}
     .eyebrow{font-size:10.5px; margin-bottom:14px;}
@@ -1069,6 +1192,21 @@
     .member span{font-size:9.8px; line-height:1.4;}
 
     .news-entry summary{padding:17px 0;}
+    .lablog-tabs{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0;
+      width:100%;
+      margin-bottom:18px;
+    }
+    .lablog-tab{
+      width:100%;
+      padding:11px 4px 10px;
+      font-size:13.5px;
+      text-align:center;
+    }
+    .resource-board-head{display:none;}
+    .resource-board-row{display:block; min-height:80px; padding:18px 0;}
     .news-date{font-size:11.5px;}
     .news-title{font-size:14.5px; line-height:1.5;}
     .news-tag{font-size:9.5px; padding:2px 7px;}
@@ -1225,7 +1363,7 @@
 <ul>
 <li><a href="#about">연구실 소개</a></li>
 <li><a href="#people">교수·연구원</a></li>
-<li><a href="#news">연구실 소식</a></li>
+<li><a data-mode="news" href="#news" id="nav-lablog-link"><span class="nav-lablog-label">연구실 소식</span></a></li>
 <li><a href="#projects">연구과제</a></li>
 <li><a href="#publications">출판물</a></li>
 <li><a href="#contact">연락처</a></li>
@@ -1564,10 +1702,15 @@
 <div class="wrap">
 <div class="section-head">
 <div>
-<span class="section-label">Lab Log</span>
-<h2 class="section-title">연구실 소식</h2>
+<span class="section-label" id="lablog-section-label">Lab News</span>
+<h2 class="section-title" id="lablog-section-title">연구실 소식</h2>
 </div>
 </div>
+<div aria-label="연구실 소식 및 자료실" class="lablog-tabs" role="tablist">
+<button aria-controls="panel-lab-news" aria-selected="true" class="lablog-tab" id="tab-lab-news" role="tab" tabindex="0" type="button">연구실 소식</button>
+<button aria-controls="panel-resources" aria-selected="false" class="lablog-tab" id="tab-resources" role="tab" tabindex="-1" type="button">자료실</button>
+</div>
+<div aria-labelledby="tab-lab-news" class="lablog-panel" id="panel-lab-news" role="tabpanel">
 <div class="news-list">
 <details class="news-entry">
 <summary>
@@ -1602,6 +1745,26 @@
 <p>우리 연구실 졸업생 <strong>이현민</strong>이 <strong>디에이건축</strong>에서 <strong>프로로 특진</strong>하였습니다. 이번 특진은 이현민 졸업생의 뛰어난 실무 역량과 전문성을 인정받은 뜻깊은 성과로, <strong>우리 연구실이 배출한 인재들의 우수한 역량을 잘 보여주는 사례</strong>이기도 합니다. 진심으로 축하하며, 앞으로도 건축·공간디자인 분야에서 더욱 뛰어난 활약을 이어가길 응원합니다.</p>
 </div>
 </details>
+</div>
+</div>
+<div aria-labelledby="tab-resources" class="lablog-panel" hidden="" id="panel-resources" role="tabpanel">
+<div class="resource-board">
+<div class="resource-board-head" aria-hidden="true">
+<span>등록일</span>
+<span>자료명</span>
+<span>파일</span>
+</div>
+<div class="resource-board-row">
+<span class="resource-date">2024</span>
+<span class="resource-title">2024년 졸업작품 도록 공유</span>
+<a class="resource-download" href="https://gofile.me/7JuOE/zCV4kVJo3" rel="noopener noreferrer" target="_blank">DOWNLOAD ↗</a>
+</div>
+<div class="resource-board-row">
+<span class="resource-date">2021</span>
+<span class="resource-title">2021년 졸업작품 도록 공유</span>
+<a class="resource-download" href="https://gofile.me/7JuOE/Vntosloae" rel="noopener noreferrer" target="_blank">DOWNLOAD ↗</a>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -2941,27 +3104,12 @@
       if(!alumniTab || !target) return;
 
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      /* Use the existing tab behavior so Current Members -> Alumni changes exactly as usual. */
-      if(alumniTab.getAttribute('aria-selected') !== 'true'){
-        alumniTab.click();
-      }
+      if(alumniTab.getAttribute('aria-selected') !== 'true') alumniTab.click();
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           document.querySelectorAll('#panel-alumni .member.game-reveal-active')
             .forEach(el => el.classList.remove('game-reveal-active'));
-
-          const avatar = target.querySelector('.alumni-shake-target');
-          if(avatar){
-            avatar.classList.remove(
-              'alumni-fx-wiggle',
-              'alumni-fx-sway',
-              'alumni-fx-bob',
-              'alumni-fx-pulse',
-              'alumni-fx-diagonal'
-            );
-          }
 
           target.classList.add('game-reveal-active');
           target.scrollIntoView({
@@ -2991,7 +3139,6 @@
       if(!best || elapsed < best) saveBest(elapsed);
       bestEl.textContent = fmt(readBest());
 
-      /* Let the player see the completed portrait/name first, then connect it to the real Alumni profile. */
       window.setTimeout(() => revealAlumniCard(person.key), 800);
     }
 
@@ -3118,6 +3265,146 @@
 
 
 
+
+
+<script>
+  (() => {
+    const tabs = Array.from(document.querySelectorAll('.lablog-tab'));
+    const newsPanel = document.getElementById('panel-lab-news');
+    const resourcesPanel = document.getElementById('panel-resources');
+    const sectionTitle = document.getElementById('lablog-section-title');
+    const sectionLabel = document.getElementById('lablog-section-label');
+    if(!tabs.length || !newsPanel || !resourcesPanel || !sectionTitle || !sectionLabel) return;
+
+    const panels = {
+      'tab-lab-news': newsPanel,
+      'tab-resources': resourcesPanel
+    };
+    const titles = {
+      'tab-lab-news': '연구실 소식',
+      'tab-resources': '자료실'
+    };
+    const englishLabels = {
+      'tab-lab-news': 'Lab News',
+      'tab-resources': 'Resources'
+    };
+
+    function activate(tab){
+      tabs.forEach(item => {
+        const active = item === tab;
+        item.setAttribute('aria-selected', active ? 'true' : 'false');
+        item.tabIndex = active ? 0 : -1;
+        const panel = panels[item.id];
+        if(panel) panel.hidden = !active;
+      });
+      sectionTitle.textContent = titles[tab.id] || '연구실 소식';
+      sectionLabel.textContent = englishLabels[tab.id] || 'Lab News';
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activate(tab));
+      tab.addEventListener('keydown', e => {
+        if(e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        const nextIndex = e.key === 'ArrowRight'
+          ? (index + 1) % tabs.length
+          : (index - 1 + tabs.length) % tabs.length;
+        tabs[nextIndex].focus();
+        activate(tabs[nextIndex]);
+      });
+    });
+  })();
+</script>
+
+
+<script>
+  (() => {
+    const link = document.getElementById('nav-lablog-link');
+    const label = link?.querySelector('.nav-lablog-label');
+    const newsTab = document.getElementById('tab-lab-news');
+    const resourcesTab = document.getElementById('tab-resources');
+    const newsSection = document.getElementById('news');
+    if(!link || !label || !newsTab || !resourcesTab || !newsSection) return;
+
+    const desktopHoverQuery = window.matchMedia('(min-width:761px) and (hover:hover) and (pointer:fine)');
+    let startTimer = 0;
+    let cycleTimer = 0;
+    let switchTimer = 0;
+    let mode = 'news';
+
+    const textFor = value => value === 'resources' ? '자료실' : '연구실 소식';
+
+    function setMode(next, animate = true){
+      mode = next;
+      link.dataset.mode = next;
+      window.clearTimeout(switchTimer);
+
+      if(!animate){
+        label.classList.remove('is-switching');
+        label.textContent = textFor(next);
+        return;
+      }
+
+      label.classList.add('is-switching');
+      switchTimer = window.setTimeout(() => {
+        label.textContent = textFor(next);
+        label.classList.remove('is-switching');
+      }, 150);
+    }
+
+    function stopCycle(reset = true){
+      window.clearTimeout(startTimer);
+      window.clearInterval(cycleTimer);
+      window.clearTimeout(switchTimer);
+      if(reset) setMode('news', false);
+    }
+
+    function startDesktopCycle(){
+      if(!desktopHoverQuery.matches) return;
+      stopCycle(true);
+      /* 데스크톱에서만 연구실 소식 ↔ 자료실 효과를 사용합니다. */
+      startTimer = window.setTimeout(() => {
+        setMode('resources');
+        cycleTimer = window.setInterval(() => {
+          setMode(mode === 'news' ? 'resources' : 'news');
+        }, 1250);
+      }, 900);
+    }
+
+    link.addEventListener('mouseenter', startDesktopCycle);
+    link.addEventListener('mouseleave', () => {
+      if(desktopHoverQuery.matches) stopCycle(true);
+    });
+
+    link.addEventListener('click', e => {
+      e.preventDefault();
+
+      /* 모바일/터치 환경에서는 상단 메뉴에 효과를 주지 않고
+         항상 '연구실 소식'으로 이동합니다.
+         이후 화면 안의 '자료실' 탭을 눌러 자료실로 전환합니다. */
+      const targetTab = desktopHoverQuery.matches && mode === 'resources'
+        ? resourcesTab
+        : newsTab;
+
+      targetTab.click();
+      newsSection.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        block: 'start'
+      });
+      stopCycle(true);
+    });
+
+    const resetForInputMode = () => {
+      if(!desktopHoverQuery.matches) stopCycle(true);
+    };
+
+    if(typeof desktopHoverQuery.addEventListener === 'function'){
+      desktopHoverQuery.addEventListener('change', resetForInputMode);
+    }else if(typeof desktopHoverQuery.addListener === 'function'){
+      desktopHoverQuery.addListener(resetForInputMode);
+    }
+  })();
+</script>
 
 </body>
 </html>
