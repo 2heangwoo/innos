@@ -829,12 +829,16 @@
   .resource-date{
     font-family:var(--mono);
     font-size:10.5px;
+    line-height:1.35;
     color:#A19E98;
     font-variant-numeric:tabular-nums;
   }
   .resource-title{
+    font-family:var(--sans);
     font-size:14px;
+    font-weight:500;
     line-height:1.5;
+    letter-spacing:-.01em;
     color:#3F3E3A;
   }
   .resource-download{
@@ -843,13 +847,15 @@
     align-items:center;
     justify-content:center;
     min-width:78px;
-    padding:7px 10px 6px;
+    padding:6px 10px 5px;
     border:1px solid rgba(255,153,51,.46);
     color:var(--amber);
     background:rgba(255,153,51,.06);
     font-family:var(--mono);
-    font-size:9px;
-    letter-spacing:.04em;
+    font-size:10px;
+    line-height:1.2;
+    font-weight:500;
+    letter-spacing:.035em;
     transition:background-color .2s ease, color .2s ease, border-color .2s ease;
   }
   .resource-download:hover,
@@ -867,6 +873,27 @@
 
   /* news */
   .news-list{border-top:1px solid var(--hairline); background:transparent;}
+
+  .news-title{
+    font-family:var(--sans);
+    font-size:14px;
+    font-weight:500;
+    line-height:1.5;
+    letter-spacing:-.01em;
+  }
+  .news-date{
+    font-family:var(--mono);
+    font-size:10.5px;
+    line-height:1.35;
+  }
+  .news-detail p{
+    font-family:var(--sans);
+    font-size:13.5px;
+    font-weight:400;
+    line-height:1.8;
+    letter-spacing:-.005em;
+  }
+
   .news-entry{border-bottom:1px solid var(--hairline);}
   .news-entry summary{
     list-style:none; cursor:pointer; display:grid;
@@ -1207,6 +1234,12 @@
     }
     .resource-board-head{display:none;}
     .resource-board-row{display:block; min-height:64px; padding:12px 0;}
+
+    .news-title,.resource-title{font-size:13.5px; line-height:1.5;}
+    .news-date,.resource-date{font-size:10px;}
+    .news-detail p{font-size:12.5px; line-height:1.75;}
+    .resource-download{font-size:9.5px;}
+
     .news-date{font-size:11.5px;}
     .news-title{font-size:14.5px; line-height:1.5;}
     .news-tag{font-size:9.5px; padding:2px 7px;}
@@ -1335,6 +1368,121 @@
     .alumni-shake-target.alumni-fx-pulse,
     .alumni-shake-target.alumni-fx-diagonal{animation:none;}
   }
+
+  /* --- unified Lab News / Resources board typography --- */
+  .news-date,
+  .resource-date{
+    font-family:var(--mono) !important;
+    font-size:13px !important;
+    font-weight:400 !important;
+    line-height:1.35 !important;
+    color:var(--concrete) !important;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .news-title,
+  .resource-title{
+    font-family:var(--display) !important;
+    font-size:16px !important;
+    font-weight:500 !important;
+    line-height:1.45 !important;
+    letter-spacing:0 !important;
+    color:var(--ink) !important;
+  }
+
+  .resource-board{
+    border-top:1px solid var(--hairline) !important;
+    border-bottom:0 !important;
+  }
+
+  .resource-board-row{
+    display:grid !important;
+    grid-template-columns:110px minmax(0,1fr) 110px !important;
+    gap:24px !important;
+    align-items:center !important;
+    min-height:0 !important;
+    padding:22px 0 !important;
+    border-bottom:1px solid var(--hairline) !important;
+    font-family:var(--sans) !important;
+  }
+
+  .resource-download{
+    justify-self:end !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:110px !important;
+    height:36px !important;
+    padding:0 10px !important;
+    border:1px solid rgba(255,153,51,.55) !important;
+    background:transparent !important;
+    color:var(--amber) !important;
+    font-family:var(--mono) !important;
+    font-size:10.5px !important;
+    font-weight:400 !important;
+    line-height:1 !important;
+    letter-spacing:.02em !important;
+  }
+
+  .resource-download:hover,
+  .resource-download:focus-visible{
+    background:var(--amber) !important;
+    color:#fffdf8 !important;
+    border-color:var(--amber) !important;
+  }
+
+  @media (max-width:760px){
+    .news-date,
+    .resource-date{
+      font-size:11.5px !important;
+      line-height:1.35 !important;
+    }
+
+    .news-title,
+    .resource-title{
+      font-size:14.5px !important;
+      font-weight:500 !important;
+      line-height:1.5 !important;
+    }
+
+    .resource-board-row{
+      display:grid !important;
+      grid-template-columns:minmax(0,1fr) 92px !important;
+      grid-template-rows:auto auto !important;
+      gap:6px 14px !important;
+      padding:17px 0 !important;
+      min-height:0 !important;
+    }
+
+    .resource-date{
+      grid-column:1 !important;
+      grid-row:1 !important;
+      display:block !important;
+      margin:0 !important;
+    }
+
+    .resource-title{
+      grid-column:1 !important;
+      grid-row:2 !important;
+      display:block !important;
+      margin:0 !important;
+    }
+
+    .resource-download{
+      grid-column:2 !important;
+      grid-row:1 / span 2 !important;
+      align-self:center !important;
+      justify-self:end !important;
+      width:92px !important;
+      max-width:92px !important;
+      height:34px !important;
+      margin:0 !important;
+      font-size:9.5px !important;
+    }
+  }
+
 </style>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://innospacelab.netlify.app/"/>
@@ -1749,18 +1897,13 @@
 </div>
 <div aria-labelledby="tab-resources" class="lablog-panel" hidden="" id="panel-resources" role="tabpanel">
 <div class="resource-board">
-<div class="resource-board-head" aria-hidden="true">
-<span>등록일</span>
-<span>자료명</span>
-<span>파일</span>
-</div>
 <div class="resource-board-row">
-<span class="resource-date">2024</span>
+<span class="resource-date">2026.08</span>
 <span class="resource-title">상명대학교 스페이스디자인전공 2024년 졸업작품 도록 공유</span>
 <a class="resource-download" href="https://gofile.me/7JuOE/zCV4kVJo3" rel="noopener noreferrer" target="_blank">DOWNLOAD ↗</a>
 </div>
 <div class="resource-board-row">
-<span class="resource-date">2021</span>
+<span class="resource-date">2026.08</span>
 <span class="resource-title">상명대학교 스페이스디자인전공 2021년 졸업작품 도록 공유</span>
 <a class="resource-download" href="https://gofile.me/7JuOE/Vntosloae" rel="noopener noreferrer" target="_blank">DOWNLOAD ↗</a>
 </div>
