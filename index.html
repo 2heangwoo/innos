@@ -1874,7 +1874,7 @@
 <span>국민대학교 박사과정</span>
 </div>
 <div class="member" data-alumni-key="han-sowon">
-<div class="avatar alumni-shake-target"><img alt="한소원 졸업생 사진" decoding="async" height="600" loading="lazy" src="han-sowon.jpg" width="600"/></div>
+<div aria-describedby="han-profile-tooltip" class="avatar alumni-shake-target" id="han-profile-avatar"><img alt="한소원 졸업생 사진" decoding="async" height="600" loading="lazy" src="han-sowon.jpg" width="600"/></div>
 <h4>한소원</h4>
 <span>디에이건축(사원)</span>
 </div>
@@ -1884,7 +1884,7 @@
 <span>예인건축(주임)</span>
 </div>
 <div class="member" data-alumni-key="jo-aram">
-<div class="avatar alumni-shake-target"><img alt="조아람 졸업생 사진" decoding="async" height="2000" loading="lazy" src="jo-aram.jpg" width="1500"/></div>
+<div aria-describedby="jo-profile-tooltip" class="avatar alumni-shake-target" id="jo-profile-avatar"><img alt="조아람 졸업생 사진" decoding="async" height="2000" loading="lazy" src="jo-aram.jpg" width="1500"/></div>
 <h4>조아람</h4>
 <span>디에이건축(사원)</span>
 </div>
@@ -3642,6 +3642,34 @@
     <span class="chae-profile-tooltip-value">Jul 28</span>
   </div>
 </div>
+<div aria-hidden="true" class="chae-profile-tooltip" id="jo-profile-tooltip" role="tooltip">
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Blood</span>
+    <span class="chae-profile-tooltip-value">O</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">MBTI</span>
+    <span class="chae-profile-tooltip-value">ISTJ</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Birthday</span>
+    <span class="chae-profile-tooltip-value">Jun 5</span>
+  </div>
+</div>
+<div aria-hidden="true" class="chae-profile-tooltip" id="han-profile-tooltip" role="tooltip">
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Blood</span>
+    <span class="chae-profile-tooltip-value">AB</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">MBTI</span>
+    <span class="chae-profile-tooltip-value">ESTJ</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Birthday</span>
+    <span class="chae-profile-tooltip-value">Jun 16</span>
+  </div>
+</div>
 
 
 <script>
@@ -3652,7 +3680,9 @@
     const profiles = [
       ['chae-profile-avatar', 'chae-profile-tooltip'],
       ['gong-profile-avatar', 'gong-profile-tooltip'],
-      ['jang-profile-avatar', 'jang-profile-tooltip']
+      ['jang-profile-avatar', 'jang-profile-tooltip'],
+      ['jo-profile-avatar', 'jo-profile-tooltip'],
+      ['han-profile-avatar', 'han-profile-tooltip']
     ];
 
     const offset = 11;
