@@ -726,8 +726,9 @@
     position:fixed;
     left:0; top:0;
     z-index:9999;
-    min-width:154px;
-    padding:10px 12px 9px;
+    min-width:0;
+    width:max-content;
+    padding:7px 7px 6px;
     border:1px solid rgba(255,153,51,.48);
     background:rgba(250,250,248,.96);
     backdrop-filter:blur(8px);
@@ -735,7 +736,7 @@
     box-shadow:0 8px 24px rgba(35,33,29,.08);
     opacity:0;
     visibility:hidden;
-    transform:translate(14px,14px);
+    transform:translate(10px,10px);
     pointer-events:none;
     transition:opacity .14s ease, visibility .14s ease;
   }
@@ -745,15 +746,15 @@
   }
   .chae-profile-tooltip-line{
     display:grid;
-    grid-template-columns:58px 1fr;
-    gap:8px;
+    grid-template-columns:max-content max-content;
+    column-gap:8px;
     align-items:baseline;
     font-family:var(--mono);
     font-size:10px;
     line-height:1.55;
     white-space:nowrap;
   }
-  .chae-profile-tooltip-line + .chae-profile-tooltip-line{margin-top:2px;}
+  .chae-profile-tooltip-line + .chae-profile-tooltip-line{margin-top:1px;}
   .chae-profile-tooltip-key{
     color:#9A9791;
     letter-spacing:.02em;
@@ -1834,12 +1835,12 @@
 <span>학부연구생</span>
 </div>
 <div class="member">
-<div class="avatar"><img alt="공지원 학부연구생 사진" decoding="async" height="600" loading="lazy" src="gong-jiwon.jpg" width="600"/></div>
+<div aria-describedby="gong-profile-tooltip" class="avatar" id="gong-profile-avatar"><img alt="공지원 학부연구생 사진" decoding="async" height="600" loading="lazy" src="gong-jiwon.jpg" width="600"/></div>
 <h4>공지원</h4>
 <span>학부연구생</span>
 </div>
 <div class="member">
-<div class="avatar"><img alt="장지원 학부연구생 사진" decoding="async" height="600" loading="lazy" src="jang-jiwon.jpg" width="600"/></div>
+<div aria-describedby="jang-profile-tooltip" class="avatar" id="jang-profile-avatar"><img alt="장지원 학부연구생 사진" decoding="async" height="600" loading="lazy" src="jang-jiwon.jpg" width="600"/></div>
 <h4>장지원</h4>
 <span>학부연구생</span>
 </div>
@@ -3612,43 +3613,83 @@
   </div>
 </div>
 
+<div aria-hidden="true" class="chae-profile-tooltip" id="gong-profile-tooltip" role="tooltip">
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Blood</span>
+    <span class="chae-profile-tooltip-value">B</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">MBTI</span>
+    <span class="chae-profile-tooltip-value">ENFJ</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Birthday</span>
+    <span class="chae-profile-tooltip-value">Dec 15</span>
+  </div>
+</div>
+
+<div aria-hidden="true" class="chae-profile-tooltip" id="jang-profile-tooltip" role="tooltip">
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Blood</span>
+    <span class="chae-profile-tooltip-value">AB</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">MBTI</span>
+    <span class="chae-profile-tooltip-value">ENFJ</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Birthday</span>
+    <span class="chae-profile-tooltip-value">Jul 28</span>
+  </div>
+</div>
+
 
 <script>
   (() => {
-    const avatar = document.getElementById('chae-profile-avatar');
-    const tooltip = document.getElementById('chae-profile-tooltip');
     const finePointer = window.matchMedia('(hover:hover) and (pointer:fine)');
-    if(!avatar || !tooltip || !finePointer.matches) return;
+    if(!finePointer.matches) return;
 
-    const offset = 16;
+    const profiles = [
+      ['chae-profile-avatar', 'chae-profile-tooltip'],
+      ['gong-profile-avatar', 'gong-profile-tooltip'],
+      ['jang-profile-avatar', 'jang-profile-tooltip']
+    ];
 
-    function moveTooltip(event){
-      const rect = tooltip.getBoundingClientRect();
-      let x = event.clientX + offset;
-      let y = event.clientY + offset;
+    const offset = 11;
 
-      if(x + rect.width + 12 > window.innerWidth){
-        x = event.clientX - rect.width - offset;
+    profiles.forEach(([avatarId, tooltipId]) => {
+      const avatar = document.getElementById(avatarId);
+      const tooltip = document.getElementById(tooltipId);
+      if(!avatar || !tooltip) return;
+
+      function moveTooltip(event){
+        const rect = tooltip.getBoundingClientRect();
+        let x = event.clientX + offset;
+        let y = event.clientY + offset;
+
+        if(x + rect.width + 12 > window.innerWidth){
+          x = event.clientX - rect.width - offset;
+        }
+        if(y + rect.height + 12 > window.innerHeight){
+          y = event.clientY - rect.height - offset;
+        }
+
+        tooltip.style.left = `${Math.max(8, x)}px`;
+        tooltip.style.top = `${Math.max(8, y)}px`;
       }
-      if(y + rect.height + 12 > window.innerHeight){
-        y = event.clientY - rect.height - offset;
-      }
 
-      tooltip.style.left = `${Math.max(8, x)}px`;
-      tooltip.style.top = `${Math.max(8, y)}px`;
-    }
+      avatar.addEventListener('mouseenter', event => {
+        tooltip.classList.add('is-visible');
+        tooltip.setAttribute('aria-hidden', 'false');
+        moveTooltip(event);
+      });
 
-    avatar.addEventListener('mouseenter', event => {
-      tooltip.classList.add('is-visible');
-      tooltip.setAttribute('aria-hidden', 'false');
-      moveTooltip(event);
-    });
+      avatar.addEventListener('mousemove', moveTooltip);
 
-    avatar.addEventListener('mousemove', moveTooltip);
-
-    avatar.addEventListener('mouseleave', () => {
-      tooltip.classList.remove('is-visible');
-      tooltip.setAttribute('aria-hidden', 'true');
+      avatar.addEventListener('mouseleave', () => {
+        tooltip.classList.remove('is-visible');
+        tooltip.setAttribute('aria-hidden', 'true');
+      });
     });
   })();
 </script>
