@@ -8,9 +8,8 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>이행우 교수 | 상명대학교 스페이스디자인전공 | Inno Space Lab</title>
 <link rel="canonical" href="https://2heangwoo.github.io/innos/"/>
-<link href="favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="favicon.png" rel="icon" sizes="64x64" type="image/png"/>
-<link href="favicon.ico" rel="shortcut icon"/>
+<link href="favicon.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="favicon.ico" rel="icon" sizes="32x32" type="image/x-icon"/>
 <link href="apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
 <meta content="#FAFAF8" name="theme-color"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -1852,7 +1851,7 @@
 <div aria-labelledby="tab-alumni" class="member-panel" hidden="" id="panel-alumni" role="tabpanel">
 <div class="member-grid">
 <div class="member" data-alumni-key="yeo-yena">
-<div class="avatar alumni-shake-target"><img alt="여예나 졸업생 사진" decoding="async" height="600" loading="lazy" src="yeo-yena.jpg" width="600"/></div>
+<div aria-describedby="yeo-profile-tooltip" class="avatar alumni-shake-target" id="yeo-profile-avatar"><img alt="여예나 졸업생 사진" decoding="async" height="600" loading="lazy" src="yeo-yena.jpg" width="600"/></div>
 <h4>여예나</h4>
 <span>디에이건축(프로)</span>
 </div>
@@ -1882,7 +1881,7 @@
 <span>디에이건축(사원)</span>
 </div>
 <div class="member" data-alumni-key="lim-daeun">
-<div class="avatar alumni-shake-target"><img alt="임다은 졸업생 사진" decoding="async" height="600" loading="lazy" src="lim-daeun.jpg" width="600"/></div>
+<div aria-describedby="lim-profile-tooltip" class="avatar alumni-shake-target" id="lim-profile-avatar"><img alt="임다은 졸업생 사진" decoding="async" height="600" loading="lazy" src="lim-daeun.jpg" width="600"/></div>
 <h4>임다은</h4>
 <span>예인건축(주임)</span>
 </div>
@@ -3673,6 +3672,35 @@
     <span class="chae-profile-tooltip-value">Jun 16</span>
   </div>
 </div>
+<div aria-hidden="true" class="chae-profile-tooltip" id="yeo-profile-tooltip" role="tooltip">
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Blood</span>
+    <span class="chae-profile-tooltip-value">B</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">MBTI</span>
+    <span class="chae-profile-tooltip-value">ISFJ</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Birthday</span>
+    <span class="chae-profile-tooltip-value">Dec 18</span>
+  </div>
+</div>
+
+<div aria-hidden="true" class="chae-profile-tooltip" id="lim-profile-tooltip" role="tooltip">
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Blood</span>
+    <span class="chae-profile-tooltip-value">A</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">MBTI</span>
+    <span class="chae-profile-tooltip-value">ISTJ</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Birthday</span>
+    <span class="chae-profile-tooltip-value">Mar 21</span>
+  </div>
+</div>
 
 
 <script>
@@ -3685,7 +3713,9 @@
       ['gong-profile-avatar', 'gong-profile-tooltip'],
       ['jang-profile-avatar', 'jang-profile-tooltip'],
       ['jo-profile-avatar', 'jo-profile-tooltip'],
-      ['han-profile-avatar', 'han-profile-tooltip']
+      ['han-profile-avatar', 'han-profile-tooltip'],
+      ['yeo-profile-avatar', 'yeo-profile-tooltip'],
+      ['lim-profile-avatar', 'lim-profile-tooltip']
     ];
 
     const offset = 11;
