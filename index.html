@@ -1533,6 +1533,94 @@
     }
   }
 
+
+  /* --- viewport mouse activity indicator --- */
+  .mouse-activity-indicator{
+    position:fixed;
+    left:50%;
+    bottom:14px;
+    z-index:1200;
+    width:30px;
+    height:44px;
+    transform:translateX(-50%);
+    pointer-events:none;
+    opacity:.76;
+    filter:drop-shadow(0 2px 4px rgba(31,30,27,.10));
+    transition:opacity .2s ease;
+  }
+  .mouse-activity-indicator.is-moving{
+    animation:mouse-indicator-bob .46s ease-in-out infinite alternate;
+  }
+  .mouse-activity-shell{
+    position:relative;
+    width:100%;
+    height:100%;
+    box-sizing:border-box;
+    overflow:hidden;
+    border:1.35px solid rgba(83,81,76,.78);
+    border-radius:15px 15px 13px 13px;
+    background:rgba(255,255,255,.94);
+  }
+  .mouse-activity-divider-v{
+    position:absolute;
+    left:50%;
+    top:0;
+    width:1px;
+    height:16px;
+    transform:translateX(-.5px);
+    background:rgba(83,81,76,.62);
+  }
+  .mouse-activity-divider-h{
+    position:absolute;
+    left:0;
+    right:0;
+    top:16px;
+    height:1px;
+    background:rgba(83,81,76,.62);
+  }
+  .mouse-activity-button{
+    position:absolute;
+    top:0;
+    width:50%;
+    height:16px;
+    background:transparent;
+    transition:background-color .06s linear;
+  }
+  .mouse-activity-button.left{left:0;}
+  .mouse-activity-button.right{right:0;}
+  .mouse-activity-indicator.is-left-down .mouse-activity-button.left{
+    background:#252525;
+  }
+  .mouse-activity-indicator.is-right-down .mouse-activity-button.right{
+    background:#252525;
+  }
+  .mouse-activity-indicator.is-wheel-active .mouse-activity-wheel{
+    background:#252525;
+    border-color:#252525;
+  }
+  .mouse-activity-wheel{
+    position:absolute;
+    left:50%;
+    top:5px;
+    width:5px;
+    height:9px;
+    transform:translateX(-50%);
+    border:1px solid rgba(83,81,76,.82);
+    border-radius:4px;
+    background:#fff;
+    z-index:2;
+  }
+  @keyframes mouse-indicator-bob{
+    from{transform:translate(-50%, 0);}
+    to{transform:translate(-50%, -5px);}
+  }
+  @media (hover:none), (pointer:coarse), (max-width:900px){
+    .mouse-activity-indicator{display:none !important;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .mouse-activity-indicator.is-moving{animation:none;}
+  }
+
 </style>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://2heangwoo.github.io/innos/"/>
@@ -3921,6 +4009,70 @@
         tooltip.classList.remove('is-visible');
         tooltip.setAttribute('aria-hidden', 'true');
       });
+    });
+  })();
+</script>
+
+
+<div aria-hidden="true" class="mouse-activity-indicator" id="mouse-activity-indicator">
+  <div class="mouse-activity-shell">
+    <span class="mouse-activity-button left"></span>
+    <span class="mouse-activity-button right"></span>
+    <span class="mouse-activity-divider-v"></span>
+    <span class="mouse-activity-divider-h"></span>
+    <span class="mouse-activity-wheel"></span>
+  </div>
+</div>
+
+
+<script>
+  (() => {
+    const indicator = document.getElementById('mouse-activity-indicator');
+    const finePointer = window.matchMedia('(hover:hover) and (pointer:fine)');
+    if(!indicator || !finePointer.matches) return;
+
+    let moveTimer = 0;
+    let wheelTimer = 0;
+
+    function setMoving(){
+      indicator.classList.add('is-moving');
+      window.clearTimeout(moveTimer);
+      moveTimer = window.setTimeout(() => {
+        indicator.classList.remove('is-moving');
+      }, 420);
+    }
+
+    window.addEventListener('mousemove', setMoving, {passive:true});
+
+    window.addEventListener('mousedown', event => {
+      if(event.button === 0){
+        indicator.classList.add('is-left-down');
+      }else if(event.button === 2){
+        indicator.classList.add('is-right-down');
+      }
+    });
+
+    window.addEventListener('mouseup', event => {
+      if(event.button === 0){
+        indicator.classList.remove('is-left-down');
+      }else if(event.button === 2){
+        indicator.classList.remove('is-right-down');
+      }
+    });
+
+    window.addEventListener('wheel', () => {
+      indicator.classList.add('is-wheel-active');
+      setMoving();
+      window.clearTimeout(wheelTimer);
+      wheelTimer = window.setTimeout(() => {
+        indicator.classList.remove('is-wheel-active');
+      }, 180);
+    }, {passive:true});
+
+    window.addEventListener('blur', () => {
+      indicator.classList.remove('is-left-down');
+      indicator.classList.remove('is-right-down');
+      indicator.classList.remove('is-wheel-active');
     });
   })();
 </script>
