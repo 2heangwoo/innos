@@ -143,8 +143,8 @@
     pointer-events:none;
     opacity:.96;
     mix-blend-mode:multiply;
-    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 96%,rgba(0,0,0,.72) 98.5%,transparent 100%);
-    mask-image:linear-gradient(to bottom,#000 0%,#000 96%,rgba(0,0,0,.72) 98.5%,transparent 100%);
+    -webkit-mask-image:none;
+    mask-image:none;
   }
   @media (max-width:900px), (hover:none), (pointer:coarse){
     .hero-unified-field{display:none !important;}
@@ -524,15 +524,42 @@
 
 
 
-  /* Professor-side desktop mini game: grayscale portrait + color-piece completion. */
+  /* Professor-side desktop mini games: existing puzzle + rotary portrait lock. */
   .prof-copy{padding-right:294px;}
-  .portrait-puzzle-game{
-    position:absolute; right:-4px; top:-40px;
-    width:344px; height:316px; box-sizing:border-box;
+  .portrait-mini-hub{
+    position:absolute; right:-4px; top:-80px;
+    width:344px; user-select:none;
+  }
+  .portrait-mini-tabs{
+    display:flex; align-items:flex-end; gap:13px;
+    margin:0 0 7px; padding:0 2px 0;
+    border-bottom:1px solid rgba(217,215,208,.92);
+  }
+  .portrait-mini-tab{
+    appearance:none; position:relative;
+    padding:0 0 7px; margin:0;
+    border:0; background:transparent; cursor:pointer;
+    font-family:var(--display); font-size:10.5px; font-weight:500; line-height:1.1;
+    color:#9A9892; letter-spacing:.01em;
+    transition:color .18s ease;
+  }
+  .portrait-mini-tab::after{
+    content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    background:var(--amber); transform:scaleX(0); transform-origin:left center;
+    transition:transform .22s ease;
+  }
+  .portrait-mini-tab:hover{color:#56544F;}
+  .portrait-mini-tab[aria-selected="true"]{color:var(--ink);}
+  .portrait-mini-tab[aria-selected="true"]::after{transform:scaleX(1);}
+  .portrait-mini-tab:focus-visible{outline:2px solid var(--amber); outline-offset:5px;}
+  .portrait-mini-panel[hidden]{display:none !important;}
+  .portrait-puzzle-game,
+  .portrait-lock-game{
+    position:relative;
+    width:344px; min-height:316px; box-sizing:border-box;
     padding:12px 12px 11px;
     border:1px solid var(--hairline);
     background:rgba(250,250,248,.76);
-    user-select:none;
   }
   .portrait-puzzle-head{
     display:flex; align-items:flex-start; justify-content:space-between; gap:8px;
@@ -563,7 +590,8 @@
     font-variant-numeric:tabular-nums;
   }
   .portrait-puzzle-stats .best b{color:var(--amber);}
-  .portrait-puzzle-play{
+  .portrait-puzzle-play,
+  .portrait-lock-play{
     display:grid; grid-template-columns:192px 116px; gap:10px; align-items:start;
   }
   .portrait-puzzle-board{
@@ -577,7 +605,8 @@
       linear-gradient(to right, transparent 33.333%, rgba(250,250,248,.46) 33.333% 33.9%, transparent 33.9% 66.666%, rgba(250,250,248,.46) 66.666% 67.2%, transparent 67.2%),
       linear-gradient(to bottom, transparent 33.333%, rgba(250,250,248,.46) 33.333% 33.9%, transparent 33.9% 66.666%, rgba(250,250,248,.46) 66.666% 67.2%, transparent 67.2%);
   }
-  .portrait-puzzle-gray{
+  .portrait-puzzle-gray,
+  .portrait-lock-gray{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     filter:grayscale(100%) contrast(.97) brightness(1.02); z-index:0;
   }
@@ -595,9 +624,7 @@
     position:absolute; display:block; max-width:none; pointer-events:none;
     object-fit:cover;
   }
-  .portrait-puzzle-tray{
-    min-height:192px; display:flex; flex-direction:column; justify-content:space-between;
-  }
+  .portrait-puzzle-tray{min-height:192px; display:flex; flex-direction:column; justify-content:space-between;}
   .portrait-puzzle-tray-label{
     font-family:var(--mono); font-size:7.8px; line-height:1.2;
     letter-spacing:.06em; color:#9F9C96;
@@ -623,21 +650,13 @@
   .portrait-puzzle-piece.is-selected{outline:1px solid var(--amber); outline-offset:2px;}
   .portrait-puzzle-piece.is-used{opacity:.10; pointer-events:none; transform:scale(.92);}
   .portrait-puzzle-help{
-    width:100%;
-    align-self:stretch;
-    margin-top:8px;
-    font-family:var(--mono);
-    font-size:7.8px;
-    line-height:1.55;
-    color:#8F8C86;
-    text-align:left;
+    width:100%; align-self:stretch; margin-top:8px;
+    font-family:var(--mono); font-size:7.8px; line-height:1.55;
+    color:#8F8C86; text-align:left;
   }
   .portrait-puzzle-help b{
-    display:block;
-    margin-bottom:2px;
-    font-weight:600;
-    color:#5B5954;
-    text-align:left;
+    display:block; margin-bottom:2px;
+    font-weight:600; color:#5B5954; text-align:left;
   }
   .portrait-puzzle-footer{
     display:flex; align-items:center; justify-content:space-between; gap:8px;
@@ -655,14 +674,68 @@
     font-family:var(--mono); font-size:8px; letter-spacing:.04em; cursor:pointer;
   }
   .portrait-puzzle-btn:hover{background:rgba(255,153,51,.13);}
-  .portrait-puzzle-game.is-miss .portrait-puzzle-board{
+  .portrait-puzzle-game.is-miss .portrait-puzzle-board,
+  .portrait-lock-game.is-miss .portrait-lock-board{
     box-shadow:inset 0 0 0 1px rgba(160,157,150,.62);
   }
-  .portrait-puzzle-game.is-clear .portrait-puzzle-board{
+  .portrait-puzzle-game.is-clear .portrait-puzzle-board,
+  .portrait-lock-game.is-clear .portrait-lock-board{
     box-shadow:inset 0 0 0 1px rgba(255,153,51,.72), 0 0 0 1px rgba(255,153,51,.08);
   }
+
+  .portrait-lock-board{
+    position:relative; width:192px; height:192px;
+    border:1px solid rgba(183,180,173,.76);
+    background:#E8E7E2; overflow:hidden; border-radius:50%;
+    cursor:grab; touch-action:none;
+  }
+  .portrait-lock-board.is-dragging{cursor:grabbing;}
+  .portrait-lock-gray{
+    clip-path:circle(50% at 50% 50%);
+    opacity:.28;
+  }
+  .portrait-lock-svg{
+    position:absolute; inset:0; width:100%; height:100%; z-index:2;
+  }
+  .portrait-lock-guides,
+  .portrait-lock-separators,
+  .portrait-lock-guide-mark{
+    pointer-events:none;
+  }
+  .portrait-lock-center-dot{
+    position:absolute; left:50%; top:50%; z-index:3;
+    width:12px; height:12px; margin:-6px 0 0 -6px;
+    border-radius:50%;
+    border:1px solid rgba(255,153,51,.46);
+    background:rgba(250,250,248,.92);
+    box-shadow:0 0 0 4px rgba(250,250,248,.68);
+  }
+  .portrait-lock-controls{min-height:192px; display:flex; flex-direction:column; justify-content:space-between;}
+  .portrait-lock-control-list{display:flex; flex-direction:column; gap:3px;}
+  .portrait-lock-control-row{
+    display:grid; grid-template-columns:26px 1fr; gap:5px; align-items:center;
+  }
+  .portrait-lock-label{
+    font-family:var(--mono); font-size:7.2px; line-height:1.1;
+    letter-spacing:.06em; color:#9F9C96;
+  }
+  .portrait-lock-buttons{
+    display:grid; grid-template-columns:1fr 1fr; gap:3px;
+  }
+  .portrait-lock-btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-height:20px; padding:0;
+    border:1px solid rgba(184,181,174,.84);
+    background:#F0EFEB; color:#57544E;
+    font-family:var(--display); font-size:11.5px; line-height:1;
+    cursor:pointer; transition:border-color .16s ease, transform .16s ease, background-color .16s ease;
+  }
+  .portrait-lock-btn:hover{transform:translateY(-1px); border-color:rgba(255,153,51,.68); background:rgba(255,153,51,.08);}
+  .portrait-lock-btn:focus-visible{outline:1px solid var(--amber); outline-offset:2px;}
+  .portrait-lock-btn span{transform:translateY(-1px);}
+
   @media (max-width:900px), (hover:none), (pointer:coarse){
-    .portrait-puzzle-game{display:none !important;}
+    .portrait-mini-hub{display:none !important;}
     .prof-copy{padding-right:0;}
   }
 
@@ -1877,6 +1950,12 @@
 <span class="role">상명대학교 스페이스디자인전공 교수 · 이노베이티브 스페이스 랩 지도교수</span>
 <p>인제대학교에서 공간디자인 전공으로 학사 및 석사학위를, 국민대학교에서 건축디자인 전공으로 박사학위를 취득하였습니다. 이후 국민대학교에서 연구교수와 조교수를 거쳐, 현재 상명대학교 천안캠퍼스 스페이스디자인전공 교수로 재직하며 이노베이티브 스페이스 랩(Innovative Space Lab)을 지도하고 있습니다. 주요 연구 분야는 채광 및 빛환경, 광선반·광정 시스템, 건물외피와 태양광 융합기술, 사용자 중심의 지능형 공간 및 외피 설계이며, 이와 함께 공간인지와 위계 등 공간디자인과 관련된 인문학적 연구에도 깊은 관심을 가지고 연구를 수행하고 있습니다.</p>
 </div>
+<div class="portrait-mini-hub" id="portrait-mini-hub">
+<div aria-label="미니게임 선택" class="portrait-mini-tabs" role="tablist">
+<button aria-controls="portrait-mini-panel-1" aria-selected="true" class="portrait-mini-tab" id="portrait-mini-tab-1" role="tab" tabindex="0" type="button">미니게임 1</button>
+<button aria-controls="portrait-mini-panel-2" aria-selected="false" class="portrait-mini-tab" id="portrait-mini-tab-2" role="tab" tabindex="-1" type="button">미니게임 2</button>
+</div>
+<div aria-labelledby="portrait-mini-tab-1" class="portrait-mini-panel" id="portrait-mini-panel-1" role="tabpanel">
 <div aria-label="졸업생 컬러 이미지 완성 미니게임" class="portrait-puzzle-game" id="portrait-puzzle-game">
 <div class="portrait-puzzle-head">
 <div>
@@ -1904,6 +1983,40 @@
 <div class="portrait-puzzle-footer">
 <span class="portrait-puzzle-name" id="portrait-puzzle-name">WHO IS THIS?</span>
 <button class="portrait-puzzle-btn" id="portrait-puzzle-restart" type="button">NEW</button>
+</div>
+</div>
+</div>
+<div aria-labelledby="portrait-mini-tab-2" class="portrait-mini-panel" hidden="" id="portrait-mini-panel-2" role="tabpanel">
+<div aria-label="졸업생 원형 자물쇠 회전 미니게임" class="portrait-lock-game" id="portrait-lock-game">
+<div class="portrait-puzzle-head">
+<div>
+<span class="portrait-puzzle-kicker">INNO LAB MINI GAME</span>
+<strong class="portrait-puzzle-title">ROTARY PORTRAIT LOCK</strong>
+</div>
+<span class="portrait-puzzle-status" id="portrait-lock-status">READY</span>
+</div>
+<div class="portrait-puzzle-stats">
+<span>TIME <b id="portrait-lock-time">0.0s</b></span>
+<span>STEP <b id="portrait-lock-step">0</b></span>
+<span class="best">BEST <b id="portrait-lock-best">—</b></span>
+</div>
+<div class="portrait-lock-play">
+<div class="portrait-lock-board" id="portrait-lock-board">
+<img alt="졸업생 원형 회전 퍼즐 흑백 이미지" class="portrait-lock-gray" id="portrait-lock-gray"/>
+<svg aria-hidden="true" class="portrait-lock-svg" id="portrait-lock-svg" viewBox="0 0 192 192"></svg>
+<div class="portrait-lock-center-dot"></div>
+</div>
+<div class="portrait-lock-controls">
+<span class="portrait-puzzle-tray-label">ROTATE RINGS</span>
+<div class="portrait-lock-control-list" id="portrait-lock-control-list"></div>
+<div class="portrait-puzzle-help"><b>TURN</b>원형 링을 좌우로 돌려<br/>사진이 자연스럽게 이어지도록<br/>맞춰 자물쇠를 해제하세요.</div>
+</div>
+</div>
+<div class="portrait-puzzle-footer">
+<span class="portrait-puzzle-name" id="portrait-lock-name">WHO IS THIS?</span>
+<button class="portrait-puzzle-btn" id="portrait-lock-restart" type="button">NEW</button>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -3469,88 +3582,42 @@
 
 <script>
   (() => {
-    const root = document.getElementById('portrait-puzzle-game');
-    const gray = document.getElementById('portrait-puzzle-gray');
-    const slotsWrap = document.getElementById('portrait-puzzle-slots');
-    const piecesWrap = document.getElementById('portrait-puzzle-pieces');
-    const timeEl = document.getElementById('portrait-puzzle-time');
-    const countEl = document.getElementById('portrait-puzzle-count');
-    const bestEl = document.getElementById('portrait-puzzle-best');
-    const statusEl = document.getElementById('portrait-puzzle-status');
-    const nameEl = document.getElementById('portrait-puzzle-name');
-    const restartBtn = document.getElementById('portrait-puzzle-restart');
-    if(!root || !gray || !slotsWrap || !piecesWrap || !restartBtn) return;
-
     const alumni = [
-      { key:'yeo-yena', name:'여예나', src:'yeo-yena.jpg' },
-      { key:'chu-daun', name:'추다운', src:'chu-daun.jpg' },
-      { key:'kim-minseok', name:'김민석', src:'kim-minseok.jpg' },
-      { key:'lee-hyunmin', name:'이현민', src:'lee-hyunmin.jpg' },
-      { key:'jeong-suyeon', name:'정수연', src:'jeong-suyeon.jpg' },
-      { key:'han-sowon', name:'한소원', src:'han-sowon.jpg' },
-      { key:'lim-daeun', name:'임다은', src:'lim-daeun.jpg' },
-      { key:'jo-aram', name:'조아람', src:'jo-aram.jpg' },
-      { key:'lee-sangmin', name:'이상민', src:'lee-sangmin.jpg' }
+      { key:'yeo-yena', name:'여예나', src:'https://2heangwoo.github.io/innos/yeo-yena.jpg' },
+      { key:'chu-daun', name:'추다운', src:'https://2heangwoo.github.io/innos/chu-daun.jpg' },
+      { key:'kim-minseok', name:'김민석', src:'https://2heangwoo.github.io/innos/kim-minseok.jpg' },
+      { key:'lee-hyunmin', name:'이현민', src:'https://2heangwoo.github.io/innos/lee-hyunmin.jpg' },
+      { key:'jeong-suyeon', name:'정수연', src:'https://2heangwoo.github.io/innos/jeong-suyeon.jpg' },
+      { key:'han-sowon', name:'한소원', src:'https://2heangwoo.github.io/innos/han-sowon.jpg' },
+      { key:'lim-daeun', name:'임다은', src:'https://2heangwoo.github.io/innos/lim-daeun.jpg' },
+      { key:'jo-aram', name:'조아람', src:'https://2heangwoo.github.io/innos/jo-aram.jpg' }
     ];
 
-    const bestKey = 'innoPortraitPuzzleBestMs';
-    let person = null;
-    let selectedPiece = null;
-    let placed = new Set();
-    let startedAt = 0;
-    let timer = 0;
-    let running = false;
-    let lastPerson = '';
-
-    function readBest(){
+    function readBest(key){
       try {
-        const v = Number(localStorage.getItem(bestKey) || 0);
+        const v = Number(localStorage.getItem(key) || 0);
         return Number.isFinite(v) && v > 0 ? v : 0;
       } catch(e){ return 0; }
     }
 
-    function saveBest(ms){
-      try { localStorage.setItem(bestKey, String(ms)); } catch(e){}
+    function saveBest(key, ms){
+      try { localStorage.setItem(key, String(ms)); } catch(e){}
     }
 
     function fmt(ms){ return (ms / 1000).toFixed(1) + 's'; }
 
     function shuffle(arr){
       const a = arr.slice();
-      for(let i=a.length-1; i>0; i--){
-        const j = Math.floor(Math.random() * (i+1));
+      for(let i = a.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1));
         [a[i], a[j]] = [a[j], a[i]];
       }
       return a;
     }
 
-    function makeSliceImage(index, fullSize, cellSize){
-      const col = index % 3;
-      const row = Math.floor(index / 3);
-      const img = document.createElement('img');
-      img.src = person.src;
-      img.alt = '';
-      img.draggable = false;
-      img.style.width = `${fullSize}px`;
-      img.style.height = `${fullSize}px`;
-      img.style.left = `${-col * cellSize}px`;
-      img.style.top = `${-row * cellSize}px`;
-      return img;
-    }
-
-    function startTimer(){
-      if(running) return;
-      running = true;
-      startedAt = performance.now();
-      statusEl.textContent = 'PLAY';
-      statusEl.classList.add('is-live');
-      timer = requestAnimationFrame(tick);
-    }
-
-    function tick(now){
-      if(!running) return;
-      timeEl.textContent = fmt(now - startedAt);
-      timer = requestAnimationFrame(tick);
+    function pickNextPerson(lastKey){
+      const options = alumni.filter(a => a.key !== lastKey);
+      return options[Math.floor(Math.random() * options.length)] || alumni[0];
     }
 
     function revealAlumniCard(key){
@@ -3580,141 +3647,531 @@
       });
     }
 
-    function finish(){
-      running = false;
-      cancelAnimationFrame(timer);
-      const elapsed = performance.now() - startedAt;
-      timeEl.textContent = fmt(elapsed);
-      statusEl.textContent = 'CLEAR';
-      statusEl.classList.add('is-live');
-      nameEl.textContent = person.name;
-      nameEl.classList.add('is-clear');
-      root.classList.add('is-clear');
-      const best = readBest();
-      if(!best || elapsed < best) saveBest(elapsed);
-      bestEl.textContent = fmt(readBest());
+    function initMiniTabs(){
+      const tabs = Array.from(document.querySelectorAll('.portrait-mini-tab'));
+      const panels = Array.from(document.querySelectorAll('.portrait-mini-panel'));
+      if(!tabs.length || !panels.length) return;
 
-      window.setTimeout(() => revealAlumniCard(person.key), 800);
-    }
+      const activate = (tab) => {
+        const targetId = tab.getAttribute('aria-controls');
+        tabs.forEach(btn => {
+          const selected = btn === tab;
+          btn.setAttribute('aria-selected', selected ? 'true' : 'false');
+          btn.tabIndex = selected ? 0 : -1;
+        });
+        panels.forEach(panel => {
+          panel.hidden = panel.id !== targetId;
+        });
+      };
 
-    function setPieceImage(el, index, fullSize, cellSize){
-      el.innerHTML = '';
-      el.appendChild(makeSliceImage(index, fullSize, cellSize));
-    }
-
-    function placePiece(index, slot){
-      if(placed.has(index)) return;
-      startTimer();
-      placed.add(index);
-      slot.classList.add('is-filled');
-      slot.dataset.filled = 'true';
-      setPieceImage(slot, index, 192, 64);
-      const piece = piecesWrap.querySelector(`[data-piece="${index}"]`);
-      if(piece){
-        piece.classList.add('is-used');
-        piece.classList.remove('is-selected');
-      }
-      selectedPiece = null;
-      countEl.textContent = `${placed.size}/9`;
-      if(placed.size === 9) finish();
-    }
-
-    function miss(){
-      root.classList.remove('is-miss');
-      void root.offsetWidth;
-      root.classList.add('is-miss');
-      statusEl.textContent = 'MISS';
-      statusEl.classList.remove('is-live');
-      setTimeout(() => {
-        root.classList.remove('is-miss');
-        if(running){
-          statusEl.textContent = 'PLAY';
-          statusEl.classList.add('is-live');
-        }
-      }, 260);
-    }
-
-    function makeSlots(){
-      slotsWrap.innerHTML = '';
-      for(let i=0; i<9; i++){
-        const slot = document.createElement('div');
-        slot.className = 'portrait-puzzle-slot';
-        slot.dataset.slot = i;
-        slot.addEventListener('dragover', e => {
-          if(placed.has(i)) return;
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => activate(tab));
+        tab.addEventListener('keydown', e => {
+          if(e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
           e.preventDefault();
-          slot.classList.add('is-over');
+          const dir = e.key === 'ArrowRight' ? 1 : -1;
+          const next = tabs[(index + dir + tabs.length) % tabs.length];
+          next.focus();
+          activate(next);
         });
-        slot.addEventListener('dragleave', () => slot.classList.remove('is-over'));
-        slot.addEventListener('drop', e => {
-          e.preventDefault();
-          slot.classList.remove('is-over');
-          const idx = Number(e.dataTransfer.getData('text/plain'));
-          if(idx === i) placePiece(i, slot);
-          else miss();
-        });
-        slot.addEventListener('click', () => {
-          if(selectedPiece === null || placed.has(i)) return;
-          if(selectedPiece === i) placePiece(i, slot);
-          else miss();
-        });
-        slotsWrap.appendChild(slot);
-      }
-    }
-
-    function makePieces(){
-      piecesWrap.innerHTML = '';
-      shuffle([...Array(9).keys()]).forEach(index => {
-        const piece = document.createElement('button');
-        piece.type = 'button';
-        piece.className = 'portrait-puzzle-piece';
-        piece.draggable = true;
-        piece.dataset.piece = index;
-        piece.setAttribute('aria-label', `컬러 조각 ${index + 1}`);
-        setPieceImage(piece, index, 102, 34);
-
-        piece.addEventListener('dragstart', e => {
-          startTimer();
-          selectedPiece = index;
-          e.dataTransfer.setData('text/plain', String(index));
-          e.dataTransfer.effectAllowed = 'move';
-        });
-        piece.addEventListener('click', () => {
-          if(placed.has(index)) return;
-          startTimer();
-          piecesWrap.querySelectorAll('.portrait-puzzle-piece').forEach(p => p.classList.remove('is-selected'));
-          selectedPiece = index;
-          piece.classList.add('is-selected');
-        });
-        piecesWrap.appendChild(piece);
       });
     }
 
-    function newGame(){
-      running = false;
-      cancelAnimationFrame(timer);
-      placed = new Set();
-      selectedPiece = null;
-      root.classList.remove('is-clear','is-miss');
-      nameEl.textContent = 'WHO IS THIS?';
-      nameEl.classList.remove('is-clear');
-      statusEl.textContent = 'READY';
-      statusEl.classList.remove('is-live');
-      timeEl.textContent = '0.0s';
-      countEl.textContent = '0/9';
+    function initPuzzleGame(){
+      const root = document.getElementById('portrait-puzzle-game');
+      const gray = document.getElementById('portrait-puzzle-gray');
+      const slotsWrap = document.getElementById('portrait-puzzle-slots');
+      const piecesWrap = document.getElementById('portrait-puzzle-pieces');
+      const timeEl = document.getElementById('portrait-puzzle-time');
+      const countEl = document.getElementById('portrait-puzzle-count');
+      const bestEl = document.getElementById('portrait-puzzle-best');
+      const statusEl = document.getElementById('portrait-puzzle-status');
+      const nameEl = document.getElementById('portrait-puzzle-name');
+      const restartBtn = document.getElementById('portrait-puzzle-restart');
+      if(!root || !gray || !slotsWrap || !piecesWrap || !restartBtn) return;
 
-      const options = alumni.filter(a => a.key !== lastPerson);
-      person = options[Math.floor(Math.random() * options.length)] || alumni[0];
-      lastPerson = person.key;
+      const bestKey = 'innoPortraitPuzzleBestMs';
+      let person = null;
+      let selectedPiece = null;
+      let placed = new Set();
+      let startedAt = 0;
+      let timer = 0;
+      let running = false;
+      let lastPerson = '';
 
-      gray.src = person.src;
-      bestEl.textContent = readBest() ? fmt(readBest()) : '—';
-      makeSlots();
-      makePieces();
+      function makeSliceImage(index, fullSize, cellSize){
+        const col = index % 3;
+        const row = Math.floor(index / 3);
+        const img = document.createElement('img');
+        img.src = person.src;
+        img.alt = '';
+        img.draggable = false;
+        img.style.width = `${fullSize}px`;
+        img.style.height = `${fullSize}px`;
+        img.style.left = `${-col * cellSize}px`;
+        img.style.top = `${-row * cellSize}px`;
+        return img;
+      }
+
+      function startTimer(){
+        if(running) return;
+        running = true;
+        startedAt = performance.now();
+        statusEl.textContent = 'PLAY';
+        statusEl.classList.add('is-live');
+        timer = requestAnimationFrame(tick);
+      }
+
+      function tick(now){
+        if(!running) return;
+        timeEl.textContent = fmt(now - startedAt);
+        timer = requestAnimationFrame(tick);
+      }
+
+      function finish(){
+        running = false;
+        cancelAnimationFrame(timer);
+        const elapsed = performance.now() - startedAt;
+        timeEl.textContent = fmt(elapsed);
+        statusEl.textContent = 'CLEAR';
+        statusEl.classList.add('is-live');
+        nameEl.textContent = person.name;
+        nameEl.classList.add('is-clear');
+        root.classList.add('is-clear');
+        const best = readBest(bestKey);
+        if(!best || elapsed < best) saveBest(bestKey, elapsed);
+        bestEl.textContent = fmt(readBest(bestKey));
+        window.setTimeout(() => revealAlumniCard(person.key), 800);
+      }
+
+      function setPieceImage(el, index, fullSize, cellSize){
+        el.innerHTML = '';
+        el.appendChild(makeSliceImage(index, fullSize, cellSize));
+      }
+
+      function placePiece(index, slot){
+        if(placed.has(index)) return;
+        startTimer();
+        placed.add(index);
+        slot.classList.add('is-filled');
+        slot.dataset.filled = 'true';
+        setPieceImage(slot, index, 192, 64);
+        const piece = piecesWrap.querySelector(`[data-piece="${index}"]`);
+        if(piece){
+          piece.classList.add('is-used');
+          piece.classList.remove('is-selected');
+        }
+        selectedPiece = null;
+        countEl.textContent = `${placed.size}/9`;
+        if(placed.size === 9) finish();
+      }
+
+      function miss(){
+        root.classList.remove('is-miss');
+        void root.offsetWidth;
+        root.classList.add('is-miss');
+        statusEl.textContent = 'MISS';
+        statusEl.classList.remove('is-live');
+        setTimeout(() => {
+          root.classList.remove('is-miss');
+          if(running){
+            statusEl.textContent = 'PLAY';
+            statusEl.classList.add('is-live');
+          }
+        }, 260);
+      }
+
+      function makeSlots(){
+        slotsWrap.innerHTML = '';
+        for(let i = 0; i < 9; i++){
+          const slot = document.createElement('div');
+          slot.className = 'portrait-puzzle-slot';
+          slot.dataset.slot = i;
+          slot.addEventListener('dragover', e => {
+            if(placed.has(i)) return;
+            e.preventDefault();
+            slot.classList.add('is-over');
+          });
+          slot.addEventListener('dragleave', () => slot.classList.remove('is-over'));
+          slot.addEventListener('drop', e => {
+            e.preventDefault();
+            slot.classList.remove('is-over');
+            const idx = Number(e.dataTransfer.getData('text/plain'));
+            if(idx === i) placePiece(i, slot);
+            else miss();
+          });
+          slot.addEventListener('click', () => {
+            if(selectedPiece === null || placed.has(i)) return;
+            if(selectedPiece === i) placePiece(i, slot);
+            else miss();
+          });
+          slotsWrap.appendChild(slot);
+        }
+      }
+
+      function makePieces(){
+        piecesWrap.innerHTML = '';
+        shuffle([...Array(9).keys()]).forEach(index => {
+          const piece = document.createElement('button');
+          piece.type = 'button';
+          piece.className = 'portrait-puzzle-piece';
+          piece.draggable = true;
+          piece.dataset.piece = index;
+          piece.setAttribute('aria-label', `컬러 조각 ${index + 1}`);
+          setPieceImage(piece, index, 102, 34);
+
+          piece.addEventListener('dragstart', e => {
+            startTimer();
+            selectedPiece = index;
+            e.dataTransfer.setData('text/plain', String(index));
+            e.dataTransfer.effectAllowed = 'move';
+          });
+          piece.addEventListener('click', () => {
+            if(placed.has(index)) return;
+            startTimer();
+            piecesWrap.querySelectorAll('.portrait-puzzle-piece').forEach(p => p.classList.remove('is-selected'));
+            selectedPiece = index;
+            piece.classList.add('is-selected');
+          });
+          piecesWrap.appendChild(piece);
+        });
+      }
+
+      function newGame(){
+        running = false;
+        cancelAnimationFrame(timer);
+        placed = new Set();
+        selectedPiece = null;
+        root.classList.remove('is-clear', 'is-miss');
+        nameEl.textContent = 'WHO IS THIS?';
+        nameEl.classList.remove('is-clear');
+        statusEl.textContent = 'READY';
+        statusEl.classList.remove('is-live');
+        timeEl.textContent = '0.0s';
+        countEl.textContent = '0/9';
+
+        person = pickNextPerson(lastPerson);
+        lastPerson = person.key;
+
+        gray.src = person.src;
+        bestEl.textContent = readBest(bestKey) ? fmt(readBest(bestKey)) : '—';
+        makeSlots();
+        makePieces();
+      }
+
+      restartBtn.addEventListener('click', newGame);
+      newGame();
     }
 
-    restartBtn.addEventListener('click', newGame);
-    newGame();
+    function initLockGame(){
+      const root = document.getElementById('portrait-lock-game');
+      const gray = document.getElementById('portrait-lock-gray');
+      const svg = document.getElementById('portrait-lock-svg');
+      const controlsWrap = document.getElementById('portrait-lock-control-list');
+      const timeEl = document.getElementById('portrait-lock-time');
+      const stepEl = document.getElementById('portrait-lock-step');
+      const bestEl = document.getElementById('portrait-lock-best');
+      const statusEl = document.getElementById('portrait-lock-status');
+      const nameEl = document.getElementById('portrait-lock-name');
+      const restartBtn = document.getElementById('portrait-lock-restart');
+      if(!root || !gray || !svg || !controlsWrap || !restartBtn) return;
+
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const bestKey = 'innoPortraitLockBestMs';
+      const ringDefs = [
+        { label:'R1', outer:86, inner:69 },
+        { label:'R2', outer:69, inner:52 },
+        { label:'R3', outer:52, inner:35 },
+        { label:'R4', outer:35, inner:18 },
+        { label:'R5', outer:18, inner:0 }
+      ];
+      let person = null;
+      let startedAt = 0;
+      let timer = 0;
+      let running = false;
+      let lastPerson = '';
+      let steps = 0;
+      let angles = ringDefs.map(() => 0);
+      let ringGroups = [];
+      let dragRing = -1;
+      let dragAngle = 0;
+      let dragAccum = 0;
+
+      function normalize(angle){
+        const mod = angle % 360;
+        return mod < 0 ? mod + 360 : mod;
+      }
+
+      function startTimer(){
+        if(running) return;
+        running = true;
+        startedAt = performance.now();
+        statusEl.textContent = 'PLAY';
+        statusEl.classList.add('is-live');
+        timer = requestAnimationFrame(tick);
+      }
+
+      function tick(now){
+        if(!running) return;
+        timeEl.textContent = fmt(now - startedAt);
+        timer = requestAnimationFrame(tick);
+      }
+
+      function circlePath(cx, cy, r){
+        return `M ${cx} ${cy - r} A ${r} ${r} 0 1 1 ${cx - 0.01} ${cy - r} Z`;
+      }
+
+      function donutPath(cx, cy, outer, inner){
+        if(inner <= 0) return circlePath(cx, cy, outer);
+        return [
+          `M ${cx} ${cy - outer}`,
+          `A ${outer} ${outer} 0 1 1 ${cx - 0.01} ${cy - outer}`,
+          'Z',
+          `M ${cx} ${cy - inner}`,
+          `A ${inner} ${inner} 0 1 0 ${cx - 0.01} ${cy - inner}`,
+          'Z'
+        ].join(' ');
+      }
+
+      function makeSvgEl(tag, attrs = {}){
+        const el = document.createElementNS(svgNS, tag);
+        Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, String(value)));
+        return el;
+      }
+
+      function buildBoard(){
+        svg.innerHTML = '';
+        ringGroups = [];
+
+        const defs = makeSvgEl('defs');
+        svg.appendChild(defs);
+
+        ringDefs.forEach((ring, index) => {
+          const clip = makeSvgEl('clipPath', { id:`portrait-lock-clip-${index}` });
+          clip.appendChild(makeSvgEl('path', {
+            d: donutPath(96, 96, ring.outer, ring.inner),
+            'fill-rule':'evenodd',
+            'clip-rule':'evenodd'
+          }));
+          defs.appendChild(clip);
+
+          const group = makeSvgEl('g', { 'data-ring': index });
+          const image = makeSvgEl('image', {
+            x:'0', y:'0', width:'192', height:'192', preserveAspectRatio:'xMidYMid slice',
+            href: person.src, 'clip-path':`url(#portrait-lock-clip-${index})`
+          });
+          group.appendChild(image);
+          svg.appendChild(group);
+          ringGroups.push(group);
+        });
+
+        const guideMarks = makeSvgEl('g', { class:'portrait-lock-guides' });
+        [0, 90, 180, 270].forEach(angle => {
+          const rad = angle * Math.PI / 180;
+          const x1 = 96 + Math.cos(rad) * 90;
+          const y1 = 96 + Math.sin(rad) * 90;
+          const x2 = 96 + Math.cos(rad) * 95;
+          const y2 = 96 + Math.sin(rad) * 95;
+          guideMarks.appendChild(makeSvgEl('line', {
+            x1, y1, x2, y2, class:'portrait-lock-guide-mark', stroke:'rgba(255,153,51,.34)', 'stroke-width':'1'
+          }));
+        });
+        svg.appendChild(guideMarks);
+
+        const separators = makeSvgEl('g', { class:'portrait-lock-separators' });
+        ringDefs.map(ring => ring.outer).forEach(r => {
+          separators.appendChild(makeSvgEl('circle', {
+            cx:'96', cy:'96', r, fill:'none', stroke:'rgba(250,250,248,.72)', 'stroke-width':'1'
+          }));
+        });
+        svg.appendChild(separators);
+      }
+
+      function applyAngles(){
+        ringGroups.forEach((group, index) => {
+          group.setAttribute('transform', `rotate(${angles[index]} 96 96)`);
+        });
+      }
+
+      function finish(){
+        running = false;
+        cancelAnimationFrame(timer);
+        const elapsed = performance.now() - startedAt;
+        timeEl.textContent = fmt(elapsed);
+        statusEl.textContent = 'CLEAR';
+        statusEl.classList.add('is-live');
+        nameEl.textContent = person.name;
+        nameEl.classList.add('is-clear');
+        root.classList.add('is-clear');
+        const best = readBest(bestKey);
+        if(!best || elapsed < best) saveBest(bestKey, elapsed);
+        bestEl.textContent = fmt(readBest(bestKey));
+        window.setTimeout(() => revealAlumniCard(person.key), 800);
+      }
+
+      function isSolved(){
+        return angles.every(angle => normalize(angle) === 0);
+      }
+
+      function rotateRing(index, delta){
+        if(root.classList.contains('is-clear')) return;
+        startTimer();
+        steps += 1;
+        stepEl.textContent = String(steps);
+        angles[index] = normalize(angles[index] + delta);
+        statusEl.textContent = 'PLAY';
+        statusEl.classList.add('is-live');
+        applyAngles();
+        if(isSolved()) finish();
+      }
+
+      function buildControls(){
+        controlsWrap.innerHTML = '';
+        ringDefs.forEach((ring, index) => {
+          const row = document.createElement('div');
+          row.className = 'portrait-lock-control-row';
+
+          const label = document.createElement('span');
+          label.className = 'portrait-lock-label';
+          label.textContent = ring.label;
+
+          const buttons = document.createElement('div');
+          buttons.className = 'portrait-lock-buttons';
+
+          const left = document.createElement('button');
+          left.type = 'button';
+          left.className = 'portrait-lock-btn';
+          left.setAttribute('aria-label', `${ring.label} 링 왼쪽 회전`);
+          left.innerHTML = '<span>↺</span>';
+          left.addEventListener('click', () => rotateRing(index, -30));
+
+          const right = document.createElement('button');
+          right.type = 'button';
+          right.className = 'portrait-lock-btn';
+          right.setAttribute('aria-label', `${ring.label} 링 오른쪽 회전`);
+          right.innerHTML = '<span>↻</span>';
+          right.addEventListener('click', () => rotateRing(index, 30));
+
+          buttons.appendChild(left);
+          buttons.appendChild(right);
+          row.appendChild(label);
+          row.appendChild(buttons);
+          controlsWrap.appendChild(row);
+        });
+      }
+
+      function randomizeAngles(){
+        angles = ringDefs.map(() => Math.floor(Math.random() * 12) * 30);
+        if(angles.every(angle => angle === 0)){
+          angles[Math.floor(Math.random() * angles.length)] = 60;
+        }
+      }
+
+      function getPointerInfo(event){
+        const rect = svg.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const scale = 192 / rect.width;
+        const dx = (x - rect.width / 2) * scale;
+        const dy = (y - rect.height / 2) * scale;
+        return {
+          radius: Math.hypot(dx, dy),
+          angle: Math.atan2(dy, dx) * 180 / Math.PI
+        };
+      }
+
+      function getRingIndex(radius){
+        for(let i = ringDefs.length - 1; i >= 0; i--){
+          const ring = ringDefs[i];
+          if(radius <= ring.outer && radius > ring.inner) return i;
+        }
+        return -1;
+      }
+
+      function endDrag(){
+        dragRing = -1;
+        dragAccum = 0;
+        root.querySelector('.portrait-lock-board')?.classList.remove('is-dragging');
+      }
+
+      function bindBoardDrag(){
+        const board = root.querySelector('.portrait-lock-board');
+        if(!board) return;
+
+        svg.addEventListener('pointerdown', event => {
+          if(root.classList.contains('is-clear')) return;
+          const info = getPointerInfo(event);
+          const index = getRingIndex(info.radius);
+          if(index < 0) return;
+
+          dragRing = index;
+          dragAngle = info.angle;
+          dragAccum = 0;
+          board.classList.add('is-dragging');
+          statusEl.textContent = 'PLAY';
+          statusEl.classList.add('is-live');
+          startTimer();
+          if(svg.setPointerCapture){
+            try { svg.setPointerCapture(event.pointerId); } catch(e){}
+          }
+          event.preventDefault();
+        });
+
+        svg.addEventListener('pointermove', event => {
+          if(dragRing < 0) return;
+          const info = getPointerInfo(event);
+          let diff = info.angle - dragAngle;
+          while(diff > 180) diff -= 360;
+          while(diff < -180) diff += 360;
+          dragAngle = info.angle;
+          dragAccum += diff;
+
+          while(dragAccum >= 30){
+            dragAccum -= 30;
+            rotateRing(dragRing, 30);
+          }
+          while(dragAccum <= -30){
+            dragAccum += 30;
+            rotateRing(dragRing, -30);
+          }
+        });
+
+        svg.addEventListener('pointerup', endDrag);
+        svg.addEventListener('pointercancel', endDrag);
+        svg.addEventListener('lostpointercapture', endDrag);
+      }
+
+      function newGame(){
+        running = false;
+        cancelAnimationFrame(timer);
+        root.classList.remove('is-clear', 'is-miss');
+        nameEl.textContent = 'WHO IS THIS?';
+        nameEl.classList.remove('is-clear');
+        statusEl.textContent = 'READY';
+        statusEl.classList.remove('is-live');
+        timeEl.textContent = '0.0s';
+        steps = 0;
+        stepEl.textContent = '0';
+
+        person = pickNextPerson(lastPerson);
+        lastPerson = person.key;
+        gray.src = person.src;
+        bestEl.textContent = readBest(bestKey) ? fmt(readBest(bestKey)) : '—';
+
+        buildControls();
+        buildBoard();
+        randomizeAngles();
+        applyAngles();
+      }
+
+      bindBoardDrag();
+      restartBtn.addEventListener('click', newGame);
+      newGame();
+    }
+
+    initMiniTabs();
+    initPuzzleGame();
+    initLockGame();
   })();
 </script>
 
