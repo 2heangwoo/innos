@@ -1113,60 +1113,21 @@
     font-family:var(--mono); font-size:11.5px; color:var(--amber);
     border-top:1px solid var(--hairline); padding-top:8px;
   }
-  .project-card-next{
-    min-height:132px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    background:rgba(250,250,248,.34);
+  .project-card-blank{
+    background:transparent;
+    pointer-events:none;
   }
-  .project-card-next .project-period{
-    color:#9A9791;
-    letter-spacing:.04em;
+  .project-card-blank::before{
+    display:none !important;
+    content:none !important;
   }
-  .project-card-next h3{
-    color:#4B4944;
-    font-size:17px;
-    font-weight:500;
+  .project-card-blank:hover,
+  .project-card-blank.touch-trace{
+    background:transparent !important;
+    transform:none !important;
+    box-shadow:none !important;
   }
-  .project-card-next p{
-    margin:7px 0 0;
-    color:#8C8983;
-    font-size:13px;
-  }
-  .project-next-mark{
-    position:absolute;
-    right:20px;
-    bottom:12px;
-    z-index:1;
-    font-family:var(--display);
-    font-size:30px;
-    font-weight:300;
-    line-height:1;
-    color:rgba(255,153,51,.52);
-    transition:transform .3s ease, color .3s ease;
-  }
-  .project-card-next:hover,
-  .project-card-next.touch-trace{
-    background:#505050;
-  }
-  .project-card-next:hover .project-period,
-  .project-card-next.touch-trace .project-period{
-    color:#ffb15f;
-  }
-  .project-card-next:hover h3,
-  .project-card-next.touch-trace h3{
-    color:#fffdf8;
-  }
-  .project-card-next:hover p,
-  .project-card-next.touch-trace p{
-    color:#dedad2;
-  }
-  .project-card-next:hover .project-next-mark,
-  .project-card-next.touch-trace .project-next-mark{
-    color:#ff9933;
-    transform:rotate(90deg) scale(1.05);
-  }
+
   @media (prefers-reduced-motion:reduce){
     .project-card,
     .project-card::before,
@@ -2619,12 +2580,7 @@
 <span class="project-period">2016.06 — 2018.05 · 과학기술정보통신부</span>
 <h3>주거쾌적도 향상 및 건물에너지 저감을 위한 에어캡기반 탈부착형<br/>모듈, 단열Wall 및 가이드라인 개발</h3>
 </div>
-<div class="project-card project-card-next" aria-label="향후 연구 방향">
-<span class="project-period">NEXT — ONGOING RESEARCH</span>
-<h3>Light × Space × Technology</h3>
-<p>빛과 공간, 기술의 다음 가능성을 탐색합니다.</p>
-<div class="project-next-mark" aria-hidden="true">+</div>
-</div>
+<div class="project-card project-card-blank" aria-hidden="true"></div>
 </div>
 </div>
 </section>
