@@ -1257,6 +1257,7 @@
 
   /* responsive */
   @media (max-width:900px){
+    .project-card-blank{display:none !important;}
     .hero-grid{grid-template-columns:1fr;}
     .diagram{margin-top:24px;}
     .focus-grid{grid-template-columns:1fr;}
@@ -1909,19 +1910,19 @@
   }
   .research-popup-dialog h2{
     margin:0;
-    max-width:28ch;
+    max-width:30ch;
     font-family:var(--display);
-    font-size:clamp(22px,3vw,31px);
+    font-size:clamp(20px,2.6vw,27px);
     line-height:1.42;
-    letter-spacing:-.025em;
+    letter-spacing:-.02em;
     font-weight:600;
     color:var(--ink);
   }
   .research-popup-copy{
-    margin:22px 0 0;
-    max-width:58ch;
-    font-size:15px;
-    line-height:1.9;
+    margin:20px 0 0;
+    max-width:62ch;
+    font-size:13.5px;
+    line-height:1.85;
     color:#514f49;
   }
   .research-popup-meta{
@@ -2018,13 +2019,13 @@
     }
     .research-popup-dialog h2{
       max-width:none;
-      font-size:18px;
+      font-size:16.5px;
       line-height:1.45;
       letter-spacing:-.02em;
     }
     .research-popup-copy{
-      margin-top:15px;
-      font-size:13px;
+      margin-top:14px;
+      font-size:12px;
       line-height:1.75;
     }
     .research-popup-meta{
@@ -2060,8 +2061,8 @@
       max-height:74vh;
       padding:22px 17px 18px;
     }
-    .research-popup-dialog h2{font-size:17px;}
-    .research-popup-copy{font-size:12.5px;}
+    .research-popup-dialog h2{font-size:16px;}
+    .research-popup-copy{font-size:11.5px;}
     .research-popup-meta{font-size:9px;}
   }
   @media (prefers-reduced-motion:reduce){
@@ -3385,8 +3386,8 @@
 </div>
 <div class="research-popup-actions">
 <label class="research-popup-snooze">
-<input id="research-popup-hide-forever" type="checkbox"/>
-<span>다시 보지 않기</span>
+<input id="research-popup-hide-1day" type="checkbox"/>
+<span>1일동안 안보기</span>
 </label>
 <button class="research-popup-dismiss" data-popup-close type="button">닫기</button>
 </div>
@@ -4987,14 +4988,19 @@
 
   const closeButtons = popup.querySelectorAll('[data-popup-close]');
   const closeBtn = popup.querySelector('.research-popup-close');
-  const hideForever = popup.querySelector('#research-popup-hide-forever');
-  const hideForeverKey = 'innoResearchPopupHideForever';
+  const hide1Day = popup.querySelector('#research-popup-hide-1day');
+  const hideUntilKey = 'innoResearchPopupHideUntil';
+  const oneDayMs = 24 * 60 * 60 * 1000;
   const sessionShownKey = 'innoResearchPopupShown';
     let lastFocus = null;
 
   function isAutoHidden(){
     try{
-      return localStorage.getItem(hideForeverKey) === '1';
+      const hideUntil = Number(localStorage.getItem(hideUntilKey) || 0);
+      if(!Number.isFinite(hideUntil) || hideUntil <= 0) return false;
+      if(Date.now() < hideUntil) return true;
+      localStorage.removeItem(hideUntilKey);
+      return false;
     }catch(e){
       return false;
     }
@@ -5002,7 +5008,7 @@
 
   function openPopup(){
     lastFocus = document.activeElement;
-    if(hideForever) hideForever.checked = false;
+    if(hide1Day) hide1Day.checked = false;
     popup.classList.add('is-open');
     popup.setAttribute('aria-hidden','false');
     document.body.classList.add('popup-open');
@@ -5011,8 +5017,8 @@
 
   function closePopup(){
     try{
-      if(hideForever && hideForever.checked){
-        localStorage.setItem(hideForeverKey, '1');
+      if(hide1Day && hide1Day.checked){
+        localStorage.setItem(hideUntilKey, String(Date.now() + oneDayMs));
       }
       sessionStorage.setItem(sessionShownKey, '1');
     }catch(e){}
@@ -5023,7 +5029,7 @@
     if(lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
   }
 
-  // Manual opening always works, even when automatic opening is permanently disabled in this browser.
+  // Manual opening always works, even during the 1-day auto-hide period.
   trigger.addEventListener('click', openPopup);
   trigger.addEventListener('keydown', e => {
     if(e.key === 'Enter' || e.key === ' '){
@@ -5038,7 +5044,7 @@
     if(e.key === 'Escape' && popup.classList.contains('is-open')) closePopup();
   });
 
-  // Auto-open only when the user has not selected '다시 보지 않기' and it has not already shown this session.
+  // Auto-open only when the 1-day hide period is inactive and it has not already shown this session.
   try{
     if(!isAutoHidden() && !sessionStorage.getItem(sessionShownKey)){
       window.setTimeout(openPopup, 850);
