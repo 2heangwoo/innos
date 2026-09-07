@@ -1054,7 +1054,7 @@
   .project-card{
     position:relative; overflow:hidden; isolation:isolate;
     background:transparent; padding:18px 24px; border-right:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
-    transition:background-color .28s ease;
+    transition:background-color .30s ease, transform .30s ease, box-shadow .30s ease;
   }
   .project-card:nth-child(2n){border-right:0;}
   .project-card:last-child,
@@ -1062,22 +1062,125 @@
   .project-card::before{
     content:""; position:absolute; inset:0; z-index:3; pointer-events:none;
     background:
-      linear-gradient(#ff9933 0 0) top left / 0 1.5px no-repeat,
-      linear-gradient(#ff9933 0 0) top right / 1.5px 0 no-repeat,
-      linear-gradient(#ff9933 0 0) bottom right / 0 1.5px no-repeat,
-      linear-gradient(#ff9933 0 0) bottom left / 1.5px 0 no-repeat;
+      linear-gradient(#ff9933 0 0) top left / 0 1.75px no-repeat,
+      linear-gradient(#ff9933 0 0) top right / 1.75px 0 no-repeat,
+      linear-gradient(#ff9933 0 0) bottom right / 0 1.75px no-repeat,
+      linear-gradient(#ff9933 0 0) bottom left / 1.75px 0 no-repeat;
     opacity:0;
     will-change:background-size,opacity;
   }
   .project-card > *{position:relative; z-index:1;}
-  .project-card:hover::before,.project-card.touch-trace::before{animation:focus-border-trace 1.15s linear forwards;}
-  .project-period{font-family:var(--mono); font-size:11.5px; color:var(--amber); margin-bottom:4px; display:block; line-height:1.35;}
-  .project-card h3{font-family:var(--display); font-size:18px; font-weight:600; margin:0; line-height:1.35;}
-  .project-card p{font-size:14px; color:#5a5954; margin-bottom:16px;}
+  .project-card:hover,
+  .project-card.touch-trace{
+    background:#454545;
+    transform:translateY(-3px);
+    box-shadow:0 12px 28px rgba(25,24,20,.12), inset 0 0 0 1px rgba(255,153,51,.08);
+    z-index:2;
+  }
+  .project-card:hover::before,
+  .project-card.touch-trace::before{
+    animation:focus-border-trace-strong 1.15s linear forwards;
+  }
+  .project-period{
+    font-family:var(--mono); font-size:11.5px; color:var(--amber); margin-bottom:4px; display:block; line-height:1.35;
+    transition:color .30s ease, transform .30s ease;
+  }
+  .project-card h3{
+    font-family:var(--display); font-size:18px; font-weight:600; margin:0; line-height:1.35;
+    transition:color .30s ease, transform .30s ease;
+  }
+  .project-card p{
+    font-size:14px; color:#5a5954; margin-bottom:16px;
+    transition:color .30s ease, transform .30s ease;
+  }
+  .project-card:hover .project-period,
+  .project-card.touch-trace .project-period{
+    color:#ff9933;
+    transform:translateX(3px);
+  }
+  .project-card:hover h3,
+  .project-card.touch-trace h3{
+    color:#fffdf8;
+    transform:translateX(3px);
+  }
+  .project-card:hover p,
+  .project-card.touch-trace p{
+    color:#e7e3da;
+    transform:translateX(3px);
+  }
   .project-metrics{display:flex; gap:18px; flex-wrap:wrap;}
   .project-metrics span{
     font-family:var(--mono); font-size:11.5px; color:var(--amber);
     border-top:1px solid var(--hairline); padding-top:8px;
+  }
+  .project-card-next{
+    min-height:132px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    background:rgba(250,250,248,.34);
+  }
+  .project-card-next .project-period{
+    color:#9A9791;
+    letter-spacing:.04em;
+  }
+  .project-card-next h3{
+    color:#4B4944;
+    font-size:17px;
+    font-weight:500;
+  }
+  .project-card-next p{
+    margin:7px 0 0;
+    color:#8C8983;
+    font-size:13px;
+  }
+  .project-next-mark{
+    position:absolute;
+    right:20px;
+    bottom:12px;
+    z-index:1;
+    font-family:var(--display);
+    font-size:30px;
+    font-weight:300;
+    line-height:1;
+    color:rgba(255,153,51,.52);
+    transition:transform .3s ease, color .3s ease;
+  }
+  .project-card-next:hover,
+  .project-card-next.touch-trace{
+    background:#505050;
+  }
+  .project-card-next:hover .project-period,
+  .project-card-next.touch-trace .project-period{
+    color:#ffb15f;
+  }
+  .project-card-next:hover h3,
+  .project-card-next.touch-trace h3{
+    color:#fffdf8;
+  }
+  .project-card-next:hover p,
+  .project-card-next.touch-trace p{
+    color:#dedad2;
+  }
+  .project-card-next:hover .project-next-mark,
+  .project-card-next.touch-trace .project-next-mark{
+    color:#ff9933;
+    transform:rotate(90deg) scale(1.05);
+  }
+  @media (prefers-reduced-motion:reduce){
+    .project-card,
+    .project-card::before,
+    .project-period,
+    .project-card h3,
+    .project-card p{transition:none;}
+    .project-card:hover,
+    .project-card.touch-trace{transform:none;}
+    .project-card:hover::before,
+    .project-card.touch-trace::before{
+      animation:none;
+      opacity:1;
+      background-size:100% 1.75px,1.75px 100%,100% 1.75px,1.75px 100%;
+    }
   }
 
   /* publications */
@@ -1742,6 +1845,269 @@
     #panel-alumni .avatar.is-image-loading::after{animation:none; opacity:1;}
   }
 
+
+  /* ---------- in-page research project announcement popup ---------- */
+  .project-popup-trigger{cursor:pointer;}
+  .project-popup-trigger:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:-3px;
+  }
+
+  .research-popup{
+    position:fixed;
+    inset:0;
+    z-index:10000;
+    display:grid;
+    place-items:center;
+    padding:28px;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .28s ease, visibility .28s ease;
+  }
+  .research-popup.is-open{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+  }
+  .research-popup-backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(28,27,25,.48);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+  }
+  .research-popup-dialog{
+    position:relative;
+    z-index:1;
+    width:min(720px, calc(100vw - 40px));
+    max-height:min(78vh, 720px);
+    overflow:auto;
+    box-sizing:border-box;
+    padding:38px 42px 34px;
+    border:1px solid rgba(217,215,208,.96);
+    background:rgba(250,250,248,.98);
+    box-shadow:0 28px 80px rgba(20,19,17,.24);
+    transform:translateY(14px) scale(.985);
+    transition:transform .30s ease;
+  }
+  .research-popup.is-open .research-popup-dialog{
+    transform:translateY(0) scale(1);
+  }
+  .research-popup-close{
+    position:absolute;
+    right:17px;
+    top:14px;
+    width:34px;
+    height:34px;
+    border:0;
+    background:transparent;
+    color:#7d7a74;
+    font-family:var(--display);
+    font-size:27px;
+    font-weight:300;
+    line-height:1;
+    cursor:pointer;
+  }
+  .research-popup-close:hover,
+  .research-popup-close:focus-visible{
+    color:var(--amber);
+    outline:none;
+  }
+  .research-popup-kicker{
+    display:block;
+    padding-right:44px;
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.10em;
+    color:var(--amber);
+  }
+  .research-popup-accent{
+    width:42px;
+    height:2px;
+    margin:16px 0 20px;
+    background:var(--amber);
+  }
+  .research-popup-period{
+    margin:0 0 12px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:#75726c;
+  }
+  .research-popup-type{
+    display:inline-block;
+    margin:0 0 14px;
+    padding:4px 8px 3px;
+    border:1px solid rgba(255,153,51,.42);
+    background:rgba(255,153,51,.06);
+    color:var(--amber);
+    font-family:var(--mono);
+    font-size:10px;
+    line-height:1.2;
+    letter-spacing:.035em;
+  }
+  .research-popup-dialog h2{
+    margin:0;
+    max-width:28ch;
+    font-family:var(--display);
+    font-size:clamp(22px,3vw,31px);
+    line-height:1.42;
+    letter-spacing:-.025em;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .research-popup-copy{
+    margin:22px 0 0;
+    max-width:58ch;
+    font-size:15px;
+    line-height:1.9;
+    color:#514f49;
+  }
+  .research-popup-meta{
+    display:flex;
+    gap:24px;
+    flex-wrap:wrap;
+    margin-top:26px;
+    padding-top:16px;
+    border-top:1px solid var(--hairline);
+    font-family:var(--mono);
+    font-size:11px;
+    color:#85817b;
+  }
+  .research-popup-meta b{
+    margin-right:6px;
+    color:var(--amber);
+    font-weight:500;
+  }
+  .research-popup-actions{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    margin-top:22px;
+    padding-top:16px;
+    border-top:1px solid var(--hairline);
+  }
+  .research-popup-snooze{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    font-family:var(--mono);
+    font-size:10.5px;
+    color:#77746e;
+    user-select:none;
+  }
+  .research-popup-snooze input{
+    width:14px;
+    height:14px;
+    margin:0;
+    accent-color:var(--amber);
+    cursor:pointer;
+  }
+  .research-popup-dismiss{
+    flex:0 0 auto;
+    min-width:62px;
+    padding:8px 13px 7px;
+    border:1px solid rgba(255,153,51,.48);
+    background:rgba(255,153,51,.07);
+    color:var(--amber);
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.04em;
+    cursor:pointer;
+    transition:background-color .18s ease, color .18s ease, border-color .18s ease;
+  }
+  .research-popup-dismiss:hover,
+  .research-popup-dismiss:focus-visible{
+    background:var(--amber);
+    border-color:var(--amber);
+    color:#fffdf8;
+    outline:none;
+  }
+  body.popup-open{overflow:hidden;}
+
+  @media (max-width:640px){
+    .research-popup{
+      padding:18px;
+      align-items:center;
+    }
+    .research-popup-dialog{
+      width:min(90vw, 420px);
+      max-height:72vh;
+      padding:25px 20px 20px;
+      box-shadow:0 18px 48px rgba(20,19,17,.20);
+    }
+    .research-popup-close{
+      right:10px;
+      top:9px;
+      width:30px;
+      height:30px;
+      font-size:23px;
+    }
+    .research-popup-kicker{
+      padding-right:34px;
+      font-size:8.5px;
+      letter-spacing:.08em;
+    }
+    .research-popup-accent{
+      width:32px;
+      height:1.5px;
+      margin:12px 0 15px;
+    }
+    .research-popup-dialog h2{
+      max-width:none;
+      font-size:18px;
+      line-height:1.45;
+      letter-spacing:-.02em;
+    }
+    .research-popup-copy{
+      margin-top:15px;
+      font-size:13px;
+      line-height:1.75;
+    }
+    .research-popup-meta{
+      gap:8px 14px;
+      margin-top:18px;
+      padding-top:12px;
+      font-size:9.5px;
+    }
+    .research-popup-actions{
+      margin-top:15px;
+      padding-top:12px;
+      gap:10px;
+    }
+    .research-popup-snooze{
+      gap:6px;
+      font-size:9.5px;
+    }
+    .research-popup-snooze input{
+      width:13px;
+      height:13px;
+    }
+    .research-popup-dismiss{
+      min-width:54px;
+      padding:7px 10px 6px;
+      font-size:9px;
+    }
+  }
+
+  @media (max-width:380px){
+    .research-popup{padding:12px;}
+    .research-popup-dialog{
+      width:92vw;
+      max-height:74vh;
+      padding:22px 17px 18px;
+    }
+    .research-popup-dialog h2{font-size:17px;}
+    .research-popup-copy{font-size:12.5px;}
+    .research-popup-meta{font-size:9px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .research-popup,
+    .research-popup-dialog{transition:none;}
+  }
+
 </style>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://2heangwoo.github.io/innos/"/>
@@ -2225,8 +2591,8 @@
 </div>
 </div>
 <div class="project-grid">
-<div class="project-card">
-<span class="project-period">2026.09 — 2031.08 · 과학기술정보통신부</span>
+<div class="project-card project-popup-trigger" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="research-project-popup">
+<span class="project-period">2026.09 — 2031.08 · 과학기술정보통신부 · 핵심연구(기본연구B)</span>
 <h3>투명형 및 양면형 태양광모듈 적용 건물외피의 광환경 형성 메커니즘과 외피·조명 제어체계 연구</h3>
 </div>
 <div class="project-card">
@@ -2235,7 +2601,7 @@
 </div>
 <div class="project-card">
 <span class="project-period">2023.03 — 2026.02 · 과학기술정보통신부</span>
-<h3>태양광모듈 및 사용자인식기술 통한 건물외피의 에너지자립화 및 지능화기술 개발</h3>
+<h3>태양광모듈 및 사용자인식기술 통한 건물외피의 에너지자립화 및<br/>지능화기술 개발</h3>
 </div>
 <div class="project-card">
 <span class="project-period">2020.05 — 2023.04 · 교육부</span>
@@ -2251,7 +2617,13 @@
 </div>
 <div class="project-card">
 <span class="project-period">2016.06 — 2018.05 · 과학기술정보통신부</span>
-<h3>주거쾌적도 향상 및 건물에너지 저감을 위한 에어캡기반 탈부착형 모듈, 단열Wall 및 가이드라인 개발</h3>
+<h3>주거쾌적도 향상 및 건물에너지 저감을 위한 에어캡기반 탈부착형<br/>모듈, 단열Wall 및 가이드라인 개발</h3>
+</div>
+<div class="project-card project-card-next" aria-label="향후 연구 방향">
+<span class="project-period">NEXT — ONGOING RESEARCH</span>
+<h3>Light × Space × Technology</h3>
+<p>빛과 공간, 기술의 다음 가능성을 탐색합니다.</p>
+<div class="project-next-mark" aria-hidden="true">+</div>
 </div>
 </div>
 </div>
@@ -3041,6 +3413,29 @@
 </div>
 </section>
 </main>
+
+<div aria-hidden="true" class="research-popup" id="research-project-popup">
+<div class="research-popup-backdrop" data-popup-close></div>
+<div aria-labelledby="research-popup-title" aria-modal="true" class="research-popup-dialog" role="dialog">
+<button aria-label="팝업 닫기" class="research-popup-close" data-popup-close type="button">×</button>
+<span class="research-popup-kicker">NEW RESEARCH PROJECT · 2026</span>
+<div class="research-popup-accent"></div>
+<h2 id="research-popup-title">투명형 및 양면형 태양광모듈 적용 건물외피의 광환경 형성 메커니즘과 외피·조명 제어체계 연구</h2>
+<p class="research-popup-copy">본 연구과제가 선정되어 2026년 9월 1일부터 향후 5년간 과학기술정보통신부의 지원을 받아 연구를 수행합니다.</p>
+<div class="research-popup-meta">
+<span><b>기간</b> 5년</span>
+<span><b>지원</b> 과학기술정보통신부</span>
+<span><b>유형</b> 핵심연구(기본연구B)</span>
+</div>
+<div class="research-popup-actions">
+<label class="research-popup-snooze">
+<input id="research-popup-hide-forever" type="checkbox"/>
+<span>다시 보지 않기</span>
+</label>
+<button class="research-popup-dismiss" data-popup-close type="button">닫기</button>
+</div>
+</div>
+</div>
 <footer>
 <div class="wrap">
 <p>© 2026 INNOVATIVE SPACE LAB, SANGMYUNG UNIVERSITY</p>
@@ -4625,6 +5020,77 @@
       img.addEventListener('error', showError, { once:true });
     });
   })();
+</script>
+
+
+<script>
+(() => {
+  const popup = document.getElementById('research-project-popup');
+  const trigger = document.querySelector('.project-popup-trigger');
+  if(!popup || !trigger) return;
+
+  const closeButtons = popup.querySelectorAll('[data-popup-close]');
+  const closeBtn = popup.querySelector('.research-popup-close');
+  const hideForever = popup.querySelector('#research-popup-hide-forever');
+  const hideForeverKey = 'innoResearchPopupHideForever';
+  const sessionShownKey = 'innoResearchPopupShown';
+    let lastFocus = null;
+
+  function isAutoHidden(){
+    try{
+      return localStorage.getItem(hideForeverKey) === '1';
+    }catch(e){
+      return false;
+    }
+  }
+
+  function openPopup(){
+    lastFocus = document.activeElement;
+    if(hideForever) hideForever.checked = false;
+    popup.classList.add('is-open');
+    popup.setAttribute('aria-hidden','false');
+    document.body.classList.add('popup-open');
+    window.setTimeout(() => closeBtn && closeBtn.focus(), 40);
+  }
+
+  function closePopup(){
+    try{
+      if(hideForever && hideForever.checked){
+        localStorage.setItem(hideForeverKey, '1');
+      }
+      sessionStorage.setItem(sessionShownKey, '1');
+    }catch(e){}
+
+    popup.classList.remove('is-open');
+    popup.setAttribute('aria-hidden','true');
+    document.body.classList.remove('popup-open');
+    if(lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  }
+
+  // Manual opening always works, even when automatic opening is permanently disabled in this browser.
+  trigger.addEventListener('click', openPopup);
+  trigger.addEventListener('keydown', e => {
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      openPopup();
+    }
+  });
+
+  closeButtons.forEach(el => el.addEventListener('click', closePopup));
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && popup.classList.contains('is-open')) closePopup();
+  });
+
+  // Auto-open only when the user has not selected '다시 보지 않기' and it has not already shown this session.
+  try{
+    if(!isAutoHidden() && !sessionStorage.getItem(sessionShownKey)){
+      window.setTimeout(openPopup, 850);
+    }
+  }catch(e){
+    if(!isAutoHidden()) window.setTimeout(openPopup, 850);
+  }
+})();
 </script>
 
 </body>
