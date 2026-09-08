@@ -1199,18 +1199,42 @@
   .pub-item[hidden]{display:none;}
   .pub-year{font-family:var(--mono); font-size:13px; color:var(--amber);}
   .pub-item p{font-size:14.5px; color:#3d3c38;}
-  .pub-title{font-family:var(--display); font-weight:600; line-height:1.45; margin-bottom:4px;}
-  .pub-authors{font-size:13.5px !important; line-height:1.55; color:#55534E !important; margin-bottom:2px;}
-  .pub-item .venue{color:var(--concrete); font-size:13px;}
-  .pub-item .venue em{font-style:italic; color:#67655F;}
-  .pub-doi{
-    display:inline-block; margin-left:8px;
-    font-family:var(--mono); font-size:11px; line-height:1.45;
-    color:var(--shadow-blue); text-decoration:none;
-    border-bottom:1px solid rgba(72,91,107,.35);
-    white-space:nowrap;
+  .pub-title{font-family:var(--display); font-weight:600; line-height:1.45; margin-bottom:5px;}
+  .pub-citation{
+    margin:0;
+    font-size:12.8px !important;
+    line-height:1.65;
+    color:var(--concrete) !important;
   }
-  .pub-doi:hover{border-bottom-color:var(--shadow-blue);}
+  .pub-citation .pub-authors{
+    font-size:inherit !important;
+    line-height:inherit;
+    color:#55534E !important;
+  }
+  .pub-citation .venue{
+    color:var(--concrete);
+    font-size:inherit;
+  }
+  .pub-citation .venue em{font-style:italic; color:#67655F;}
+  .pub-doi{
+    display:inline-block;
+    margin-left:6px;
+    padding:0 1px;
+    font-family:var(--mono);
+    font-size:10.5px;
+    line-height:1.35;
+    color:var(--amber);
+    text-decoration:none;
+    border-bottom:1px solid rgba(255,153,51,.34);
+    white-space:nowrap;
+    transition:color .18s ease, border-color .18s ease;
+  }
+  .pub-doi:hover,
+  .pub-doi:focus-visible{
+    color:#e48220;
+    border-bottom-color:#e48220;
+    outline:none;
+  }
 
   /* contact */
   .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px;}
@@ -1450,10 +1474,19 @@
     .pub-page-status{font-size:10px; min-width:34px;}
     .pub-item{padding:17px 0; gap:5px;}
     .pub-year{font-size:11.5px;}
-    .pub-title{font-size:14.5px; line-height:1.5; margin-bottom:5px;}
-    .pub-authors{font-size:12px !important; line-height:1.6;}
-    .pub-item .venue{font-size:11.5px; line-height:1.65;}
-    .pub-doi{display:block; width:max-content; max-width:100%; margin:5px 0 0; font-size:9.8px; white-space:normal; overflow-wrap:anywhere; word-break:break-all;}
+    .pub-title{font-size:14px; line-height:1.5; margin-bottom:5px;}
+    .pub-citation{font-size:11.2px !important; line-height:1.7;}
+    .pub-citation .pub-authors,
+    .pub-citation .venue{font-size:inherit !important; line-height:inherit;}
+    .pub-doi{
+      display:inline-block;
+      width:auto;
+      margin:0 0 0 5px;
+      font-size:9.5px;
+      white-space:nowrap;
+      overflow-wrap:normal;
+      word-break:normal;
+    }
 
     .contact-grid{gap:28px;}
     .contact-list li{padding:13px 0; grid-template-columns:48px minmax(0,1fr); gap:8px;}
@@ -2532,7 +2565,7 @@
 </div>
 <div class="project-grid">
 <div class="project-card project-popup-trigger" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="research-project-popup">
-<span class="project-period">2026.09 — 2031.08 · 과학기술정보통신부 · 핵심연구(기본연구B)</span>
+<span class="project-period">2026.09 — 2031.08 · 과학기술정보통신부</span>
 <h3>투명형 및 양면형 태양광모듈 적용 건물외피의 광환경 형성 메커니즘과 외피·조명 제어체계 연구</h3>
 </div>
 <div class="project-card">
@@ -2588,736 +2621,644 @@
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">Development of a Light Duct Using Relay Lenses and Diffusers</p>
-<p class="pub-authors">Sowon Han, Mingoo Lee, Taegon Han, Janghoo Seo, and Heangwoo Lee</p>
-<p class="venue"><em>Buildings</em>, 15(23), 4340. <a class="pub-doi" href="https://doi.org/10.3390/buildings15234340" rel="noopener noreferrer" target="_blank">DOI: 10.3390/buildings15234340</a></p>
+<p class="pub-citation"><span class="pub-authors">Sowon Han, Mingoo Lee, Taegon Han, Janghoo Seo, and Heangwoo Lee,</span> <span class="venue"><em>Buildings</em>, 15(23), 4340. <a class="pub-doi" href="https://doi.org/10.3390/buildings15234340" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">Effectiveness of improving indoor uniformity of light shelves using location-awareness technology</p>
-<p class="pub-authors">Sowon Han and Heangwoo Lee</p>
-<p class="venue"><em>Journal of Building Engineering</em>, 111, 113149. <a class="pub-doi" href="https://doi.org/10.1016/j.jobe.2025.113149" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.jobe.2025.113149</a></p>
+<p class="pub-citation"><span class="pub-authors">Sowon Han and Heangwoo Lee,</span> <span class="venue"><em>Journal of Building Engineering</em>, 111, 113149. <a class="pub-doi" href="https://doi.org/10.1016/j.jobe.2025.113149" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">Light shelf with under-reflector solar panels for energy efficiency and lighting</p>
-<p class="pub-authors">Jiwon Kong, Sowon Han, and Heangwoo Lee</p>
-<p class="venue"><em>Energy and Buildings</em>, 344, 116005. <a class="pub-doi" href="https://doi.org/10.1016/j.enbuild.2025.116005" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.enbuild.2025.116005</a></p>
+<p class="pub-citation"><span class="pub-authors">Jiwon Kong, Sowon Han, and Heangwoo Lee,</span> <span class="venue"><em>Energy and Buildings</em>, 344, 116005. <a class="pub-doi" href="https://doi.org/10.1016/j.enbuild.2025.116005" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">Analyzing Shared Value Creation in Korea’s Public Buildings: A Latent Dirichlet Allocation Analysis</p>
-<p class="pub-authors">Jiwon Jun, Jieun Kim, Sangyup Lee, Heangwoo Lee, Younghun Won, and Eunsoo Park</p>
-<p class="venue"><em>SAGE Open</em>, 15(4), 1–15. <a class="pub-doi" href="https://doi.org/10.1177/21582440251386136" rel="noopener noreferrer" target="_blank">DOI: 10.1177/21582440251386136</a></p>
+<p class="pub-citation"><span class="pub-authors">Jiwon Jun, Jieun Kim, Sangyup Lee, Heangwoo Lee, Younghun Won, and Eunsoo Park,</span> <span class="venue"><em>SAGE Open</em>, 15(4), 1–15. <a class="pub-doi" href="https://doi.org/10.1177/21582440251386136" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">Verification of the effectiveness of transparent photovoltaics according to the transmittance level in Seoul, South Korea</p>
-<p class="pub-authors">Sowon Han, Janghoo Seo, and Heangwoo Lee</p>
-<p class="venue"><em>Solar Energy</em>, 294, 113511. <a class="pub-doi" href="https://doi.org/10.1016/j.solener.2025.113511" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.solener.2025.113511</a></p>
+<p class="pub-citation"><span class="pub-authors">Sowon Han, Janghoo Seo, and Heangwoo Lee,</span> <span class="venue"><em>Solar Energy</em>, 294, 113511. <a class="pub-doi" href="https://doi.org/10.1016/j.solener.2025.113511" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">Evaluation of energy performance and daylight utilization in light shelves integrated with transparent solar panels</p>
-<p class="pub-authors">Sowon Han and Heangwoo Lee</p>
-<p class="venue"><em>Energy</em>, 326, 136336. <a class="pub-doi" href="https://doi.org/10.1016/j.energy.2025.136336" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.energy.2025.136336</a></p>
+<p class="pub-citation"><span class="pub-authors">Sowon Han and Heangwoo Lee,</span> <span class="venue"><em>Energy</em>, 326, 136336. <a class="pub-doi" href="https://doi.org/10.1016/j.energy.2025.136336" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">Development of a Solar-Tracking Movable Louver with a PV Module for Building Energy Reduction</p>
-<p class="pub-authors">Sowon Han, Janghoo Seo, and Heangwoo Lee</p>
-<p class="venue"><em>Buildings</em>, 15(12), 2100. <a class="pub-doi" href="https://doi.org/10.3390/buildings15122100" rel="noopener noreferrer" target="_blank">DOI: 10.3390/buildings15122100</a></p>
+<p class="pub-citation"><span class="pub-authors">Sowon Han, Janghoo Seo, and Heangwoo Lee,</span> <span class="venue"><em>Buildings</em>, 15(12), 2100. <a class="pub-doi" href="https://doi.org/10.3390/buildings15122100" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">Effectiveness of internal light shelves to improve daylighting</p>
-<p class="pub-authors">Sowon Han, Mingoo Lee, and Heangwoo Lee</p>
-<p class="venue"><em>Building Simulation</em>, 18(4), 747–763. <a class="pub-doi" href="https://doi.org/10.1007/s12273-025-1241-y" rel="noopener noreferrer" target="_blank">DOI: 10.1007/s12273-025-1241-y</a></p>
+<p class="pub-citation"><span class="pub-authors">Sowon Han, Mingoo Lee, and Heangwoo Lee,</span> <span class="venue"><em>Building Simulation</em>, 18(4), 747–763. <a class="pub-doi" href="https://doi.org/10.1007/s12273-025-1241-y" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">Evaluation of Differences in the Motivations of Elderly People to Use Senior Citizen Centers in Yeongdo-gu, Busan, Based on Old-Age Service Systems</p>
-<p class="pub-authors">Xiaolong Zhao, Eun-soo Park, Jinghao Zhao, Jieun Kim, Sang-Yup Lee, and Heangwoo Lee</p>
-<p class="venue"><em>Applied Sciences</em>, 15(6), 3292. <a class="pub-doi" href="https://doi.org/10.3390/app15063292" rel="noopener noreferrer" target="_blank">DOI: 10.3390/app15063292</a></p>
+<p class="pub-citation"><span class="pub-authors">Xiaolong Zhao, Eun-soo Park, Jinghao Zhao, Jieun Kim, Sang-Yup Lee, and Heangwoo Lee,</span> <span class="venue"><em>Applied Sciences</em>, 15(6), 3292. <a class="pub-doi" href="https://doi.org/10.3390/app15063292" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">The Correlation Between Crime Frequency and Urban Spatial Hierarchy in Busan</p>
-<p class="pub-authors">Yao Lu, Shan Gao, Tingting Hong, Zhe Cao, Heangwoo Lee, Eunkil Cho, and Xiaolong Zhao</p>
-<p class="venue"><em>Buildings</em>, 15(7), 1010. <a class="pub-doi" href="https://doi.org/10.3390/buildings15071010" rel="noopener noreferrer" target="_blank">DOI: 10.3390/buildings15071010</a></p>
+<p class="pub-citation"><span class="pub-authors">Yao Lu, Shan Gao, Tingting Hong, Zhe Cao, Heangwoo Lee, Eunkil Cho, and Xiaolong Zhao,</span> <span class="venue"><em>Buildings</em>, 15(7), 1010. <a class="pub-doi" href="https://doi.org/10.3390/buildings15071010" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2024</span>
 <div>
 <p class="pub-title">Exploring Digital Technologies for Addressing Risk Factors of Solitary Death in South Korea</p>
-<p class="pub-authors">Jiwon Jun, Jieun Kim, SangYup Lee, Heangwoo Lee, and Eunsoo Park</p>
-<p class="venue"><em>Applied Sciences</em>, 14(17), 7439. <a class="pub-doi" href="https://doi.org/10.3390/app14177439" rel="noopener noreferrer" target="_blank">DOI: 10.3390/app14177439</a></p>
+<p class="pub-citation"><span class="pub-authors">Jiwon Jun, Jieun Kim, SangYup Lee, Heangwoo Lee, and Eunsoo Park,</span> <span class="venue"><em>Applied Sciences</em>, 14(17), 7439. <a class="pub-doi" href="https://doi.org/10.3390/app14177439" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2024</span>
 <div>
 <p class="pub-title">Performance evaluation of a light shelf with a folding reflector (LSFR) to improve daylighting performance</p>
-<p class="pub-authors">Xiaolong Zhao, Janghoo Seo, and Heangwoo Lee</p>
-<p class="venue"><em>Building and Environment</em>, 255, 111457. <a class="pub-doi" href="https://doi.org/10.1016/j.buildenv.2024.111457" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.buildenv.2024.111457</a></p>
+<p class="pub-citation"><span class="pub-authors">Xiaolong Zhao, Janghoo Seo, and Heangwoo Lee,</span> <span class="venue"><em>Building and Environment</em>, 255, 111457. <a class="pub-doi" href="https://doi.org/10.1016/j.buildenv.2024.111457" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2023</span>
 <div>
 <p class="pub-title">Evaluation of External Light Shelf Performance in Relation to the Ceiling Types Used in Indoor Spaces</p>
-<p class="pub-authors">Su-yeon Jung, Min-Goo Lee, and Heangwoo Lee</p>
-<p class="venue"><em>Energies</em>, 16(24), 8107. <a class="pub-doi" href="https://doi.org/10.3390/en16248107" rel="noopener noreferrer" target="_blank">DOI: 10.3390/en16248107</a></p>
+<p class="pub-citation"><span class="pub-authors">Su-yeon Jung, Min-Goo Lee, and Heangwoo Lee,</span> <span class="venue"><em>Energies</em>, 16(24), 8107. <a class="pub-doi" href="https://doi.org/10.3390/en16248107" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2023</span>
 <div>
 <p class="pub-title">Case study for deriving appropriate light shelf specifications based on indoor space depth</p>
-<p class="pub-authors">Suyeon Jung and Heangwoo Lee</p>
-<p class="venue"><em>Energy and Buildings</em>, 297, 113450. <a class="pub-doi" href="https://doi.org/10.1016/j.enbuild.2023.113450" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.enbuild.2023.113450</a></p>
+<p class="pub-citation"><span class="pub-authors">Suyeon Jung and Heangwoo Lee,</span> <span class="venue"><em>Energy and Buildings</em>, 297, 113450. <a class="pub-doi" href="https://doi.org/10.1016/j.enbuild.2023.113450" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2022</span>
 <div>
 <p class="pub-title">Development of a Solar Tracking-Based Movable Louver System to Save Lighting Energy and Create a Comfortable Light Environment</p>
-<p class="pub-authors">Su-yeon Jung, Sowon Han, Min-Goo Lee, and Heangwoo Lee</p>
-<p class="venue"><em>Buildings</em>, 12(11), 2017. <a class="pub-doi" href="https://doi.org/10.3390/buildings12112017" rel="noopener noreferrer" target="_blank">DOI: 10.3390/buildings12112017</a></p>
+<p class="pub-citation"><span class="pub-authors">Su-yeon Jung, Sowon Han, Min-Goo Lee, and Heangwoo Lee,</span> <span class="venue"><em>Buildings</em>, 12(11), 2017. <a class="pub-doi" href="https://doi.org/10.3390/buildings12112017" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2022</span>
 <div>
 <p class="pub-title">A study on the application of solar modules to light shelves to improve generation and daylighting efficiency</p>
-<p class="pub-authors">Hyunmin Lee, Songi Baek, and Heangwoo Lee</p>
-<p class="venue"><em>Energy and Buildings</em>, 261, 111976. <a class="pub-doi" href="https://doi.org/10.1016/j.enbuild.2022.111976" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.enbuild.2022.111976</a></p>
+<p class="pub-citation"><span class="pub-authors">Hyunmin Lee, Songi Baek, and Heangwoo Lee,</span> <span class="venue"><em>Energy and Buildings</em>, 261, 111976. <a class="pub-doi" href="https://doi.org/10.1016/j.enbuild.2022.111976" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2022</span>
 <div>
 <p class="pub-title">Study on the application of PV modules to curved light shelves</p>
-<p class="pub-authors">Hyunmin Lee and Heangwoo Lee</p>
-<p class="venue"><em>Building and Environment</em>, 207, 108481. <a class="pub-doi" href="https://doi.org/10.1016/j.buildenv.2021.108481" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.buildenv.2021.108481</a></p>
+<p class="pub-citation"><span class="pub-authors">Hyunmin Lee and Heangwoo Lee,</span> <span class="venue"><em>Building and Environment</em>, 207, 108481. <a class="pub-doi" href="https://doi.org/10.1016/j.buildenv.2021.108481" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2022</span>
 <div>
 <p class="pub-title">Light Shelf Development Using Folding Technology and Photovoltaic Modules to Increase Energy Efficiency in Building</p>
-<p class="pub-authors">Heangwoo Lee, Sowon Han, and Janghoo Seo</p>
-<p class="venue"><em>Buildings</em>, 12(1), 81. <a class="pub-doi" href="https://doi.org/10.3390/buildings12010081" rel="noopener noreferrer" target="_blank">DOI: 10.3390/buildings12010081</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee, Sowon Han, and Janghoo Seo,</span> <span class="venue"><em>Buildings</em>, 12(1), 81. <a class="pub-doi" href="https://doi.org/10.3390/buildings12010081" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2020</span>
 <div>
 <p class="pub-title">Performance Evaluation of External Light Shelves by Applying a Prism Sheet</p>
-<p class="pub-authors">Heangwoo Lee and Janghoo Seo</p>
-<p class="venue"><em>Energies</em>, 13(18), 4618. <a class="pub-doi" href="https://doi.org/10.3390/en13184618" rel="noopener noreferrer" target="_blank">DOI: 10.3390/en13184618</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee and Janghoo Seo,</span> <span class="venue"><em>Energies</em>, 13(18), 4618. <a class="pub-doi" href="https://doi.org/10.3390/en13184618" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2019</span>
 <div>
 <p class="pub-title">Preliminary Study on the Performance Evaluation of a Light Shelf Based on Reflector Curvature</p>
-<p class="pub-authors">Heangwoo Lee, Janghoo Seo, and Chang-ho Choi</p>
-<p class="venue"><em>Energies</em>, 12(22), 4295. <a class="pub-doi" href="https://doi.org/10.3390/en12224295" rel="noopener noreferrer" target="_blank">DOI: 10.3390/en12224295</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee, Janghoo Seo, and Chang-ho Choi,</span> <span class="venue"><em>Energies</em>, 12(22), 4295. <a class="pub-doi" href="https://doi.org/10.3390/en12224295" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2019</span>
 <div>
 <p class="pub-title">Performance evaluation of a light shelf with a solar module based on the solar module attachment area</p>
-<p class="pub-authors">Heangwoo Lee</p>
-<p class="venue"><em>Building and Environment</em>, 159, 106161. <a class="pub-doi" href="https://doi.org/10.1016/j.buildenv.2019.106161" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.buildenv.2019.106161</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee,</span> <span class="venue"><em>Building and Environment</em>, 159, 106161. <a class="pub-doi" href="https://doi.org/10.1016/j.buildenv.2019.106161" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2019</span>
 <div>
 <p class="pub-title">Energy-saving performance of light shelves under the application of user-awareness technology and light-dimming control</p>
-<p class="pub-authors">Kyungsoo Kim, Heangwoo Lee, Hyangin Jang, Changyoung Park, and Chang-ho Choi</p>
-<p class="venue"><em>Sustainable Cities and Society</em>, 44, 582–596. <a class="pub-doi" href="https://doi.org/10.1016/j.scs.2018.10.005" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.scs.2018.10.005</a></p>
+<p class="pub-citation"><span class="pub-authors">Kyungsoo Kim, Heangwoo Lee, Hyangin Jang, Changyoung Park, and Chang-ho Choi,</span> <span class="venue"><em>Sustainable Cities and Society</em>, 44, 582–596. <a class="pub-doi" href="https://doi.org/10.1016/j.scs.2018.10.005" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2018</span>
 <div>
 <p class="pub-title">Evaluation of a light shelf based on energy consumption for lighting and air conditioning</p>
-<p class="pub-authors">Heangwoo Lee, Suktae Kim, and Janghoo Seo</p>
-<p class="venue"><em>Indoor and Built Environment</em>, 27(10), 1405–1414. <a class="pub-doi" href="https://doi.org/10.1177/1420326X17719954" rel="noopener noreferrer" target="_blank">DOI: 10.1177/1420326X17719954</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee, Suktae Kim, and Janghoo Seo,</span> <span class="venue"><em>Indoor and Built Environment</em>, 27(10), 1405–1414. <a class="pub-doi" href="https://doi.org/10.1177/1420326X17719954" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2018</span>
 <div>
 <p class="pub-title">Development of a Dimming Lighting Control System Using General Illumination and Location-Awareness Technology</p>
-<p class="pub-authors">Heangwoo Lee, Chang-ho Choi, and Minki Sung</p>
-<p class="venue"><em>Energies</em>, 11(11), 2999. <a class="pub-doi" href="https://doi.org/10.3390/en11112999" rel="noopener noreferrer" target="_blank">DOI: 10.3390/en11112999</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee, Chang-ho Choi, and Minki Sung,</span> <span class="venue"><em>Energies</em>, 11(11), 2999. <a class="pub-doi" href="https://doi.org/10.3390/en11112999" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2018</span>
 <div>
 <p class="pub-title">Improvement of light-shelf performance through the use of a diffusion sheet</p>
-<p class="pub-authors">Heangwoo Lee, Janghoo Seo, and Suktae Kim</p>
-<p class="venue"><em>Building and Environment</em>, 144, 248–258. <a class="pub-doi" href="https://doi.org/10.1016/j.buildenv.2018.07.040" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.buildenv.2018.07.040</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee, Janghoo Seo, and Suktae Kim,</span> <span class="venue"><em>Building and Environment</em>, 144, 248–258. <a class="pub-doi" href="https://doi.org/10.1016/j.buildenv.2018.07.040" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2018</span>
 <div>
 <p class="pub-title">Development of a wall module employing aircap layers</p>
-<p class="pub-authors">Heangwoo Lee, Chang-ho Choi, and Janghoo Seo</p>
-<p class="venue"><em>Energy and Buildings</em>, 177, 413–422. <a class="pub-doi" href="https://doi.org/10.1016/j.enbuild.2018.07.063" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.enbuild.2018.07.063</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee, Chang-ho Choi, and Janghoo Seo,</span> <span class="venue"><em>Energy and Buildings</em>, 177, 413–422. <a class="pub-doi" href="https://doi.org/10.1016/j.enbuild.2018.07.063" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2018</span>
 <div>
 <p class="pub-title">Development of Window-Mounted Air Cap Roller Module</p>
-<p class="pub-authors">Heangwoo Lee and Janghoo Seo</p>
-<p class="venue"><em>Energies</em>, 11(7), 1909. <a class="pub-doi" href="https://doi.org/10.3390/en11071909" rel="noopener noreferrer" target="_blank">DOI: 10.3390/en11071909</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee and Janghoo Seo,</span> <span class="venue"><em>Energies</em>, 11(7), 1909. <a class="pub-doi" href="https://doi.org/10.3390/en11071909" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2018</span>
 <div>
 <p class="pub-title">Development and Performance Evaluation of Light Shelves Using Width-Adjustable Reflectors</p>
-<p class="pub-authors">Heangwoo Lee, Seonghyun Park, and Janghoo Seo</p>
-<p class="venue"><em>Advances in Civil Engineering</em>, 2018, 2028065. <a class="pub-doi" href="https://doi.org/10.1155/2018/2028065" rel="noopener noreferrer" target="_blank">DOI: 10.1155/2018/2028065</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee, Seonghyun Park, and Janghoo Seo,</span> <span class="venue"><em>Advances in Civil Engineering</em>, 2018, 2028065. <a class="pub-doi" href="https://doi.org/10.1155/2018/2028065" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2018</span>
 <div>
 <p class="pub-title">A preliminary study on the performance of an awning system with a built-in light shelf</p>
-<p class="pub-authors">Heangwoo Lee, Hyangin Jang, and Janghoo Seo</p>
-<p class="venue"><em>Building and Environment</em>, 131, 255–263. <a class="pub-doi" href="https://doi.org/10.1016/j.buildenv.2018.01.016" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.buildenv.2018.01.016</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee, Hyangin Jang, and Janghoo Seo,</span> <span class="venue"><em>Building and Environment</em>, 131, 255–263. <a class="pub-doi" href="https://doi.org/10.1016/j.buildenv.2018.01.016" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2018</span>
 <div>
 <p class="pub-title">Development of a detachable window aircap module for energy saving</p>
-<p class="pub-authors">Heangwoo Lee, Suktae Kim, and Janghoo Seo</p>
-<p class="venue"><em>Energy and Buildings</em>, 158, 1640–1647. <a class="pub-doi" href="https://doi.org/10.1016/j.enbuild.2017.11.042" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.enbuild.2017.11.042</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee, Suktae Kim, and Janghoo Seo,</span> <span class="venue"><em>Energy and Buildings</em>, 158, 1640–1647. <a class="pub-doi" href="https://doi.org/10.1016/j.enbuild.2017.11.042" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2017</span>
 <div>
 <p class="pub-title">Study on movable light-shelf system with location-awareness technology for lighting energy saving</p>
-<p class="pub-authors">Heangwoo Lee, Sang-hoon Gim, Janghoo Seo, and Yongseong Kim</p>
-<p class="venue"><em>Indoor and Built Environment</em>, 26(6), 796–812. <a class="pub-doi" href="https://doi.org/10.1177/1420326X16659691" rel="noopener noreferrer" target="_blank">DOI: 10.1177/1420326X16659691</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee, Sang-hoon Gim, Janghoo Seo, and Yongseong Kim,</span> <span class="venue"><em>Indoor and Built Environment</em>, 26(6), 796–812. <a class="pub-doi" href="https://doi.org/10.1177/1420326X16659691" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2017</span>
 <div>
 <p class="pub-title">Daylighting performance improvement of a light-shelf using diffused reflection</p>
-<p class="pub-authors">Heangwoo Lee, Gangmin Jeon, Janghoo Seo, and Yongseong Kim</p>
-<p class="venue"><em>Indoor and Built Environment</em>, 26(5), 717–726. <a class="pub-doi" href="https://doi.org/10.1177/1420326X16631144" rel="noopener noreferrer" target="_blank">DOI: 10.1177/1420326X16631144</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee, Gangmin Jeon, Janghoo Seo, and Yongseong Kim,</span> <span class="venue"><em>Indoor and Built Environment</em>, 26(5), 717–726. <a class="pub-doi" href="https://doi.org/10.1177/1420326X16631144" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="international" data-publication="">
 <span class="pub-year">2017</span>
 <div>
 <p class="pub-title">Effectiveness of a perforated light shelf for energy saving</p>
-<p class="pub-authors">Heangwoo Lee, Kyungsoo Kim, Janghoo Seo, and Yongseong Kim</p>
-<p class="venue"><em>Energy and Buildings</em>, 144, 144–151. <a class="pub-doi" href="https://doi.org/10.1016/j.enbuild.2017.03.008" rel="noopener noreferrer" target="_blank">DOI: 10.1016/j.enbuild.2017.03.008</a></p>
+<p class="pub-citation"><span class="pub-authors">Heangwoo Lee, Kyungsoo Kim, Janghoo Seo, and Yongseong Kim,</span> <span class="venue"><em>Energy and Buildings</em>, 144, 144–151. <a class="pub-doi" href="https://doi.org/10.1016/j.enbuild.2017.03.008" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2026</span>
 <div>
 <p class="pub-title">폐철도의 선형공원 조성에 따른 도시위계 변화 분석 연구</p>
-<p class="pub-authors">장신군, 이행우</p>
-<p class="venue">한국공간디자인학회 논문집, 21(4), 77–88. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003352788" rel="noopener noreferrer" target="_blank">KCI: ART003352788</a></p>
+<p class="pub-citation"><span class="pub-authors">장신군, 이행우,</span> <span class="venue">한국공간디자인학회 논문집, 21(4), 77–88. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003352788" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2026</span>
 <div>
 <p class="pub-title">파노라마 기반 온라인 박물관 관람 서비스의 공간지각 취약점 분석 및 개선 방향 연구</p>
-<p class="pub-authors">강채연, 채지연, 이행우</p>
-<p class="venue">Journal of Integrated Design Research, 25(2), 67–82. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003342983" rel="noopener noreferrer" target="_blank">KCI: ART003342983</a></p>
+<p class="pub-citation"><span class="pub-authors">강채연, 채지연, 이행우,</span> <span class="venue">Journal of Integrated Design Research, 25(2), 67–82. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003342983" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2026</span>
 <div>
 <p class="pub-title">모바일 박물관 온라인 관람 서비스에서의 제스처 중심 인터페이스 사용성 개선연구</p>
-<p class="pub-authors">채지연, 강채연, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 12(4), 325–336. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003330491" rel="noopener noreferrer" target="_blank">KCI: ART003330491</a></p>
+<p class="pub-citation"><span class="pub-authors">채지연, 강채연, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 12(4), 325–336. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003330491" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">보행거리를 고려한 도심내 소규모 박물관의 접근 및 인지 분석연구</p>
-<p class="pub-authors">공지원, 한소원, 장지원, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 11(11), 487–498. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003267577" rel="noopener noreferrer" target="_blank">KCI: ART003267577</a></p>
+<p class="pub-citation"><span class="pub-authors">공지원, 한소원, 장지원, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 11(11), 487–498. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003267577" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">중고령층의 건강관리 역량이 자기효능감에 미치는 영향: 디지털 헬스 리터러시의 조절효과를 중심으로</p>
-<p class="pub-authors">전지원, 김지은, 이상엽, 이행우, 이양규, 박은수</p>
-<p class="venue">아시아태평양융합연구교류논문지, 11(9), 575–594. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003248602" rel="noopener noreferrer" target="_blank">KCI: ART003248602</a></p>
+<p class="pub-citation"><span class="pub-authors">전지원, 김지은, 이상엽, 이행우, 이양규, 박은수,</span> <span class="venue">아시아태평양융합연구교류논문지, 11(9), 575–594. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003248602" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2025</span>
 <div>
 <p class="pub-title">도시위계 기반 패션분야의 팝업스토어 이용현황 분석연구</p>
-<p class="pub-authors">장지원, 한소원, 공지원, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 11(4), 447–458. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003197811" rel="noopener noreferrer" target="_blank">KCI: ART003197811</a></p>
+<p class="pub-citation"><span class="pub-authors">장지원, 한소원, 공지원, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 11(4), 447–458. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003197811" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2024</span>
 <div>
 <p class="pub-title">지하공간의 빛환경 개선 및 조명에너지 저감을 위한 채광시스템 동향 고찰 및 기술제언 연구</p>
-<p class="pub-authors">한소원, 공지원, 장지원, 이민구, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 10(10), 455–464. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003132034" rel="noopener noreferrer" target="_blank">KCI: ART003132034</a></p>
+<p class="pub-citation"><span class="pub-authors">한소원, 공지원, 장지원, 이민구, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 10(10), 455–464. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003132034" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2024</span>
 <div>
 <p class="pub-title">도심내 노인친화공원의 접근성 및 인지성에 따른 이용현황 분석연구</p>
-<p class="pub-authors">한소원, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 10(9), 409–422. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003121735" rel="noopener noreferrer" target="_blank">KCI: ART003121735</a></p>
+<p class="pub-citation"><span class="pub-authors">한소원, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 10(9), 409–422. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003121735" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2024</span>
 <div>
 <p class="pub-title">어린이미술관의 입지 및 이용률에 대한 공간구문론 연구</p>
-<p class="pub-authors">한소원, 김서현, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 10(9), 455–467. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003121818" rel="noopener noreferrer" target="_blank">KCI: ART003121818</a></p>
+<p class="pub-citation"><span class="pub-authors">한소원, 김서현, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 10(9), 455–467. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003121818" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2024</span>
 <div>
 <p class="pub-title">고독사 위험군의 심리적 활력을 위한 활동이론 기반의 커뮤니케이션 공간 연구 - 북유럽 코하우징 사례를 중심으로</p>
-<p class="pub-authors">남예진, 박은수, 이행우, 이상엽, 김지은</p>
-<p class="venue">한국과학예술포럼, 42(4), 111–126. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003121050" rel="noopener noreferrer" target="_blank">KCI: ART003121050</a></p>
+<p class="pub-citation"><span class="pub-authors">남예진, 박은수, 이행우, 이상엽, 김지은,</span> <span class="venue">한국과학예술포럼, 42(4), 111–126. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003121050" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2024</span>
 <div>
 <p class="pub-title">중국 박물관의 증축에 의한 공간구조 및 위계 변화 분석 연구</p>
-<p class="pub-authors">왕몽기, 이행우</p>
-<p class="venue">한국공간디자인학회 논문집, 19(4), 231–240. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003094135" rel="noopener noreferrer" target="_blank">KCI: ART003094135</a></p>
+<p class="pub-citation"><span class="pub-authors">왕몽기, 이행우,</span> <span class="venue">한국공간디자인학회 논문집, 19(4), 231–240. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003094135" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2024</span>
 <div>
 <p class="pub-title">노인전문병원 병동부의 간호스테이션 유형에 따른 평면 구조의 위계 분석 연구</p>
-<p class="pub-authors">한소원, 정수연, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 10(6), 345–359. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003093721" rel="noopener noreferrer" target="_blank">KCI: ART003093721</a></p>
+<p class="pub-citation"><span class="pub-authors">한소원, 정수연, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 10(6), 345–359. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003093721" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2024</span>
 <div>
 <p class="pub-title">수도권내 어린이도서관의 접근 및 인지에 따른 이용률 분석연구</p>
-<p class="pub-authors">정수연, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 10(5), 285–296. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003083693" rel="noopener noreferrer" target="_blank">KCI: ART003083693</a></p>
+<p class="pub-citation"><span class="pub-authors">정수연, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 10(5), 285–296. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003083693" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2024</span>
 <div>
 <p class="pub-title">중국 어린이박물관 실내공간의 위계 분석에 관한 연구</p>
-<p class="pub-authors">담복서, 이행우</p>
-<p class="venue">한국공간디자인학회 논문집, 19(3), 523–532. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003074908" rel="noopener noreferrer" target="_blank">KCI: ART003074908</a></p>
+<p class="pub-citation"><span class="pub-authors">담복서, 이행우,</span> <span class="venue">한국공간디자인학회 논문집, 19(3), 523–532. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003074908" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2024</span>
 <div>
 <p class="pub-title">제로에너지 건물 구현을 위한 루버 기술동향 및 제언 연구</p>
-<p class="pub-authors">한소원, 심민아, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 10(4), 51–65. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003074711" rel="noopener noreferrer" target="_blank">KCI: ART003074711</a></p>
+<p class="pub-citation"><span class="pub-authors">한소원, 심민아, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 10(4), 51–65. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003074711" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2023</span>
 <div>
 <p class="pub-title">장소안도감 증진을 위한 청년 1인 가구의 커뮤니케이션 공간 디자인 연구 - 일본의 코하우징 사례를 중심으로</p>
-<p class="pub-authors">남예진, 박은수, 이행우, 이상엽, 김지은</p>
-<p class="venue">한국과학예술포럼, 41(5), 127–140. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003028981" rel="noopener noreferrer" target="_blank">KCI: ART003028981</a></p>
+<p class="pub-citation"><span class="pub-authors">남예진, 박은수, 이행우, 이상엽, 김지은,</span> <span class="venue">한국과학예술포럼, 41(5), 127–140. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003028981" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2023</span>
 <div>
 <p class="pub-title">생체모방기술에 의한 건물외피 에너지 저감 연구동향 및 제언</p>
-<p class="pub-authors">정수연, 한소원, 황지영, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 9(11), 35–46. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003017798" rel="noopener noreferrer" target="_blank">KCI: ART003017798</a></p>
+<p class="pub-citation"><span class="pub-authors">정수연, 한소원, 황지영, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 9(11), 35–46. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003017798" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2023</span>
 <div>
 <p class="pub-title">건물에너지 저감 성능평가를 위한 사용자기반 환경모사연구 동향분석 연구</p>
-<p class="pub-authors">정수연, 이민구, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 9(9), 17–29. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003001221" rel="noopener noreferrer" target="_blank">KCI: ART003001221</a></p>
+<p class="pub-citation"><span class="pub-authors">정수연, 이민구, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 9(9), 17–29. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003001221" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2023</span>
 <div>
 <p class="pub-title">건물 빛환경 성능개선을 위한 건물외피의 IT 적용 동향 분석 연구</p>
-<p class="pub-authors">한소원, 조아람, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 9(6), 1–15. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002971776" rel="noopener noreferrer" target="_blank">KCI: ART002971776</a></p>
+<p class="pub-citation"><span class="pub-authors">한소원, 조아람, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 9(6), 1–15. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002971776" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2023</span>
 <div>
 <p class="pub-title">건물외피에 적용되는 양면형 PV의 연구동향 및 기술제언 연구</p>
-<p class="pub-authors">정수연, 한소원, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 9(6), 77–90. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002971857" rel="noopener noreferrer" target="_blank">KCI: ART002971857</a></p>
+<p class="pub-citation"><span class="pub-authors">정수연, 한소원, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 9(6), 77–90. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002971857" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2023</span>
 <div>
 <p class="pub-title">건물의 조명환경 성능개선을 위한 채광시스템 연구동향 분석 연구</p>
-<p class="pub-authors">정수연, 이민구, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 9(5), 79–91. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002962013" rel="noopener noreferrer" target="_blank">KCI: ART002962013</a></p>
+<p class="pub-citation"><span class="pub-authors">정수연, 이민구, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 9(5), 79–91. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002962013" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2023</span>
 <div>
 <p class="pub-title">박물관 온라인 관람 콘텐츠 구현 및 연구 동향 분석 연구</p>
-<p class="pub-authors">박지온, 최그리미, 정수연, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 9(5), 439–449. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002962489" rel="noopener noreferrer" target="_blank">KCI: ART002962489</a></p>
+<p class="pub-citation"><span class="pub-authors">박지온, 최그리미, 정수연, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 9(5), 439–449. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002962489" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2023</span>
 <div>
 <p class="pub-title">시니어의 심리적 안녕을 위한 소셜하우징의 커뮤니케이션 공간 특성 연구</p>
-<p class="pub-authors">남예진, 박은수, 이행우, 이상엽, 김지은</p>
-<p class="venue">한국과학예술포럼, 41(1), 65–79. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002926840" rel="noopener noreferrer" target="_blank">KCI: ART002926840</a></p>
+<p class="pub-citation"><span class="pub-authors">남예진, 박은수, 이행우, 이상엽, 김지은,</span> <span class="venue">한국과학예술포럼, 41(1), 65–79. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002926840" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2023</span>
 <div>
 <p class="pub-title">텍스트 마이닝을 활용한 공간적 관점의 고독사와 주거환경의 영향요인에 관한 융복합 연구</p>
-<p class="pub-authors">박은수, 이상엽, 이행우, 신현지, 김지은</p>
-<p class="venue">한국과학예술포럼, 41(1), 137–154. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002926859" rel="noopener noreferrer" target="_blank">KCI: ART002926859</a></p>
+<p class="pub-citation"><span class="pub-authors">박은수, 이상엽, 이행우, 신현지, 김지은,</span> <span class="venue">한국과학예술포럼, 41(1), 137–154. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002926859" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2022</span>
 <div>
 <p class="pub-title">효율적인 건물에너지 저감을 위한 가동형 건물외피의 태양광 패널 적용 연구 동향 분석</p>
-<p class="pub-authors">백송이, 이현민, 정수연, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 8(10), 13–24. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002890761" rel="noopener noreferrer" target="_blank">KCI: ART002890761</a></p>
+<p class="pub-citation"><span class="pub-authors">백송이, 이현민, 정수연, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 8(10), 13–24. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002890761" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2022</span>
 <div>
 <p class="pub-title">관람객의 박물관 관람방식에 따른 선호도 분석 기초연구</p>
-<p class="pub-authors">한소원, 박지온, 황지영, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 8(10), 283–295. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002891051" rel="noopener noreferrer" target="_blank">KCI: ART002891051</a></p>
+<p class="pub-citation"><span class="pub-authors">한소원, 박지온, 황지영, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 8(10), 283–295. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002891051" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2022</span>
 <div>
 <p class="pub-title">어린이박물관의 공간구성 및 위계 분석 기초 연구</p>
-<p class="pub-authors">한소원, 이행우, 황지영</p>
-<p class="venue">한국공간디자인학회 논문집, 17(5), 297–306. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002871616" rel="noopener noreferrer" target="_blank">KCI: ART002871616</a></p>
+<p class="pub-citation"><span class="pub-authors">한소원, 이행우, 황지영,</span> <span class="venue">한국공간디자인학회 논문집, 17(5), 297–306. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002871616" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2022</span>
 <div>
 <p class="pub-title">도심내 소공원의 위계 분석 및 이용현황 분석 연구</p>
-<p class="pub-authors">백송이, 이행우, 박지온</p>
-<p class="venue">한국공간디자인학회 논문집, 17(5), 11–20. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002871073" rel="noopener noreferrer" target="_blank">KCI: ART002871073</a></p>
+<p class="pub-citation"><span class="pub-authors">백송이, 이행우, 박지온,</span> <span class="venue">한국공간디자인학회 논문집, 17(5), 11–20. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002871073" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2022</span>
 <div>
 <p class="pub-title">박물관 증축에 의한 기능의 공간 및 시각적 위계 변화 분석 연구</p>
-<p class="pub-authors">백송이, 이현민, 이행우</p>
-<p class="venue">한국공간디자인학회 논문집, 17(3), 23–32. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002835752" rel="noopener noreferrer" target="_blank">KCI: ART002835752</a></p>
+<p class="pub-citation"><span class="pub-authors">백송이, 이현민, 이행우,</span> <span class="venue">한국공간디자인학회 논문집, 17(3), 23–32. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002835752" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2021</span>
 <div>
 <p class="pub-title">요양병원 대기공간의 유형에 따른 공간위계 분석 기초연구</p>
-<p class="pub-authors">이현민, 이행우</p>
-<p class="venue">한국공간디자인학회 논문집, 16(8), 191–200. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002791418" rel="noopener noreferrer" target="_blank">KCI: ART002791418</a></p>
+<p class="pub-citation"><span class="pub-authors">이현민, 이행우,</span> <span class="venue">한국공간디자인학회 논문집, 16(8), 191–200. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002791418" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2021</span>
 <div>
 <p class="pub-title">노인요양병원 병동부 동선구조에 따른 위계분석 연구</p>
-<p class="pub-authors">허유희, 이행우</p>
-<p class="venue">한국공간디자인학회 논문집, 16(5), 193–202. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002746249" rel="noopener noreferrer" target="_blank">KCI: ART002746249</a></p>
+<p class="pub-citation"><span class="pub-authors">허유희, 이행우,</span> <span class="venue">한국공간디자인학회 논문집, 16(5), 193–202. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002746249" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2021</span>
 <div>
 <p class="pub-title">박물관 증축유형에 따른 관람자 이용공간 위계변화에 관한 기초연구 - 국립중앙박물관 소속 박물관을 분석중심으로</p>
-<p class="pub-authors">ZHAO XIAOLONG, 이행우</p>
-<p class="venue">한국문화공간건축학회논문집, 73, 11–20. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002690591" rel="noopener noreferrer" target="_blank">KCI: ART002690591</a></p>
+<p class="pub-citation"><span class="pub-authors">ZHAO XIAOLONG, 이행우,</span> <span class="venue">한국문화공간건축학회논문집, 73, 11–20. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002690591" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2020</span>
 <div>
 <p class="pub-title">A Study on the Hierarchy Analysis for Improving the Utilization of Parks in the Living Area: Case-based on Geumcheon-gu, Seoul, Korea</p>
-<p class="pub-authors">조효룡, 이선우, 이행우</p>
-<p class="venue">아시아태평양융합연구교류논문지, 6(12), 61–71. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002664299" rel="noopener noreferrer" target="_blank">KCI: ART002664299</a></p>
+<p class="pub-citation"><span class="pub-authors">조효룡, 이선우, 이행우,</span> <span class="venue">아시아태평양융합연구교류논문지, 6(12), 61–71. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002664299" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2018</span>
 <div>
 <p class="pub-title">광선반 채광성능 개선을 위한 프리즘시트 적용 방안 연구</p>
-<p class="pub-authors">장민우, 이행우, 서장후, 김용성</p>
-<p class="venue">설비공학 논문집, 30(9), 401–412. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002383275" rel="noopener noreferrer" target="_blank">KCI: ART002383275</a></p>
+<p class="pub-citation"><span class="pub-authors">장민우, 이행우, 서장후, 김용성,</span> <span class="venue">설비공학 논문집, 30(9), 401–412. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002383275" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2018</span>
 <div>
 <p class="pub-title">PV 부착 광선반의 채광성능 및 에너지 저감 기초 연구</p>
-<p class="pub-authors">김정민, 이행우, 서장후, 김용성</p>
-<p class="venue">설비공학 논문집, 30(8), 376–387. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002372686" rel="noopener noreferrer" target="_blank">KCI: ART002372686</a></p>
+<p class="pub-citation"><span class="pub-authors">김정민, 이행우, 서장후, 김용성,</span> <span class="venue">설비공학 논문집, 30(8), 376–387. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002372686" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2018</span>
 <div>
 <p class="pub-title">광덕트의 채광성능 개선을 위한 이중반사형 산광부 개발</p>
-<p class="pub-authors">이한솔, 이행우, 박창영, 김영일, 장향인</p>
-<p class="venue">한국건축친환경설비학회 논문집, 12(3), 290–301. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002361949" rel="noopener noreferrer" target="_blank">KCI: ART002361949</a></p>
+<p class="pub-citation"><span class="pub-authors">이한솔, 이행우, 박창영, 김영일, 장향인,</span> <span class="venue">한국건축친환경설비학회 논문집, 12(3), 290–301. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002361949" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2017</span>
 <div>
 <p class="pub-title">롤링을 통한 창호부착형 에어캡 모듈 개발</p>
-<p class="pub-authors">허지운, 서장후, 김용성, 이행우</p>
-<p class="venue">설비공학 논문집, 29(11), 559–569. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002280570" rel="noopener noreferrer" target="_blank">KCI: ART002280570</a></p>
+<p class="pub-citation"><span class="pub-authors">허지운, 서장후, 김용성, 이행우,</span> <span class="venue">설비공학 논문집, 29(11), 559–569. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002280570" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2017</span>
 <div>
 <p class="pub-title">에어캡 적층을 통한 에어캡 벽 모듈 개발</p>
-<p class="pub-authors">김경수, 서장후, 김용성, 이행우</p>
-<p class="venue">설비공학 논문집, 29(10), 504–514. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002272596" rel="noopener noreferrer" target="_blank">KCI: ART002272596</a></p>
+<p class="pub-citation"><span class="pub-authors">김경수, 서장후, 김용성, 이행우,</span> <span class="venue">설비공학 논문집, 29(10), 504–514. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002272596" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2017</span>
 <div>
 <p class="pub-title">확산필름 부착 위치에 따른 광선반 성능개선 연구</p>
-<p class="pub-authors">박은수, 이행우, 송석재, 김용성</p>
-<p class="venue">KIEAE Journal, 17(3), 91–97. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002235141" rel="noopener noreferrer" target="_blank">KCI: ART002235141</a></p>
+<p class="pub-citation"><span class="pub-authors">박은수, 이행우, 송석재, 김용성,</span> <span class="venue">KIEAE Journal, 17(3), 91–97. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002235141" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2017</span>
 <div>
 <p class="pub-title">개폐 개념의 높이 조절이 가능한 광선반 개발 연구 - 외부조도에 따른 광선반 성능평가 중심으로 -</p>
-<p class="pub-authors">김수린, 이행우, 송석재, 김용성</p>
-<p class="venue">KIEAE Journal, 17(3), 83–90. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002235110" rel="noopener noreferrer" target="_blank">KCI: ART002235110</a></p>
+<p class="pub-citation"><span class="pub-authors">김수린, 이행우, 송석재, 김용성,</span> <span class="venue">KIEAE Journal, 17(3), 83–90. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002235110" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2017</span>
 <div>
 <p class="pub-title">Development of Awning System using Light Shelf - Focusing on the light environment and lighting energy reduction performance improvement -</p>
-<p class="pub-authors">정진수, 이행우, 서장후, 김용성</p>
-<p class="venue">KIEAE Journal, 17(3), 5–13. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002234515" rel="noopener noreferrer" target="_blank">KCI: ART002234515</a></p>
+<p class="pub-citation"><span class="pub-authors">정진수, 이행우, 서장후, 김용성,</span> <span class="venue">KIEAE Journal, 17(3), 5–13. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002234515" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2017</span>
 <div>
 <p class="pub-title">창호 성능 개선을 위한 에어캡 탈부착형 모듈 개발</p>
-<p class="pub-authors">서범동, 이행우, 서장후, 김용성</p>
-<p class="venue">KIEAE Journal, 17(1), 63–68. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002202709" rel="noopener noreferrer" target="_blank">KCI: ART002202709</a></p>
+<p class="pub-citation"><span class="pub-authors">서범동, 이행우, 서장후, 김용성,</span> <span class="venue">KIEAE Journal, 17(1), 63–68. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002202709" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2016</span>
 <div>
 <p class="pub-title">반사판의 폭 조절이 가능한 서랍형 타입의 가동형 광선반 개발 연구</p>
-<p class="pub-authors">김다솜, 이행우, 서장후, 김용성</p>
-<p class="venue">설비공학 논문집, 28(9), 343–349. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002143363" rel="noopener noreferrer" target="_blank">KCI: ART002143363</a></p>
+<p class="pub-citation"><span class="pub-authors">김다솜, 이행우, 서장후, 김용성,</span> <span class="venue">설비공학 논문집, 28(9), 343–349. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002143363" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2015</span>
 <div>
 <p class="pub-title">실내 공간의 반사율에 따른 광선반 성능평가 연구</p>
-<p class="pub-authors">전강민, 이행우, 김용성</p>
-<p class="venue">예술인문사회 융합 멀티미디어 논문지, 5(5), 461–470. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002042455" rel="noopener noreferrer" target="_blank">KCI: ART002042455</a></p>
+<p class="pub-citation"><span class="pub-authors">전강민, 이행우, 김용성,</span> <span class="venue">예술인문사회 융합 멀티미디어 논문지, 5(5), 461–470. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002042455" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2015</span>
 <div>
 <p class="pub-title">전반조명 기반 사용자 및 위치인식기술 적용 조명제어 시스템 제안 연구</p>
-<p class="pub-authors">박주일, 이행우, 서장후, 김용성</p>
-<p class="venue">설비공학 논문집, 27(10), 527–536. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002040071" rel="noopener noreferrer" target="_blank">KCI: ART002040071</a></p>
+<p class="pub-citation"><span class="pub-authors">박주일, 이행우, 서장후, 김용성,</span> <span class="venue">설비공학 논문집, 27(10), 527–536. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002040071" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2015</span>
 <div>
 <p class="pub-title">결정면 적용 광선반 채광성능 평가 연구</p>
-<p class="pub-authors">이행우, Kyle Eric Rogers, 서장후, 김용성</p>
-<p class="venue">설비공학 논문집, 27(8), 395–401. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002017367" rel="noopener noreferrer" target="_blank">KCI: ART002017367</a></p>
+<p class="pub-citation"><span class="pub-authors">이행우, Kyle Eric Rogers, 서장후, 김용성,</span> <span class="venue">설비공학 논문집, 27(8), 395–401. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002017367" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2015</span>
 <div>
 <p class="pub-title">반사율에 따른 광선반 채광 성능평가 연구 - 주거공간을 중심으로 -</p>
-<p class="pub-authors">허도연, 이행우, 서장후, 김용성</p>
-<p class="venue">KIEAE Journal, 15(3), 49–56. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002009173" rel="noopener noreferrer" target="_blank">KCI: ART002009173</a></p>
+<p class="pub-citation"><span class="pub-authors">허도연, 이행우, 서장후, 김용성,</span> <span class="venue">KIEAE Journal, 15(3), 49–56. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002009173" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2015</span>
 <div>
 <p class="pub-title">주거공간 내 광선반 곡률 형태에 따른 채광성능평가 연구</p>
-<p class="pub-authors">오상원, 이행우, 김용성, 서장후</p>
-<p class="venue">설비공학 논문집, 27(6), 328–336. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001997127" rel="noopener noreferrer" target="_blank">KCI: ART001997127</a></p>
+<p class="pub-citation"><span class="pub-authors">오상원, 이행우, 김용성, 서장후,</span> <span class="venue">설비공학 논문집, 27(6), 328–336. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001997127" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2015</span>
 <div>
 <p class="pub-title">실생활기반 냉난방에너지 성능평가 방법 제안 연구</p>
-<p class="pub-authors">전강민, 이행우, 김용성</p>
-<p class="venue">예술인문사회 융합 멀티미디어 논문지, 5(3), 291–299. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002001865" rel="noopener noreferrer" target="_blank">KCI: ART002001865</a></p>
+<p class="pub-citation"><span class="pub-authors">전강민, 이행우, 김용성,</span> <span class="venue">예술인문사회 융합 멀티미디어 논문지, 5(3), 291–299. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002001865" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2015</span>
 <div>
 <p class="pub-title">에너지 저감을 위한 사용자 및 위치인식 기술 적용 디밍 조명제어 시스템 연구</p>
-<p class="pub-authors">최기현, 김용성, 이행우, 서장후</p>
-<p class="venue">설비공학 논문집, 27(1), 14–23. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001955145" rel="noopener noreferrer" target="_blank">KCI: ART001955145</a></p>
+<p class="pub-citation"><span class="pub-authors">최기현, 김용성, 이행우, 서장후,</span> <span class="venue">설비공학 논문집, 27(1), 14–23. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001955145" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2014</span>
 <div>
 <p class="pub-title">Performance Evaluation of Energy Reduction of Light Shelf Applying Punching Plate</p>
-<p class="pub-authors">최유창, 이행우, 서장후, 김용성</p>
-<p class="venue">KIEAE Journal, 14(6), 5–13. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001948518" rel="noopener noreferrer" target="_blank">KCI: ART001948518</a></p>
+<p class="pub-citation"><span class="pub-authors">최유창, 이행우, 서장후, 김용성,</span> <span class="venue">KIEAE Journal, 14(6), 5–13. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001948518" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2014</span>
 <div>
 <p class="pub-title">주거공간의 혼합형 광선반 각도 변화에 따른 채광성능 평가</p>
-<p class="pub-authors">채우리, 이행우, 서장후, 김용성</p>
-<p class="venue">설비공학 논문집, 26(9), 424–433. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001910186" rel="noopener noreferrer" target="_blank">KCI: ART001910186</a></p>
+<p class="pub-citation"><span class="pub-authors">채우리, 이행우, 서장후, 김용성,</span> <span class="venue">설비공학 논문집, 26(9), 424–433. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001910186" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2014</span>
 <div>
 <p class="pub-title">에너지 저감을 위한 주거공간 내 위치인식기술 적용 광선반 시스템 개발연구</p>
-<p class="pub-authors">김상훈, 김용성, 이행우, 서장후</p>
-<p class="venue">설비공학 논문집, 26(6), 275–286. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001881267" rel="noopener noreferrer" target="_blank">KCI: ART001881267</a></p>
+<p class="pub-citation"><span class="pub-authors">김상훈, 김용성, 이행우, 서장후,</span> <span class="venue">설비공학 논문집, 26(6), 275–286. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001881267" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2013</span>
 <div>
 <p class="pub-title">실내공간 깊이와 광선반 규격 변화에 의한 광선반 성능평가 시뮬레이션 연구</p>
-<p class="pub-authors">이행우, 김덕수, 김용성</p>
-<p class="venue">대한건축학회논문집, 29(3), 335–344. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001753007" rel="noopener noreferrer" target="_blank">KCI: ART001753007</a></p>
+<p class="pub-citation"><span class="pub-authors">이행우, 김덕수, 김용성,</span> <span class="venue">대한건축학회논문집, 29(3), 335–344. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001753007" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2013</span>
 <div>
 <p class="pub-title">주거공간을 위한 IT결합 광선반시스템 개발 연구 - 조명에너지 저감을 중심으로 -</p>
-<p class="pub-authors">안혜영, 이행우, 김용성</p>
-<p class="venue">KIEAE Journal, 13(1), 133–140. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001746880" rel="noopener noreferrer" target="_blank">KCI: ART001746880</a></p>
+<p class="pub-citation"><span class="pub-authors">안혜영, 이행우, 김용성,</span> <span class="venue">KIEAE Journal, 13(1), 133–140. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001746880" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2012</span>
 <div>
 <p class="pub-title">주거공간 내 사용자인식기술 적용 조명에너지 저감 광선반 시스템 연구</p>
-<p class="pub-authors">서태원, 이행우, 김용성</p>
-<p class="venue">대한건축학회논문집, 28(11), 357–365. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001715768" rel="noopener noreferrer" target="_blank">KCI: ART001715768</a></p>
+<p class="pub-citation"><span class="pub-authors">서태원, 이행우, 김용성,</span> <span class="venue">대한건축학회논문집, 28(11), 357–365. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001715768" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2012</span>
 <div>
 <p class="pub-title">Ubiquitous Vertical Farm의 u-주거공간 서비스 도출에 관한 연구</p>
-<p class="pub-authors">이행우, 김용성, 이재일</p>
-<p class="venue">한국주거학회논문집, 23(5), 51–60. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001706871" rel="noopener noreferrer" target="_blank">KCI: ART001706871</a></p>
+<p class="pub-citation"><span class="pub-authors">이행우, 김용성, 이재일,</span> <span class="venue">한국주거학회논문집, 23(5), 51–60. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001706871" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2011</span>
 <div>
 <p class="pub-title">u-주거공간의 u-서비스 추출 방법론 및 적용에 관한 연구</p>
-<p class="pub-authors">이행우, 정진성, 김용성</p>
-<p class="venue">한국IT서비스학회지, 10(4), 309–321. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001618628" rel="noopener noreferrer" target="_blank">KCI: ART001618628</a></p>
+<p class="pub-citation"><span class="pub-authors">이행우, 정진성, 김용성,</span> <span class="venue">한국IT서비스학회지, 10(4), 309–321. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001618628" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <article class="pub-item" data-category="domestic" data-publication="">
 <span class="pub-year">2009</span>
 <div>
 <p class="pub-title">노인전문병원 평면구조의 위계에 관한 연구</p>
-<p class="pub-authors">이행우, 김석태</p>
-<p class="venue">한국실내디자인학회 논문집, 18(5), 183–190. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001388797" rel="noopener noreferrer" target="_blank">KCI: ART001388797</a></p>
+<p class="pub-citation"><span class="pub-authors">이행우, 김석태,</span> <span class="venue">한국실내디자인학회 논문집, 18(5), 183–190. <a class="pub-doi" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001388797" rel="noopener noreferrer" target="_blank" title="논문 링크">LINK</a></span></p>
 </div>
 </article>
 <div class="pub-empty" id="pub-empty" hidden>등록된 국내(KCI) 출판물이 없습니다.</div>
