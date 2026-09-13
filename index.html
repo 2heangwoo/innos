@@ -146,7 +146,9 @@
     -webkit-mask-image:none;
     mask-image:none;
   }
-  @media (max-width:900px), (hover:none), (pointer:coarse){
+  /* Keep the reactive light field on narrow desktop windows.
+     Disable it only on true touch/coarse-pointer devices or very small screens. */
+  @media (max-width:640px), (hover:none), (pointer:coarse){
     .hero-unified-field{display:none !important;}
   }
   .eyebrow{
@@ -739,6 +741,24 @@
     .prof-copy{padding-right:0;}
   }
 
+  /* Narrow desktop: move the mini game into normal document flow so it never overlaps
+     the professor biography. */
+  @media (min-width:901px) and (max-width:1180px) and (hover:hover) and (pointer:fine){
+    .prof-card{
+      grid-template-columns:170px minmax(0,1fr);
+      gap:30px;
+    }
+    .prof-copy{padding-right:0;}
+    .portrait-mini-hub{
+      position:relative;
+      right:auto;
+      top:auto;
+      grid-column:1 / -1;
+      justify-self:end;
+      margin-top:18px;
+    }
+  }
+
 
 
 
@@ -1292,12 +1312,15 @@
     .project-card h3 br{display:none;}
     .project-card-blank{display:none !important;}
     .hero-grid{grid-template-columns:1fr;}
-    .diagram{margin-top:24px;}
+    .diagram{
+      width:min(100%,560px);
+      margin:28px auto 0;
+    }
     .focus-grid{grid-template-columns:1fr;}
     .focus-card{border-right:0; border-bottom:1px solid var(--hairline);}
     .focus-card:last-child{border-bottom:0;}
     .prof-card{grid-template-columns:120px 1fr;}
-    .member-grid{grid-template-columns:repeat(3,1fr); gap:20px;}
+    .member-grid{grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px 14px;}
     .member-directory-head{align-items:flex-start;}
     .project-grid{grid-template-columns:1fr;}
     .project-card,
@@ -1307,6 +1330,20 @@
     .contact-grid{grid-template-columns:1fr;}
     nav ul{gap:16px;}
   }
+  /* Narrow desktop / tablet-width browser window:
+     keep portraits compact instead of jumping to oversized 3-column cards. */
+  @media (min-width:761px) and (max-width:900px){
+    #panel-current .member-grid,
+    #panel-alumni .member-grid{
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:18px 14px;
+    }
+    #people .member .avatar{
+      width:92%;
+      margin-bottom:8px;
+    }
+  }
+
   @media (max-width:640px){
     .nav{padding:14px 20px;}
     nav ul{display:none;}
@@ -1805,7 +1842,9 @@
   .mouse-activity-indicator.is-right-down .mouse-activity-button.right{
     background:#252525;
   }
-  .mouse-activity-indicator.is-wheel-active .mouse-activity-wheel{
+  .mouse-activity-indicator.is-wheel-active .mouse-activity-wheel,
+  .mouse-activity-indicator.is-middle-down .mouse-activity-wheel,
+  .mouse-activity-indicator.is-autoscroll-active .mouse-activity-wheel{
     background:#252525;
     border-color:#252525;
   }
@@ -1825,7 +1864,7 @@
     from{transform:translate(-50%, 0);}
     to{transform:translate(-50%, -5px);}
   }
-  @media (hover:none), (pointer:coarse), (max-width:900px){
+  @media (hover:none), (pointer:coarse){
     .mouse-activity-indicator{display:none !important;}
   }
   @media (prefers-reduced-motion:reduce){
@@ -2117,6 +2156,364 @@
   @media (prefers-reduced-motion:reduce){
     .research-popup,
     .research-popup-dialog{transition:none;}
+  }
+
+
+  /* =========================================================
+     FIXED DESKTOP CANVAS
+     Desktop/fine-pointer windows keep the full 1180px layout.
+     When the browser becomes narrower, use the browser's bottom
+     horizontal scrollbar instead of reflowing desktop elements.
+     Mobile/touch layout at <=760px remains unchanged.
+     ========================================================= */
+  @media (hover:hover) and (pointer:fine){
+    html{
+      overflow-x:auto;
+    }
+    body{
+      min-width:1180px;
+      overflow-x:visible;
+    }
+
+    /* Header / navigation */
+    .nav{
+      max-width:1180px;
+      padding:18px 32px;
+    }
+    nav ul{
+      display:flex;
+      gap:28px;
+    }
+
+    /* Hero: always retain the original two-column desktop composition. */
+    .hero-grid{
+      grid-template-columns:1.1fr .9fr !important;
+      gap:48px !important;
+      align-items:center;
+    }
+    .diagram{
+      width:auto !important;
+      max-width:600px !important;
+      margin:0 auto !important;
+    }
+    .hero-unified-field{
+      display:block !important;
+    }
+
+    /* Lab overview: retain the four-card desktop row. */
+    .focus-grid{
+      grid-template-columns:repeat(4,1fr) !important;
+    }
+    .focus-card{
+      border-right:1px solid var(--hairline) !important;
+      border-bottom:0 !important;
+    }
+    .focus-card:last-child{
+      border-right:0 !important;
+    }
+
+    /* Professor + mini game: preserve original side-by-side desktop placement. */
+    .prof-card{
+      grid-template-columns:200px 1fr !important;
+      gap:36px !important;
+      align-items:start;
+    }
+    .prof-copy{
+      padding-right:294px !important;
+    }
+    .portrait-mini-hub{
+      display:block !important;
+      position:absolute !important;
+      right:-4px !important;
+      top:-80px !important;
+      width:344px !important;
+      margin-top:0 !important;
+      grid-column:auto !important;
+      justify-self:auto !important;
+    }
+
+    /* Members: current members stay 5 across; alumni stay 6 across. */
+    #panel-current .member-grid{
+      grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+      gap:18px !important;
+    }
+    #panel-alumni .member-grid{
+      grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+      gap:18px !important;
+    }
+    #people .member .avatar{
+      width:92% !important;
+      margin-bottom:10px !important;
+    }
+
+    /* Projects / contact: retain desktop two-column layouts. */
+    .project-grid{
+      grid-template-columns:repeat(2,1fr) !important;
+    }
+    .project-card{
+      border-right:1px solid var(--hairline) !important;
+      border-bottom:1px solid var(--hairline) !important;
+    }
+    .project-card:nth-child(2n){
+      border-right:0 !important;
+    }
+    .project-card:last-child,
+    .project-card:nth-last-child(2):nth-child(odd){
+      border-bottom:0 !important;
+    }
+    .project-card-blank{
+      display:block !important;
+    }
+    .project-card h3 br{
+      display:inline !important;
+    }
+
+    .contact-grid{
+      grid-template-columns:1fr 1fr !important;
+      gap:48px !important;
+    }
+  }
+
+
+  /* =========================================================
+     FINAL DESKTOP WIDTH RULE
+     - Desktop page width is fixed at 1180px.
+     - Narrower desktop windows do NOT reflow or scale.
+     - Browser native horizontal scrollbar appears at the bottom.
+     - Mobile (<=760px) keeps the existing responsive design.
+     ========================================================= */
+  @media (hover:hover) and (pointer:fine){
+    html{
+      width:100%;
+      min-width:1180px !important;
+      overflow-x:auto !important;
+      overflow-y:scroll;
+    }
+    body{
+      width:1180px !important;
+      min-width:1180px !important;
+      max-width:none !important;
+      margin:0 auto !important;
+      overflow-x:visible !important;
+    }
+
+    /* Keep every desktop content container at the same 1180px canvas width. */
+    .wrap,
+    .nav{
+      width:1180px !important;
+      max-width:1180px !important;
+      min-width:1180px !important;
+      margin-left:auto !important;
+      margin-right:auto !important;
+    }
+
+    /* Header background still spans the fixed desktop canvas. */
+    header{
+      width:1180px !important;
+      min-width:1180px !important;
+    }
+
+    /* Sections / footer also remain on the same fixed canvas. */
+    section,
+    footer{
+      width:1180px !important;
+      min-width:1180px !important;
+    }
+
+    /* Prevent narrow-desktop reflow from earlier media queries. */
+    .hero-grid{
+      grid-template-columns:1.1fr .9fr !important;
+      gap:48px !important;
+    }
+    .diagram{
+      width:auto !important;
+      max-width:600px !important;
+      margin:0 auto !important;
+    }
+    .focus-grid{
+      grid-template-columns:repeat(4,1fr) !important;
+    }
+    .prof-card{
+      grid-template-columns:200px 1fr !important;
+      gap:36px !important;
+    }
+    .prof-copy{
+      padding-right:294px !important;
+    }
+    .portrait-mini-hub{
+      display:block !important;
+      position:absolute !important;
+      right:-4px !important;
+      top:-80px !important;
+      width:344px !important;
+      margin:0 !important;
+    }
+    #panel-current .member-grid{
+      grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    }
+    #panel-alumni .member-grid{
+      grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+    }
+    .project-grid{
+      grid-template-columns:repeat(2,1fr) !important;
+    }
+    .contact-grid{
+      grid-template-columns:1fr 1fr !important;
+    }
+  }
+
+  /* Mobile stays truly responsive and never inherits the fixed desktop width. */
+  @media (hover:none), (pointer:coarse){
+    html,
+    body,
+    header,
+    section,
+    footer{
+      width:auto !important;
+      min-width:0 !important;
+      max-width:none !important;
+    }
+    html,
+    body{
+      overflow-x:hidden !important;
+    }
+    .wrap,
+    .nav{
+      width:auto !important;
+      min-width:0 !important;
+      max-width:var(--max) !important;
+      margin-left:auto !important;
+      margin-right:auto !important;
+    }
+  }
+
+
+  /* =========================================================
+     HERO FULL-BLEED LIGHT FIELD
+     Keep hero content on the centered 1180px desktop canvas,
+     but extend only the reactive light background to the
+     left/right edges of the browser window.
+     ========================================================= */
+  @media (hover:hover) and (pointer:fine){
+    .hero{
+      width:max(1180px, 100vw) !important;
+      min-width:1180px !important;
+      margin-left:min(0px, calc((1180px - 100vw) / 2)) !important;
+      margin-right:0 !important;
+    }
+
+    .hero > .hero-unified-field{
+      left:0 !important;
+      right:0 !important;
+      width:100% !important;
+      max-width:none !important;
+    }
+
+    .hero > .hero-grid{
+      width:1180px !important;
+      min-width:1180px !important;
+      max-width:1180px !important;
+      margin-left:auto !important;
+      margin-right:auto !important;
+    }
+  }
+
+
+  /* =========================================================
+     STRICT DESKTOP MODE
+     A desktop/fine-pointer device NEVER switches to the mobile
+     layout just because the browser window becomes narrow.
+     The page stays 1180px wide and the browser supplies the
+     native horizontal scrollbar.
+     ========================================================= */
+  @media (hover:hover) and (pointer:fine){
+    html{
+      width:100% !important;
+      min-width:1180px !important;
+      overflow-x:auto !important;
+    }
+    body{
+      width:1180px !important;
+      min-width:1180px !important;
+      max-width:none !important;
+      margin:0 auto !important;
+      overflow-x:visible !important;
+    }
+
+    header,
+    section,
+    footer{
+      width:1180px !important;
+      min-width:1180px !important;
+      max-width:none !important;
+    }
+
+    .wrap,
+    .nav{
+      width:1180px !important;
+      min-width:1180px !important;
+      max-width:1180px !important;
+      margin-left:auto !important;
+      margin-right:auto !important;
+    }
+
+    .hero-grid{
+      grid-template-columns:1.1fr .9fr !important;
+      gap:48px !important;
+    }
+    .hero-unified-field{
+      display:block !important;
+    }
+    .diagram{
+      width:auto !important;
+      max-width:600px !important;
+      margin:0 auto !important;
+    }
+
+    .focus-grid{
+      grid-template-columns:repeat(4,1fr) !important;
+    }
+
+    .prof-card{
+      grid-template-columns:200px 1fr !important;
+      gap:36px !important;
+    }
+    .prof-copy{
+      padding-right:294px !important;
+    }
+    .portrait-mini-hub{
+      display:block !important;
+      position:absolute !important;
+      right:-4px !important;
+      top:-80px !important;
+      width:344px !important;
+      margin:0 !important;
+      grid-column:auto !important;
+    }
+
+    #panel-current .member-grid{
+      grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+      gap:18px !important;
+    }
+    #panel-alumni .member-grid{
+      grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+      gap:18px !important;
+    }
+
+    .project-grid{
+      grid-template-columns:repeat(2,1fr) !important;
+    }
+    .project-card-blank{
+      display:block !important;
+    }
+    .project-card h3 br{
+      display:inline !important;
+    }
+
+    .contact-grid{
+      grid-template-columns:1fr 1fr !important;
+      gap:48px !important;
+    }
   }
 
 </style>
@@ -3687,16 +4084,19 @@
     if (!zone || !canvas) return;
 
     /* This interaction is intentionally desktop-only. */
-    const desktopFinePointer = window.matchMedia('(min-width: 901px) and (hover: hover) and (pointer: fine)');
+    const desktopFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
     if (!desktopFinePointer.matches) return;
 
     const ctx = canvas.getContext('2d', { alpha:true });
     if (!ctx) return;
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    /* Full-bleed canvas can become very wide. A 1.5 DPR cap keeps the same
+       visual character while reducing GPU/CPU load on high-DPI displays. */
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
 
     let w=1, h=1, points=[], raf=0;
+    let lastCssW=0, lastCssH=0;
     let tx=0, ty=0, mx=0, my=0;
     let influence=0, targetInfluence=0, inside=false;
     let trail=[], lastTrail=0;
@@ -3729,8 +4129,12 @@
 
     function build(){
       points=[];
-      const gx=24;
-      const gy=20;
+      /* Preserve the original density at normal desktop widths; on ultra-wide
+         canvases, spread the field only slightly to avoid unnecessary thousands
+         of extra line segments. */
+      const wide=w>1800;
+      const gx=wide ? 28 : 24;
+      const gy=wide ? 22 : 20;
       const cols=Math.ceil(w/gx)+4;
       const rows=Math.ceil(h/gy)+4;
 
@@ -3763,15 +4167,28 @@
 
     function resize(){
       const rect=canvas.getBoundingClientRect();
-      w=Math.max(1,rect.width);
-      h=Math.max(1,rect.height);
+      const nextW=Math.max(1,rect.width);
+      const nextH=Math.max(1,rect.height);
+
+      /* ResizeObserver can fire more than once for the same CSS size.
+         Do nothing unless the visible dimensions actually changed. */
+      if(Math.abs(nextW-lastCssW)<.5 && Math.abs(nextH-lastCssH)<.5) return;
+
+      w=nextW;
+      h=nextH;
+      lastCssW=w;
+      lastCssH=h;
+
       canvas.width=Math.round(w*dpr);
       canvas.height=Math.round(h*dpr);
       ctx.setTransform(dpr,0,0,dpr,0,0);
       tx=mx=w*.42;
       ty=my=h*.44;
       build();
-      draw(performance.now());
+
+      /* Reduced-motion users still receive one static frame.
+         Normal animation is driven exclusively by the single RAF loop below. */
+      if(reduce) draw(performance.now());
     }
 
     function glow(x,y,radius,strength){
@@ -3851,7 +4268,7 @@
       for(const p of points){
         const dx=mx-p.x;
         const dy=my-p.y;
-        const dist=Math.hypot(dx,dy);
+        const dist=Math.sqrt(dx*dx+dy*dy);
         const near=clamp(1-dist/radius)*influence;
         const core=clamp(1-dist/inner)*influence;
 
@@ -3878,12 +4295,13 @@
         const len=p.len*(1+near*.62+core*.34);
         const lw=1.02+near*.58+core*.50;
 
-        ctx.save();
-        ctx.translate(px,py);
-        ctx.rotate(angle);
+        const half=len*.5;
+        const ca=Math.cos(angle);
+        const sa=Math.sin(angle);
+
         ctx.beginPath();
-        ctx.moveTo(-len*.5,0);
-        ctx.lineTo(len*.5,0);
+        ctx.moveTo(px-ca*half,py-sa*half);
+        ctx.lineTo(px+ca*half,py+sa*half);
         ctx.lineWidth=lw;
         ctx.lineCap='round';
         ctx.strokeStyle=`rgba(${r},${g},${b},${alpha})`;
@@ -3891,9 +4309,10 @@
         if(near>.25){
           ctx.shadowColor=`rgba(255,176,75,${.40*near})`;
           ctx.shadowBlur=8+11*core;
+        }else{
+          ctx.shadowBlur=0;
         }
         ctx.stroke();
-        ctx.restore();
       }
 
       if(influence>.02){
@@ -3939,7 +4358,21 @@
     ro.observe(canvas);
     resize();
 
+    /* Start exactly one animation loop. ResizeObserver only rebuilds geometry;
+       it never starts another RAF chain. */
     if(!reduce && !raf) raf=requestAnimationFrame(draw);
+
+    /* Avoid spending frames while the tab is hidden, then resume with one loop. */
+    document.addEventListener('visibilitychange',()=>{
+      if(document.hidden){
+        if(raf){
+          cancelAnimationFrame(raf);
+          raf=0;
+        }
+      }else if(!reduce && !raf){
+        raf=requestAnimationFrame(draw);
+      }
+    });
   })();
 </script>
 
@@ -4864,6 +5297,7 @@
 
     let moveTimer = 0;
     let wheelTimer = 0;
+    let autoScrollActive = false;
 
     function setMoving(){
       indicator.classList.add('is-moving');
@@ -4873,25 +5307,104 @@
       }, 420);
     }
 
-    window.addEventListener('mousemove', setMoving, {passive:true});
+    /* Keep the button display synchronized with the real mouse-button state.
+       event.buttons is a bit mask:
+       1 = left button, 2 = right button.
+       This is checked continuously while the pointer moves, so the clicked
+       section remains visibly pressed during drag movement in any direction. */
+    function syncButtons(event){
+      const buttons = typeof event.buttons === 'number' ? event.buttons : 0;
+      indicator.classList.toggle('is-left-down', (buttons & 1) === 1);
+      indicator.classList.toggle('is-right-down', (buttons & 2) === 2);
+      /* Middle mouse / wheel button uses bit 4 in event.buttons. */
+      indicator.classList.toggle('is-middle-down', (buttons & 4) === 4);
+    }
 
+    window.addEventListener('pointerdown', event => {
+      syncButtons(event);
+      setMoving();
+    }, {passive:true});
+
+    window.addEventListener('pointermove', event => {
+      syncButtons(event);
+      setMoving();
+    }, {passive:true});
+
+    window.addEventListener('pointerup', event => {
+      syncButtons(event);
+    }, {passive:true});
+
+    window.addEventListener('pointercancel', () => {
+      indicator.classList.remove('is-left-down', 'is-right-down', 'is-middle-down');
+    }, {passive:true});
+
+    /* Native HTML drag operations can temporarily alter normal pointer event
+       delivery. These listeners preserve the pressed indication while dragging
+       images, puzzle pieces, links, etc. */
+    window.addEventListener('dragstart', event => {
+      if(event.buttons & 1) indicator.classList.add('is-left-down');
+      setMoving();
+    }, true);
+
+    window.addEventListener('dragover', event => {
+      if(event.buttons & 1) indicator.classList.add('is-left-down');
+      setMoving();
+    }, true);
+
+    window.addEventListener('dragend', () => {
+      indicator.classList.remove('is-left-down', 'is-right-down');
+    }, true);
+
+    /* Mouse events are retained as a fallback for browsers that do not expose
+       complete PointerEvent button state during a native drag. */
     window.addEventListener('mousedown', event => {
       if(event.button === 0){
         indicator.classList.add('is-left-down');
-      }else if(event.button === 2){
-        indicator.classList.add('is-right-down');
+
+        /* A normal click cancels the browser's auto-scroll mode. */
+        if(autoScrollActive){
+          autoScrollActive = false;
+          indicator.classList.remove('is-autoscroll-active');
+        }
       }
-    });
+
+      if(event.button === 1){
+        indicator.classList.add('is-middle-down');
+
+        /* Native browser auto-scroll has no direct JavaScript state API.
+           Mirror its middle-click toggle without preventing the browser action. */
+        autoScrollActive = !autoScrollActive;
+        indicator.classList.toggle('is-autoscroll-active', autoScrollActive);
+      }
+
+      if(event.button === 2){
+        indicator.classList.add('is-right-down');
+
+        /* Right click also ends the visual auto-scroll state. */
+        if(autoScrollActive){
+          autoScrollActive = false;
+          indicator.classList.remove('is-autoscroll-active');
+        }
+      }
+    }, true);
+
+    window.addEventListener('mousemove', event => {
+      syncButtons(event);
+      setMoving();
+    }, {passive:true});
 
     window.addEventListener('mouseup', event => {
-      if(event.button === 0){
-        indicator.classList.remove('is-left-down');
-      }else if(event.button === 2){
-        indicator.classList.remove('is-right-down');
-      }
-    });
+      if(event.button === 0) indicator.classList.remove('is-left-down');
+      if(event.button === 1) indicator.classList.remove('is-middle-down');
+      if(event.button === 2) indicator.classList.remove('is-right-down');
+    }, true);
 
     window.addEventListener('wheel', () => {
+      if(autoScrollActive){
+        autoScrollActive = false;
+        indicator.classList.remove('is-autoscroll-active');
+      }
+
       indicator.classList.add('is-wheel-active');
       setMoving();
       window.clearTimeout(wheelTimer);
@@ -4900,10 +5413,20 @@
       }, 180);
     }, {passive:true});
 
+    window.addEventListener('keydown', event => {
+      if(event.key === 'Escape' && autoScrollActive){
+        autoScrollActive = false;
+        indicator.classList.remove('is-autoscroll-active');
+      }
+    });
+
     window.addEventListener('blur', () => {
+      autoScrollActive = false;
       indicator.classList.remove('is-left-down');
+      indicator.classList.remove('is-middle-down');
       indicator.classList.remove('is-right-down');
       indicator.classList.remove('is-wheel-active');
+      indicator.classList.remove('is-autoscroll-active');
     });
   })();
 </script>
