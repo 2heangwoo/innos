@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="ThmCKB4XNqQLqpdmioAnMR7JTaMvmx71WfQRuFeGaNc"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>이행우 교수 | 상명대학교 스페이스디자인전공 | Inno Space Lab</title>
+<title>이행우 교수 | <a href="https://interior.smu.ac.kr/interior/index.do" target="_blank" rel="noopener noreferrer">상명대학교 스페이스디자인전공</a> | Inno Space Lab</title>
 <link rel="canonical" href="https://2heangwoo.github.io/innos/"/>
 <link href="favicon.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="favicon.ico" rel="icon" sizes="32x32" type="image/x-icon"/>
@@ -806,7 +806,7 @@
   .member-grid{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:18px;}
   @media (min-width:901px){
     #panel-current .member-grid{
-      grid-template-columns:repeat(5,minmax(0,1fr));
+      grid-template-columns:repeat(6,minmax(0,1fr));
     }
     #panel-alumni .member-grid{
       grid-template-columns:repeat(6,minmax(0,1fr));
@@ -2516,6 +2516,92 @@
     }
   }
 
+
+  /* =========================================================
+     CURRENT MEMBERS — OPEN POSITIONS
+     Desktop only: current members use the same 6-column scale
+     as alumni. The two remaining cells become quiet recruitment
+     placeholders. Mobile remains unchanged.
+     ========================================================= */
+  .member-open-slot{
+    display:none;
+  }
+
+  @media (hover:hover) and (pointer:fine){
+    #panel-current .member-grid{
+      grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+      gap:18px !important;
+    }
+
+    .member-open-slot{
+      display:block;
+      min-width:0;
+      text-align:left;
+    }
+
+    .member-open-frame{
+      width:92%;
+      aspect-ratio:1;
+      box-sizing:border-box;
+      border:1px dashed rgba(89,86,79,.42);
+      background:rgba(255,255,255,.18);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:16px 10px;
+      text-align:center;
+      transition:
+        border-color .24s ease,
+        background .24s ease,
+        transform .24s ease;
+    }
+
+    .member-open-frame:hover{
+      border-color:var(--amber);
+      background:rgba(255,153,51,.035);
+      transform:translateY(-2px);
+    }
+
+    .member-open-plus{
+      font-family:var(--display);
+      font-size:27px;
+      font-weight:300;
+      line-height:1;
+      color:var(--amber);
+      margin-bottom:13px;
+    }
+
+    .member-open-kicker{
+      display:block;
+      font-family:var(--mono);
+      font-size:8.5px;
+      line-height:1.2;
+      letter-spacing:.12em;
+      color:var(--concrete);
+      margin-bottom:7px;
+    }
+
+    .member-open-frame strong{
+      display:block;
+      font-family:var(--display);
+      font-size:14px;
+      line-height:1.3;
+      font-weight:600;
+      color:var(--ink);
+      margin-bottom:7px;
+    }
+
+    .member-open-frame small{
+      display:block;
+      font-family:var(--mono);
+      font-size:8px;
+      line-height:1.2;
+      letter-spacing:.08em;
+      color:#9a968d;
+    }
+  }
+
 </style>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://2heangwoo.github.io/innos/"/>
@@ -2774,7 +2860,7 @@
 <div class="avatar"><img alt="이행우 교수 사진" decoding="async" height="800" loading="lazy" src="professor-lee-haengwoo.jpg" width="600"/></div>
 <div class="prof-copy">
 <h3>이행우 교수</h3>
-<span class="role">상명대학교 스페이스디자인전공 교수 · 이노베이티브 스페이스 랩 지도교수</span>
+<span class="role"><a href="https://interior.smu.ac.kr/interior/index.do" target="_blank" rel="noopener noreferrer">상명대학교 스페이스디자인전공</a> 교수 · 이노베이티브 스페이스 랩 지도교수</span>
 <p>인제대학교에서 공간디자인 전공으로 학사 및 석사학위를, 국민대학교에서 건축디자인 전공으로 박사학위를 취득하였습니다. 이후 국민대학교에서 연구교수와 조교수를 거쳐, 현재 상명대학교 천안캠퍼스 스페이스디자인전공 교수로 재직하며 이노베이티브 스페이스 랩(Innovative Space Lab)을 지도하고 있습니다. 주요 연구 분야는 채광 및 빛환경, 광선반·광정 시스템, 건물외피와 태양광 융합기술, 사용자 중심의 지능형 공간 및 외피 설계이며, 이와 함께 공간인지와 위계 등 공간디자인과 관련된 인문학적 연구에도 깊은 관심을 가지고 연구를 수행하고 있습니다.</p>
 </div>
 <div class="portrait-mini-hub" id="portrait-mini-hub">
@@ -2874,7 +2960,27 @@
 <h4>장지원</h4>
 <span>학부연구생</span>
 </div>
-<div class="member"><div class="avatar"><img alt="강채연 학부연구생 사진" decoding="async" height="600" loading="lazy" src="kang-chaeyeon.jpg" width="600"/></div><h4>강채연</h4><span>학부연구생</span></div></div>
+<div class="member"><div class="avatar"><img alt="강채연 학부연구생 사진" decoding="async" height="600" loading="lazy" src="kang-chaeyeon.jpg" width="600"/></div><h4>강채연</h4><span>학부연구생</span></div>
+
+<div class="member-open-slot" aria-label="연구생 모집">
+  <div class="member-open-frame">
+    <span class="member-open-plus">+</span>
+    <span class="member-open-kicker">OPEN POSITION</span>
+    <strong>연구생 모집</strong>
+    <small>JOIN OUR LAB</small>
+  </div>
+</div>
+
+<div class="member-open-slot" aria-label="연구생 모집">
+  <div class="member-open-frame">
+    <span class="member-open-plus">+</span>
+    <span class="member-open-kicker">OPEN POSITION</span>
+    <strong>연구생 모집</strong>
+    <small>JOIN OUR LAB</small>
+  </div>
+</div>
+
+</div>
 </div>
 <div aria-labelledby="tab-alumni" class="member-panel" hidden="" id="panel-alumni" role="tabpanel">
 <div class="member-grid">
@@ -2950,6 +3056,19 @@
 <div class="news-list">
 <details class="news-entry">
 <summary>
+<span class="news-date">2026.09</span>
+<span class="news-title">상명대학교 스페이스디자인전공 졸업전시 개최</span>
+<span class="news-tag">소식</span>
+<span aria-hidden="true" class="news-toggle"></span>
+</summary>
+<div class="news-detail">
+<p>재학생 <strong>공지원, 장지원</strong> 학생이 그동안의 노력과 성과를 담은 <strong>졸업작품 전시</strong>를 진행합니다.<br/>
+<strong>교내 졸업전시는 2026년 9월 14일</strong>, <strong>교외 졸업전시는 2026년 9월 30일 강남 모나코스페이스</strong>에서 개최됩니다.<br/>
+오랜 시간 작품을 준비해 온 두 학생의 <strong>노력과 성과를 진심으로 축하하며</strong>, 뜻깊은 졸업전시가 되기를 바랍니다.</p>
+</div>
+</details>
+<details class="news-entry">
+<summary>
 <span class="news-date">2026.08</span>
 <span class="news-title">졸업생 정수연, 한국연구재단 박사과정생 연구장려금 지원사업 선정</span>
 <span class="news-tag">소식</span>
@@ -2987,12 +3106,12 @@
 <div class="resource-board">
 <div class="resource-board-row">
 <span class="resource-date">2026.08</span>
-<span class="resource-title">상명대학교 스페이스디자인전공 2024년 졸업작품 도록 공유</span>
+<span class="resource-title"><a href="https://interior.smu.ac.kr/interior/index.do" target="_blank" rel="noopener noreferrer">상명대학교 스페이스디자인전공</a> 2024년 졸업작품 도록 공유</span>
 <a class="resource-download" href="https://gofile.me/7JuOE/zCV4kVJo3" rel="noopener noreferrer" target="_blank">DOWNLOAD ↗</a>
 </div>
 <div class="resource-board-row">
 <span class="resource-date">2026.08</span>
-<span class="resource-title">상명대학교 스페이스디자인전공 2021년 졸업작품 도록 공유</span>
+<span class="resource-title"><a href="https://interior.smu.ac.kr/interior/index.do" target="_blank" rel="noopener noreferrer">상명대학교 스페이스디자인전공</a> 2021년 졸업작품 도록 공유</span>
 <a class="resource-download" href="https://gofile.me/7JuOE/Vntosloae" rel="noopener noreferrer" target="_blank">DOWNLOAD ↗</a>
 </div>
 </div>
@@ -3722,7 +3841,7 @@
 <div class="contact-grid">
 <ul class="contact-list">
 <li><span class="k">주소</span><span class="v">충남 천안시 동남구 상명대길 31 상명대학교 천안캠퍼스 디자인대학</span></li>
-<li><span class="k">소속</span><span class="v">상명대학교 스페이스디자인전공</span></li>
+<li><span class="k">소속</span><span class="v"><a href="https://interior.smu.ac.kr/interior/index.do" target="_blank" rel="noopener noreferrer">상명대학교 스페이스디자인전공</a></span></li>
 <li><span class="k">이메일</span><span class="v"><a href="mailto:2hw@smu.ac.kr">2hw@smu.ac.kr</a></span></li>
 <li><span class="k">전화</span><span class="v"><a href="tel:+82415505215">82.41.550.5215</a></span></li>
 </ul>
