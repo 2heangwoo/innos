@@ -5908,10 +5908,10 @@
 
     /*
       Pastel wash is strongest while it is spreading, then settles into
-      a faint translucent watercolor stain, similar to pigment on paper.
+      a lighter translucent stain so the portrait remains clearer.
     */
     const moving = 1 - Math.min(1, progress);
-    const alpha = .18 + moving * .12;
+    const alpha = .10 + moving * .09;
 
     pastelCircle(ctx, x, y, r * 1.02, bloom.color, alpha);
 
@@ -5960,10 +5960,15 @@
 
     const sequence = buildSequence(cssW, cssH);
 
+    const totalEnd = Math.max(...sequence.map(b => b.start + b.duration));
+    const settleDuration = 760;
+
     const run = {
       cancelled:false,
       raf:0,
       sequence,
+      totalEnd,
+      settleDuration,
       startTime:performance.now()
     };
 
@@ -6014,11 +6019,20 @@
 
         ctx.globalCompositeOperation = 'source-over';
 
-        /* Pastel watercolor texture remains subtly visible over the revealed image. */
+        /*
+          After the reveal finishes, keep the pastel texture but let it settle
+          into a much clearer, more transparent stain.
+        */
+        const settleT = clamp((elapsedAll - run.totalEnd) / run.settleDuration, 0, 1);
+        const overlayOpacity = 0.92 - settleT * 0.60;  // final ~= 0.32
+
+        ctx.save();
+        ctx.globalAlpha = overlayOpacity;
         ctx.drawImage(watercolor, 0, 0);
+        ctx.restore();
       }
 
-      if(finished < sequence.length){
+      if(elapsedAll < run.totalEnd + run.settleDuration){
         run.raf = requestAnimationFrame(frame);
       }else{
         run.raf = 0;
