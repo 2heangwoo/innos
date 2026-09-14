@@ -1874,7 +1874,8 @@
 
 
   /* Alumni portrait loading state: avoid an unexplained blank box on slow connections. */
-  #panel-alumni .avatar{
+  #panel-current .avatar,
+    #panel-alumni .avatar{
     position:relative;
   }
   #panel-alumni .avatar img{
@@ -2619,6 +2620,7 @@
     }
 
     /* Base portrait stays grayscale until watercolor reaches it. */
+    #panel-current .avatar > img:not(.alumni-water-source),
     #panel-alumni .avatar > img:not(.alumni-water-source){
       position:relative;
       z-index:0;
@@ -2627,16 +2629,19 @@
       transition:transform .35s ease;
     }
 
+    #panel-current .avatar.water-active > img:not(.alumni-water-source),
     #panel-alumni .avatar.water-active > img:not(.alumni-water-source){
       transform:scale(1.006) !important;
     }
 
     /* Hidden color source for canvas rendering. */
+    #panel-current .alumni-water-source,
     #panel-alumni .alumni-water-source{
       display:none !important;
     }
 
     /* One canvas draws both accumulated color reveal and pastel watercolor wash. */
+    #panel-current .alumni-water-canvas,
     #panel-alumni .alumni-water-canvas{
       position:absolute;
       inset:0;
@@ -2651,6 +2656,8 @@
   }
 
   @media (prefers-reduced-motion:reduce){
+    #panel-current .alumni-water-canvas,
+    #panel-current .alumni-water-source,
     #panel-alumni .alumni-water-canvas,
     #panel-alumni .alumni-water-source{
       display:none !important;
@@ -5723,7 +5730,7 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!finePointer.matches || reduceMotion) return;
 
-  const avatars = Array.from(document.querySelectorAll('#panel-alumni .avatar'));
+  const avatars = Array.from(document.querySelectorAll('#panel-current .member .avatar, #panel-alumni .member .avatar'));
   if(!avatars.length) return;
 
   const rand = (min, max) => min + Math.random() * (max - min);
