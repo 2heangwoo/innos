@@ -2602,6 +2602,61 @@
     }
   }
 
+
+
+
+
+  /* =========================================================
+     ALUMNI PASTEL WATERCOLOR SPREAD — DESKTOP ONLY
+     No falling drops. Soft irregular pastel washes appear one by one,
+     spread like watercolor on paper, and locally reveal the color photo.
+     ========================================================= */
+  @media (hover:hover) and (pointer:fine){
+    #panel-alumni .avatar{
+      position:relative;
+      isolation:isolate;
+      overflow:hidden;
+    }
+
+    /* Base portrait stays grayscale until watercolor reaches it. */
+    #panel-alumni .avatar > img:not(.alumni-water-source){
+      position:relative;
+      z-index:0;
+      filter:grayscale(100%) contrast(.98) brightness(1.015) !important;
+      transform:none !important;
+      transition:transform .35s ease;
+    }
+
+    #panel-alumni .avatar.water-active > img:not(.alumni-water-source){
+      transform:scale(1.006) !important;
+    }
+
+    /* Hidden color source for canvas rendering. */
+    #panel-alumni .alumni-water-source{
+      display:none !important;
+    }
+
+    /* One canvas draws both accumulated color reveal and pastel watercolor wash. */
+    #panel-alumni .alumni-water-canvas{
+      position:absolute;
+      inset:0;
+      z-index:2;
+      width:100%;
+      height:100%;
+      display:block;
+      pointer-events:none;
+      opacity:1;
+      transition:opacity .34s ease;
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    #panel-alumni .alumni-water-canvas,
+    #panel-alumni .alumni-water-source{
+      display:none !important;
+    }
+  }
+
 </style>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://2heangwoo.github.io/innos/"/>
@@ -5658,6 +5713,330 @@
   }catch(e){
     if(!isAutoHidden()) window.setTimeout(openPopup, 850);
   }
+})();
+</script>
+
+
+<script>
+(() => {
+  const finePointer = window.matchMedia('(hover:hover) and (pointer:fine)');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!finePointer.matches || reduceMotion) return;
+
+  const avatars = Array.from(document.querySelectorAll('#panel-alumni .avatar'));
+  if(!avatars.length) return;
+
+  const rand = (min, max) => min + Math.random() * (max - min);
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  const pastelPalette = [
+    [150, 202, 232], // powder blue
+    [179, 213, 235], // pale sky
+    [239, 177, 194], // blush pink
+    [174, 218, 204], // mint
+    [202, 187, 228], // lavender
+    [244, 197, 166], // peach
+    [232, 212, 163]  // soft sand
+  ];
+
+  let activeAvatar = null;
+
+  function setupAvatar(avatar){
+    if(avatar.dataset.waterReady === 'true') return;
+
+    const base = avatar.querySelector(':scope > img');
+    if(!base) return;
+
+    avatar.dataset.waterReady = 'true';
+
+    const colorSource = base.cloneNode(false);
+    colorSource.alt = '';
+    colorSource.setAttribute('aria-hidden','true');
+    colorSource.removeAttribute('loading');
+    colorSource.className = 'alumni-water-source';
+    avatar.appendChild(colorSource);
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'alumni-water-canvas';
+    canvas.setAttribute('aria-hidden','true');
+    avatar.appendChild(canvas);
+
+    avatar._waterSource = colorSource;
+    avatar._waterCanvas = canvas;
+    avatar._waterRun = null;
+
+    avatar.addEventListener('mouseenter', () => startEffect(avatar));
+    avatar.addEventListener('mouseleave', () => stopEffect(avatar));
+  }
+
+  function sizeCanvas(avatar){
+    const canvas = avatar._waterCanvas;
+    const rect = avatar.getBoundingClientRect();
+    const cssW = Math.max(1, rect.width);
+    const cssH = Math.max(1, rect.height);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+
+    const pxW = Math.round(cssW * dpr);
+    const pxH = Math.round(cssH * dpr);
+
+    if(canvas.width !== pxW || canvas.height !== pxH){
+      canvas.width = pxW;
+      canvas.height = pxH;
+    }
+
+    canvas.style.width = cssW + 'px';
+    canvas.style.height = cssH + 'px';
+
+    return {cssW, cssH, dpr};
+  }
+
+  function makeEdges(){
+    return Array.from({length:8}, () => ({
+      angle: rand(0, Math.PI * 2),
+      distance: rand(.28, .78),
+      scale: rand(.15, .42),
+      alpha: rand(.30, .70)
+    }));
+  }
+
+  function buildSequence(w, h){
+    const anchors = [
+      [.20,.22],
+      [.72,.20],
+      [.30,.64],
+      [.76,.70],
+      [.50,.40],
+      [.47,.78],
+      [.55,.58]
+    ];
+
+    return anchors.map((anchor, i) => {
+      const x = clamp((anchor[0] + rand(-.11,.11)) * w, w*.07, w*.93);
+      const y = clamp((anchor[1] + rand(-.10,.10)) * h, h*.08, h*.92);
+
+      return {
+        x,
+        y,
+        start: i * rand(390, 470),
+        duration: rand(980, 1320),
+        maxRadius: Math.max(w,h) * rand(
+          i < 4 ? .34 : .43,
+          i < 4 ? .46 : .58
+        ),
+        color: pastelPalette[Math.floor(Math.random() * pastelPalette.length)],
+        edges: makeEdges()
+      };
+    });
+  }
+
+  function stopEffect(avatar){
+    const run = avatar._waterRun;
+    if(run){
+      run.cancelled = true;
+      if(run.raf) cancelAnimationFrame(run.raf);
+    }
+
+    avatar._waterRun = null;
+    avatar.classList.remove('water-active');
+
+    const canvas = avatar._waterCanvas;
+    if(canvas){
+      canvas.style.opacity = '0';
+      setTimeout(() => {
+        if(avatar.matches(':hover')) return;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        canvas.style.opacity = '1';
+      }, 350);
+    }
+
+    if(activeAvatar === avatar) activeAvatar = null;
+  }
+
+  function softMaskCircle(ctx, cx, cy, rr, alpha=1){
+    if(rr <= 0) return;
+
+    const g = ctx.createRadialGradient(cx,cy,0,cx,cy,rr);
+    g.addColorStop(0, `rgba(255,255,255,${alpha})`);
+    g.addColorStop(.48, `rgba(255,255,255,${alpha * .98})`);
+    g.addColorStop(.68, `rgba(255,255,255,${alpha * .68})`);
+    g.addColorStop(.83, `rgba(255,255,255,${alpha * .28})`);
+    g.addColorStop(1, 'rgba(255,255,255,0)');
+
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(cx,cy,rr,0,Math.PI*2);
+    ctx.fill();
+  }
+
+  function paintMask(maskCtx, bloom, radius, dpr){
+    const x = bloom.x * dpr;
+    const y = bloom.y * dpr;
+    const r = radius * dpr;
+
+    softMaskCircle(maskCtx, x, y, r, 1);
+
+    bloom.edges.forEach(edge => {
+      const rr = r * edge.scale;
+      const cx = x + Math.cos(edge.angle) * r * edge.distance;
+      const cy = y + Math.sin(edge.angle) * r * edge.distance;
+      softMaskCircle(maskCtx, cx, cy, rr, edge.alpha);
+    });
+  }
+
+  function pastelCircle(ctx, cx, cy, rr, rgb, alpha){
+    if(rr <= 0) return;
+
+    const [r,g,b] = rgb;
+    const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,rr);
+    grad.addColorStop(0, `rgba(${r},${g},${b},${alpha})`);
+    grad.addColorStop(.46, `rgba(${r},${g},${b},${alpha * .74})`);
+    grad.addColorStop(.70, `rgba(${r},${g},${b},${alpha * .40})`);
+    grad.addColorStop(.86, `rgba(${r},${g},${b},${alpha * .16})`);
+    grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx,cy,rr,0,Math.PI*2);
+    ctx.fill();
+  }
+
+  function paintWatercolor(ctx, bloom, radius, progress, dpr){
+    const x = bloom.x * dpr;
+    const y = bloom.y * dpr;
+    const r = radius * dpr;
+
+    /*
+      Pastel wash is strongest while it is spreading, then settles into
+      a faint translucent watercolor stain, similar to pigment on paper.
+    */
+    const moving = 1 - Math.min(1, progress);
+    const alpha = .18 + moving * .12;
+
+    pastelCircle(ctx, x, y, r * 1.02, bloom.color, alpha);
+
+    bloom.edges.forEach((edge, idx) => {
+      const rr = r * edge.scale * rand(.92, 1.06);
+      const cx = x + Math.cos(edge.angle) * r * edge.distance;
+      const cy = y + Math.sin(edge.angle) * r * edge.distance;
+      pastelCircle(ctx, cx, cy, rr, bloom.color, alpha * edge.alpha * .85);
+    });
+
+    /* Very soft secondary wash creates layered watercolor density. */
+    pastelCircle(
+      ctx,
+      x - r * .10,
+      y + r * .08,
+      r * .68,
+      bloom.color,
+      alpha * .22
+    );
+  }
+
+  function startEffect(avatar){
+    if(activeAvatar && activeAvatar !== avatar){
+      stopEffect(activeAvatar);
+    }
+
+    stopEffect(avatar);
+    activeAvatar = avatar;
+
+    const source = avatar._waterSource;
+    const canvas = avatar._waterCanvas;
+    if(!source || !canvas) return;
+
+    const {cssW, cssH, dpr} = sizeCanvas(avatar);
+    const ctx = canvas.getContext('2d', {alpha:true});
+
+    const mask = document.createElement('canvas');
+    mask.width = canvas.width;
+    mask.height = canvas.height;
+    const maskCtx = mask.getContext('2d');
+
+    const watercolor = document.createElement('canvas');
+    watercolor.width = canvas.width;
+    watercolor.height = canvas.height;
+    const watercolorCtx = watercolor.getContext('2d');
+
+    const sequence = buildSequence(cssW, cssH);
+
+    const run = {
+      cancelled:false,
+      raf:0,
+      sequence,
+      startTime:performance.now()
+    };
+
+    avatar._waterRun = run;
+    avatar.classList.add('water-active');
+    canvas.style.opacity = '1';
+
+    function frame(now){
+      if(run.cancelled) return;
+
+      const elapsedAll = now - run.startTime;
+
+      maskCtx.clearRect(0,0,mask.width,mask.height);
+      watercolorCtx.clearRect(0,0,watercolor.width,watercolor.height);
+
+      let finished = 0;
+      let started = 0;
+
+      sequence.forEach(bloom => {
+        const local = elapsedAll - bloom.start;
+        if(local < 0) return;
+
+        started++;
+
+        const t = clamp(local / bloom.duration, 0, 1);
+
+        /*
+          Slow wet-edge diffusion: starts gently, then grows, then settles.
+        */
+        const eased = 1 - Math.pow(1 - t, 2.35);
+        const radius = bloom.maxRadius * eased;
+
+        paintMask(maskCtx, bloom, radius, dpr);
+        paintWatercolor(watercolorCtx, bloom, radius, t, dpr);
+
+        if(t >= 1) finished++;
+      });
+
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      if(started){
+        /* Actual photo color appears only where the accumulated pastel wash reaches. */
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+
+        ctx.globalCompositeOperation = 'destination-in';
+        ctx.drawImage(mask, 0, 0);
+
+        ctx.globalCompositeOperation = 'source-over';
+
+        /* Pastel watercolor texture remains subtly visible over the revealed image. */
+        ctx.drawImage(watercolor, 0, 0);
+      }
+
+      if(finished < sequence.length){
+        run.raf = requestAnimationFrame(frame);
+      }else{
+        run.raf = 0;
+      }
+    }
+
+    if(source.complete && source.naturalWidth){
+      run.raf = requestAnimationFrame(frame);
+    }else{
+      source.addEventListener('load', () => {
+        if(!run.cancelled && !run.raf){
+          run.raf = requestAnimationFrame(frame);
+        }
+      }, {once:true});
+    }
+  }
+
+  avatars.forEach(setupAvatar);
 })();
 </script>
 
