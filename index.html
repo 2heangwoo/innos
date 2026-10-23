@@ -3008,8 +3008,13 @@
 <div aria-labelledby="tab-current" class="member-panel" id="panel-current" role="tabpanel">
 <div class="member-grid">
 <div class="member">
-<div aria-describedby="chae-profile-tooltip" class="avatar leader-shake-target" id="chae-profile-avatar"><img alt="채지연 학부연구생 사진" decoding="async" height="600" loading="lazy" src="chae-jiyeon.jpg" width="600"/></div>
-<h4>채지연 <em class="member-leader">랩장</em></h4>
+<div aria-describedby="chaeyeon-profile-tooltip" class="avatar leader-shake-target" id="chaeyeon-profile-avatar"><img alt="강채연 학부연구생 사진" decoding="async" height="600" loading="lazy" src="kang-chaeyeon.jpg" width="600"/></div>
+<h4>강채연 <em class="member-leader">랩장</em></h4>
+<span>학부연구생</span>
+</div>
+<div class="member">
+<div aria-describedby="siwoo-profile-tooltip" class="avatar" id="siwoo-profile-avatar"><img alt="정시우 학부연구생 사진" decoding="async" height="600" loading="lazy" src="jeong-siwoo.jpg" width="600"/></div>
+<h4>정시우</h4>
 <span>학부연구생</span>
 </div>
 <div class="member">
@@ -3022,7 +3027,6 @@
 <h4>장지원</h4>
 <span>학부연구생</span>
 </div>
-<div class="member"><div class="avatar"><img alt="강채연 학부연구생 사진" decoding="async" height="600" loading="lazy" src="kang-chaeyeon.jpg" width="600"/></div><h4>강채연</h4><span>학부연구생</span></div>
 
 <div class="member-open-slot" aria-label="연구생 모집">
   <div class="member-open-frame">
@@ -5306,18 +5310,33 @@
 </script>
 
 
-<div aria-hidden="true" class="chae-profile-tooltip" id="chae-profile-tooltip" role="tooltip">
+<div aria-hidden="true" class="chae-profile-tooltip" id="chaeyeon-profile-tooltip" role="tooltip">
   <div class="chae-profile-tooltip-line">
     <span class="chae-profile-tooltip-key">Blood</span>
-    <span class="chae-profile-tooltip-value">AB</span>
+    <span class="chae-profile-tooltip-value">O</span>
   </div>
   <div class="chae-profile-tooltip-line">
     <span class="chae-profile-tooltip-key">MBTI</span>
-    <span class="chae-profile-tooltip-value">ESFP</span>
+    <span class="chae-profile-tooltip-value">ESFJ</span>
   </div>
   <div class="chae-profile-tooltip-line">
     <span class="chae-profile-tooltip-key">Birthday</span>
-    <span class="chae-profile-tooltip-value">Nov 13</span>
+    <span class="chae-profile-tooltip-value">Mar 10</span>
+  </div>
+</div>
+
+<div aria-hidden="true" class="chae-profile-tooltip" id="siwoo-profile-tooltip" role="tooltip">
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Blood</span>
+    <span class="chae-profile-tooltip-value">A</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">MBTI</span>
+    <span class="chae-profile-tooltip-value">INFJ</span>
+  </div>
+  <div class="chae-profile-tooltip-line">
+    <span class="chae-profile-tooltip-key">Birthday</span>
+    <span class="chae-profile-tooltip-value">Dec 12</span>
   </div>
 </div>
 
@@ -5415,7 +5434,8 @@
     if(!finePointer.matches) return;
 
     const profiles = [
-      ['chae-profile-avatar', 'chae-profile-tooltip'],
+      ['chaeyeon-profile-avatar', 'chaeyeon-profile-tooltip'],
+      ['siwoo-profile-avatar', 'siwoo-profile-tooltip'],
       ['gong-profile-avatar', 'gong-profile-tooltip'],
       ['jang-profile-avatar', 'jang-profile-tooltip'],
       ['jo-profile-avatar', 'jo-profile-tooltip'],
