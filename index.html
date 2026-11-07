@@ -1597,21 +1597,23 @@
   }
 
 
-  /* Lab leader portrait motion. */
-  .leader-shake-target.is-shaking{
+  /* Lab leader portrait motion.
+     Entry shake uses the independent `rotate` property on the image.
+     Hover lift keeps using `transform` on the avatar container, so both effects can coexist. */
+  .leader-shake-target.is-shaking > img{
     animation: leaderPhotoRotate 1.12s ease-in-out both;
     transform-origin:50% 55%;
-    will-change:transform;
+    will-change:rotate, transform;
   }
   @keyframes leaderPhotoRotate{
-    0%,100%{transform:rotate(0deg);}
-    12.5%{transform:rotate(-2.2deg);}
-    25%{transform:rotate(2.2deg);}
-    37.5%{transform:rotate(-2deg);}
-    50%{transform:rotate(2deg);}
-    62.5%{transform:rotate(-1.7deg);}
-    75%{transform:rotate(1.7deg);}
-    87.5%{transform:rotate(-1.1deg);}
+    0%,100%{rotate:0deg;}
+    12.5%{rotate:-2.2deg;}
+    25%{rotate:2.2deg;}
+    37.5%{rotate:-2deg;}
+    50%{rotate:2deg;}
+    62.5%{rotate:-1.7deg;}
+    75%{rotate:1.7deg;}
+    87.5%{rotate:-1.1deg;}
   }
 
   /* Alumni portraits: two people are chosen together and each receives one of several subtle motions. */
@@ -1659,7 +1661,7 @@
     80%{transform:translate(2px,-1px) rotate(.45deg);}
   }
   @media (prefers-reduced-motion: reduce){
-    .leader-shake-target.is-shaking,
+    .leader-shake-target.is-shaking > img,
     .alumni-shake-target.alumni-fx-wiggle,
     .alumni-shake-target.alumni-fx-sway,
     .alumni-shake-target.alumni-fx-bob,
@@ -2601,6 +2603,7 @@
       letter-spacing:.08em;
       color:#9a968d;
     }
+
   }
 
 
@@ -2613,10 +2616,20 @@
      spread like watercolor on paper, and locally reveal the color photo.
      ========================================================= */
   @media (hover:hover) and (pointer:fine){
+    #panel-current .avatar,
     #panel-alumni .avatar{
       position:relative;
       isolation:isolate;
       overflow:hidden;
+      transform:translateY(0);
+      transition:transform .22s cubic-bezier(.22,.72,.28,1);
+      will-change:transform;
+    }
+
+    /* First motion: the portrait card gently rises before the color starts spreading. */
+    #panel-current .avatar.water-active,
+    #panel-alumni .avatar.water-active{
+      transform:translateY(-4px);
     }
 
     /* Base portrait stays grayscale until watercolor reaches it. */
@@ -2629,8 +2642,9 @@
       transition:transform .35s ease;
     }
 
-    #panel-current .avatar.water-active > img:not(.alumni-water-source),
-    #panel-alumni .avatar.water-active > img:not(.alumni-water-source){
+    /* A tiny image scale begins only when the watercolor reveal starts. */
+    #panel-current .avatar.water-active.water-reveal > img:not(.alumni-water-source),
+    #panel-alumni .avatar.water-active.water-reveal > img:not(.alumni-water-source){
       transform:scale(1.006) !important;
     }
 
@@ -2656,6 +2670,11 @@
   }
 
   @media (prefers-reduced-motion:reduce){
+    #panel-current .avatar,
+    #panel-alumni .avatar{
+      transform:none !important;
+      transition:none !important;
+    }
     #panel-current .alumni-water-canvas,
     #panel-current .alumni-water-source,
     #panel-alumni .alumni-water-canvas,
@@ -3017,36 +3036,13 @@
 <h4>정시우</h4>
 <span>학부연구생</span>
 </div>
-<div class="member">
-<div aria-describedby="jang-profile-tooltip" class="avatar" id="jang-profile-avatar"><img alt="장지원 학부연구생 사진" decoding="async" height="600" loading="lazy" src="jang-jiwon.jpg" width="600"/></div>
-<h4>장지원</h4>
-<span>학부연구생</span>
-</div>
 
 <div class="member-open-slot" aria-label="연구생 모집">
   <div class="member-open-frame">
     <span class="member-open-plus">+</span>
     <span class="member-open-kicker">OPEN POSITION</span>
     <strong>연구생 모집</strong>
-    <small>JOIN OUR LAB</small>
-  </div>
-</div>
-
-<div class="member-open-slot" aria-label="연구생 모집">
-  <div class="member-open-frame">
-    <span class="member-open-plus">+</span>
-    <span class="member-open-kicker">OPEN POSITION</span>
-    <strong>연구생 모집</strong>
-    <small>JOIN OUR LAB</small>
-  </div>
-</div>
-
-<div class="member-open-slot" aria-label="연구생 모집">
-  <div class="member-open-frame">
-    <span class="member-open-plus">+</span>
-    <span class="member-open-kicker">OPEN POSITION</span>
-    <strong>연구생 모집</strong>
-    <small>JOIN OUR LAB</small>
+    <small>1 POSITION</small>
   </div>
 </div>
 
@@ -3108,6 +3104,11 @@
 <div aria-describedby="gong-profile-tooltip" class="avatar alumni-shake-target" id="gong-profile-avatar"><img alt="공지원 졸업생 사진" decoding="async" height="600" loading="lazy" src="gong-jiwon.jpg" width="600"/></div>
 <h4>공지원</h4>
 <span style="white-space:nowrap;"><a href="https://avec.or.kr/" target="_blank" rel="noopener noreferrer" style="text-decoration-line:underline;text-decoration-style:dotted;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:rgba(139,138,133,.75);white-space:nowrap;">아베크디자인</a>(사원)</span>
+</div>
+<div class="member" data-alumni-key="jang-jiwon">
+<div aria-describedby="jang-profile-tooltip" class="avatar alumni-shake-target" id="jang-profile-avatar"><img alt="장지원 졸업생 사진" decoding="async" height="600" loading="lazy" src="jang-jiwon.jpg" width="600"/></div>
+<h4>장지원</h4>
+<span>졸업예정</span>
 </div>
 </div>
 </div>
@@ -4196,6 +4197,12 @@
         else target.classList.remove('is-shaking');
       });
     }, { threshold: 0.42 });
+
+    target.addEventListener('animationend', (event) => {
+      if(event.animationName === 'leaderPhotoRotate'){
+        target.classList.remove('is-shaking');
+      }
+    });
 
     observer.observe(target);
   })();
@@ -5878,7 +5885,7 @@
     }
 
     avatar._waterRun = null;
-    avatar.classList.remove('water-active');
+    avatar.classList.remove('water-active', 'water-reveal');
 
     const canvas = avatar._waterCanvas;
     if(canvas){
@@ -6003,6 +6010,7 @@
 
     const totalEnd = Math.max(...sequence.map(b => b.start + b.duration));
     const settleDuration = 760;
+    const liftDelay = 210;  // portrait rises first, then watercolor begins
 
     const run = {
       cancelled:false,
@@ -6010,17 +6018,25 @@
       sequence,
       totalEnd,
       settleDuration,
-      startTime:performance.now()
+      liftDelay,
+      revealStarted:false,
+      startTime:performance.now() + liftDelay
     };
 
     avatar._waterRun = run;
     avatar.classList.add('water-active');
+    avatar.classList.remove('water-reveal');
     canvas.style.opacity = '1';
 
     function frame(now){
       if(run.cancelled) return;
 
       const elapsedAll = now - run.startTime;
+
+      if(elapsedAll >= 0 && !run.revealStarted){
+        run.revealStarted = true;
+        avatar.classList.add('water-reveal');
+      }
 
       maskCtx.clearRect(0,0,mask.width,mask.height);
       watercolorCtx.clearRect(0,0,watercolor.width,watercolor.height);
