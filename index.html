@@ -4512,7 +4512,7 @@
        - Limit active drawing to ~45 fps.
        - Reduce line density and avoid per-line shadowBlur. */
     const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
-    const FRAME_MS = 22; // about 45 fps
+    const FRAME_MS = 16; // about 60 fps for tighter pointer response
 
     let w=1, h=1, points=[];
     let raf=0, running=false, lastFrame=0;
@@ -4552,9 +4552,9 @@
       /* Roughly halves the number of line segments versus the prior grid,
          while keeping the field visually continuous. */
       const wide=w>1800;
-      /* Restore more visual density while keeping the optimized render loop. */
-      const gx=wide ? 31 : 27;
-      const gy=wide ? 27 : 23;
+      /* Increase visual density one more step while keeping the optimized render loop. */
+      const gx=wide ? 27 : 24;
+      const gy=wide ? 24 : 20;
       const cols=Math.ceil(w/gx)+4;
       const rows=Math.ceil(h/gy)+4;
 
@@ -4631,11 +4631,11 @@
     }
 
     function addTrail(now){
-      if(!inside || now-lastTrail<48) return;
+      if(!inside || now-lastTrail<34) return;
       const prev=trail[trail.length-1];
       if(prev && Math.hypot(prev.x-mx,prev.y-my)<10) return;
 
-      trail.push({x:mx,y:my,born:now,life:1100+Math.random()*350});
+      trail.push({x:mx,y:my,born:now,life:820+Math.random()*260});
       if(trail.length>28) trail.shift();
       lastTrail=now;
     }
@@ -4675,9 +4675,9 @@
       ctx.clearRect(0,0,w,h);
 
       if(animate){
-        mx+=(tx-mx)*.18;
-        my+=(ty-my)*.18;
-        influence+=(targetInfluence-influence)*.15;
+        mx+=(tx-mx)*.42;
+        my+=(ty-my)*.42;
+        influence+=(targetInfluence-influence)*.24;
         addTrail(now);
       }
 
@@ -4687,8 +4687,8 @@
 
       if(animate){
         drawTrail(now);
-        glow(mx,my,radius*.70,.72*influence);
-        glow(mx,my,inner*.62,1.02*influence);
+        glow(mx,my,radius*.82,.72*influence);
+        glow(mx,my,inner*.74,1.02*influence);
       }
 
       /* Keep line shadows off here. The two glow layers above provide the same
@@ -4748,14 +4748,14 @@
       if(animate && influence>.02){
         ctx.save();
         ctx.globalCompositeOperation='screen';
-        const g=ctx.createRadialGradient(mx,my,0,mx,my,29);
+        const g=ctx.createRadialGradient(mx,my,0,mx,my,35);
         g.addColorStop(0,`rgba(255,255,240,${.68*influence})`);
         g.addColorStop(.18,`rgba(255,230,159,${.50*influence})`);
         g.addColorStop(.55,`rgba(255,166,61,${.21*influence})`);
         g.addColorStop(1,'rgba(255,153,51,0)');
         ctx.fillStyle=g;
         ctx.beginPath();
-        ctx.arc(mx,my,29,0,Math.PI*2);
+        ctx.arc(mx,my,35,0,Math.PI*2);
         ctx.fill();
         ctx.restore();
       }
