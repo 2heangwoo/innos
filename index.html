@@ -4498,7 +4498,6 @@
     const canvas = document.getElementById('hero-unified-field');
     if (!zone || !canvas) return;
 
-    /* This interaction is intentionally desktop-only. */
     const desktopFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
     if (!desktopFinePointer.matches) return;
 
@@ -4506,12 +4505,19 @@
     if (!ctx) return;
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    /* Full-bleed canvas can become very wide. A 1.5 DPR cap keeps the same
-       visual character while reducing GPU/CPU load on high-DPI displays. */
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
 
-    let w=1, h=1, points=[], raf=0;
+    /* Performance tuning:
+       - Lower DPR cap slightly for a large full-bleed canvas.
+       - Animate only while the pointer interaction is active or fading out.
+       - Limit active drawing to ~45 fps.
+       - Reduce line density and avoid per-line shadowBlur. */
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+    const FRAME_MS = 22; // about 45 fps
+
+    let w=1, h=1, points=[];
+    let raf=0, running=false, lastFrame=0;
     let lastCssW=0, lastCssH=0;
+    let rect=null;
     let tx=0, ty=0, mx=0, my=0;
     let influence=0, targetInfluence=0, inside=false;
     let trail=[], lastTrail=0;
@@ -4525,31 +4531,30 @@
     const mix=(a,b,t)=>a+(b-a)*t;
     const smooth=(t)=>t*t*(3-2*t);
 
-    function mix3(a,b,t){
-      return [
-        Math.round(mix(a[0],b[0],t)),
-        Math.round(mix(a[1],b[1],t)),
-        Math.round(mix(a[2],b[2],t))
-      ];
-    }
-
-    function colorFor(x, proximity){
+    function baseColorForX(x){
       const t=clamp(x/Math.max(w,1));
-      let base=t<.52
-        ? mix3(blue,lilac,t/.52)
-        : mix3(lilac,amber,(t-.52)/.48);
-      if(proximity>0) base=mix3(base,pale,proximity*.70);
-      return base;
+      let a,b,u;
+      if(t<.52){
+        a=blue; b=lilac; u=t/.52;
+      }else{
+        a=lilac; b=amber; u=(t-.52)/.48;
+      }
+      return {
+        r:Math.round(mix(a[0],b[0],u)),
+        g:Math.round(mix(a[1],b[1],u)),
+        b:Math.round(mix(a[2],b[2],u))
+      };
     }
 
     function build(){
       points=[];
-      /* Preserve the original density at normal desktop widths; on ultra-wide
-         canvases, spread the field only slightly to avoid unnecessary thousands
-         of extra line segments. */
+
+      /* Roughly halves the number of line segments versus the prior grid,
+         while keeping the field visually continuous. */
       const wide=w>1800;
-      const gx=wide ? 28 : 24;
-      const gy=wide ? 22 : 20;
+      /* Restore more visual density while keeping the optimized render loop. */
+      const gx=wide ? 31 : 27;
+      const gy=wide ? 27 : 23;
       const cols=Math.ceil(w/gx)+4;
       const rows=Math.ceil(h/gy)+4;
 
@@ -4558,10 +4563,8 @@
           const x=c*gx-gx*1.5;
           const y=r*gy-gy*1.5;
           const nx=clamp(x/Math.max(w,1));
-
-          /* One continuous flow across the entire hero:
-             calm wave near the text -> increasingly daylight-like diagonal flow near the diagram. */
           const daylightBlend=smooth(clamp((nx-.38)/.62));
+
           const leftAngle=
             Math.sin(c*.17+r*.08)*.18 +
             Math.cos(r*.21-c*.06)*.08;
@@ -4570,23 +4573,27 @@
             Math.sin(c*.19+r*.12)*.11 +
             Math.cos(r*.25-c*.07)*.06;
           const base=mix(leftAngle,rightAngle,daylightBlend);
+          const color=baseColorForX(x);
 
           points.push({
             x,y,base,
             phase:Math.random()*Math.PI*2,
-            len:8.5+Math.random()*4.8
+            len:9.2+Math.random()*5.2,
+            r:color.r,g:color.g,b:color.b
           });
         }
       }
     }
 
+    function updateRect(){
+      rect=canvas.getBoundingClientRect();
+    }
+
     function resize(){
-      const rect=canvas.getBoundingClientRect();
+      updateRect();
       const nextW=Math.max(1,rect.width);
       const nextH=Math.max(1,rect.height);
 
-      /* ResizeObserver can fire more than once for the same CSS size.
-         Do nothing unless the visible dimensions actually changed. */
       if(Math.abs(nextW-lastCssW)<.5 && Math.abs(nextH-lastCssH)<.5) return;
 
       w=nextW;
@@ -4597,13 +4604,14 @@
       canvas.width=Math.round(w*dpr);
       canvas.height=Math.round(h*dpr);
       ctx.setTransform(dpr,0,0,dpr,0,0);
+
       tx=mx=w*.42;
       ty=my=h*.44;
-      build();
+      influence=targetInfluence=0;
+      trail.length=0;
 
-      /* Reduced-motion users still receive one static frame.
-         Normal animation is driven exclusively by the single RAF loop below. */
-      if(reduce) draw(performance.now());
+      build();
+      render(performance.now(), false);
     }
 
     function glow(x,y,radius,strength){
@@ -4623,11 +4631,12 @@
     }
 
     function addTrail(now){
-      if(!inside || now-lastTrail<30) return;
+      if(!inside || now-lastTrail<48) return;
       const prev=trail[trail.length-1];
-      if(prev && Math.hypot(prev.x-mx,prev.y-my)<8) return;
-      trail.push({x:mx,y:my,born:now,life:1350+Math.random()*500});
-      if(trail.length>44) trail.shift();
+      if(prev && Math.hypot(prev.x-mx,prev.y-my)<10) return;
+
+      trail.push({x:mx,y:my,born:now,life:1100+Math.random()*350});
+      if(trail.length>28) trail.shift();
       lastTrail=now;
     }
 
@@ -4637,7 +4646,7 @@
         const life=1-(now-p.born)/p.life;
         if(life<=0) continue;
         alive.push(p);
-        glow(p.x,p.y,45+54*life,.36*life*influence);
+        glow(p.x,p.y,40+46*life,.30*life*influence);
       }
       trail=alive;
 
@@ -4649,64 +4658,78 @@
 
         ctx.beginPath();
         trail.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
-        ctx.strokeStyle=`rgba(255,180,76,${.12*influence})`;
-        ctx.lineWidth=12;
-        ctx.shadowColor=`rgba(255,166,61,${.29*influence})`;
-        ctx.shadowBlur=15;
+        ctx.strokeStyle=`rgba(255,180,76,${.105*influence})`;
+        ctx.lineWidth=10;
         ctx.stroke();
 
         ctx.beginPath();
         trail.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
-        ctx.strokeStyle=`rgba(255,244,202,${.21*influence})`;
-        ctx.lineWidth=2.5;
+        ctx.strokeStyle=`rgba(255,244,202,${.19*influence})`;
+        ctx.lineWidth=2.2;
         ctx.stroke();
         ctx.restore();
       }
     }
 
-    function draw(now){
+    function render(now, animate=true){
       ctx.clearRect(0,0,w,h);
 
-      mx+=(tx-mx)*.12;
-      my+=(ty-my)*.12;
-      influence+=(targetInfluence-influence)*.095;
-      addTrail(now);
+      if(animate){
+        mx+=(tx-mx)*.18;
+        my+=(ty-my)*.18;
+        influence+=(targetInfluence-influence)*.15;
+        addTrail(now);
+      }
 
-      const radius=Math.max(205,Math.min(355,w*.28));
+      const radius=Math.max(205,Math.min(345,w*.28));
       const inner=radius*.47;
       const t=now*.00042;
 
-      drawTrail(now);
-      glow(mx,my,radius*.70,.78*influence);
-      glow(mx,my,inner*.62,1.12*influence);
+      if(animate){
+        drawTrail(now);
+        glow(mx,my,radius*.70,.72*influence);
+        glow(mx,my,inner*.62,1.02*influence);
+      }
+
+      /* Keep line shadows off here. The two glow layers above provide the same
+         luminous cue much more cheaply than setting shadowBlur for every line. */
+      ctx.shadowBlur=0;
+      ctx.lineCap='round';
 
       for(const p of points){
         const dx=mx-p.x;
         const dy=my-p.y;
         const dist=Math.sqrt(dx*dx+dy*dy);
-        const near=clamp(1-dist/radius)*influence;
-        const core=clamp(1-dist/inner)*influence;
+        const near=animate ? clamp(1-dist/radius)*influence : 0;
+        const core=animate ? clamp(1-dist/inner)*influence : 0;
 
-        const drift=reduce ? 0 :
-          Math.sin(t+p.phase)*.045 +
-          Math.cos(t*.61+p.phase*1.55)*.024;
+        const drift=(animate && !reduce)
+          ? Math.sin(t+p.phase)*.045 + Math.cos(t*.61+p.phase*1.55)*.024
+          : 0;
 
-        /* The same light pocket deforms the field continuously whether the pointer
-           is over the text, the gap, or the daylight diagram. */
-        const tangent=Math.atan2(dy,dx)+Math.PI/2;
-        const radial=Math.atan2(dy,dx);
-        let target=tangent;
-        if(core>.48) target=mix(tangent,radial,(core-.48)/.52*.28);
+        let angle=p.base+drift;
+        let px=p.x, py=p.y;
 
-        const angle=p.base+drift+(target-p.base)*near*(1.04+core*.28);
+        if(near>.001){
+          const tangent=Math.atan2(dy,dx)+Math.PI/2;
+          const radial=Math.atan2(dy,dx);
+          let target=tangent;
+          if(core>.48) target=mix(tangent,radial,(core-.48)/.52*.28);
 
-        const repel=near*near*(18+core*21);
-        const denom=Math.max(dist,1);
-        const px=p.x-(dx/denom)*repel;
-        const py=p.y-(dy/denom)*repel;
+          angle+=(target-p.base)*near*(1.04+core*.28);
 
-        const [r,g,b]=colorFor(px,near);
-        const alpha=.18+near*.53+core*.17;
+          const repel=near*near*(18+core*21);
+          const denom=Math.max(dist,1);
+          px=p.x-(dx/denom)*repel;
+          py=p.y-(dy/denom)*repel;
+        }
+
+        const tint=near*.70;
+        const rr=Math.round(mix(p.r,pale[0],tint));
+        const gg=Math.round(mix(p.g,pale[1],tint));
+        const bb=Math.round(mix(p.b,pale[2],tint));
+
+        const alpha=.22+near*.55+core*.18;
         const len=p.len*(1+near*.62+core*.34);
         const lw=1.02+near*.58+core*.50;
 
@@ -4718,25 +4741,17 @@
         ctx.moveTo(px-ca*half,py-sa*half);
         ctx.lineTo(px+ca*half,py+sa*half);
         ctx.lineWidth=lw;
-        ctx.lineCap='round';
-        ctx.strokeStyle=`rgba(${r},${g},${b},${alpha})`;
-
-        if(near>.25){
-          ctx.shadowColor=`rgba(255,176,75,${.40*near})`;
-          ctx.shadowBlur=8+11*core;
-        }else{
-          ctx.shadowBlur=0;
-        }
+        ctx.strokeStyle=`rgba(${rr},${gg},${bb},${alpha})`;
         ctx.stroke();
       }
 
-      if(influence>.02){
+      if(animate && influence>.02){
         ctx.save();
         ctx.globalCompositeOperation='screen';
         const g=ctx.createRadialGradient(mx,my,0,mx,my,29);
-        g.addColorStop(0,`rgba(255,255,240,${.72*influence})`);
-        g.addColorStop(.18,`rgba(255,230,159,${.54*influence})`);
-        g.addColorStop(.55,`rgba(255,166,61,${.23*influence})`);
+        g.addColorStop(0,`rgba(255,255,240,${.68*influence})`);
+        g.addColorStop(.18,`rgba(255,230,159,${.50*influence})`);
+        g.addColorStop(.55,`rgba(255,166,61,${.21*influence})`);
         g.addColorStop(1,'rgba(255,153,51,0)');
         ctx.fillStyle=g;
         ctx.beginPath();
@@ -4744,48 +4759,91 @@
         ctx.fill();
         ctx.restore();
       }
+    }
 
-      if(!reduce) raf=requestAnimationFrame(draw);
+    function needsMoreFrames(){
+      return inside ||
+        influence>.015 ||
+        trail.length>0 ||
+        Math.abs(targetInfluence-influence)>.012 ||
+        Math.abs(tx-mx)>.7 ||
+        Math.abs(ty-my)>.7;
+    }
+
+    function tick(now){
+      if(!running) return;
+
+      if(now-lastFrame<FRAME_MS){
+        raf=requestAnimationFrame(tick);
+        return;
+      }
+
+      lastFrame=now;
+      render(now, true);
+
+      if(needsMoreFrames()){
+        raf=requestAnimationFrame(tick);
+      }else{
+        running=false;
+        raf=0;
+        influence=0;
+        targetInfluence=0;
+        trail.length=0;
+        render(now, false);
+      }
+    }
+
+    function startLoop(){
+      if(reduce || running || document.hidden) return;
+      running=true;
+      lastFrame=0;
+      raf=requestAnimationFrame(tick);
+    }
+
+    function stopLoop(){
+      if(raf) cancelAnimationFrame(raf);
+      raf=0;
+      running=false;
     }
 
     function setPointer(e){
-      const rect=canvas.getBoundingClientRect();
+      if(!rect) updateRect();
       tx=e.clientX-rect.left;
       ty=e.clientY-rect.top;
     }
 
     zone.addEventListener('pointerenter',e=>{
+      updateRect();
       inside=true;
       targetInfluence=1;
       setPointer(e);
-      trail.push({x:tx,y:ty,born:performance.now(),life:1550});
-    });
+      trail.push({x:tx,y:ty,born:performance.now(),life:1250});
+      startLoop();
+    }, {passive:true});
+
     zone.addEventListener('pointermove',e=>{
       if(!inside) return;
       setPointer(e);
-    });
+      startLoop();
+    }, {passive:true});
+
     zone.addEventListener('pointerleave',()=>{
       inside=false;
       targetInfluence=0;
-    });
+      startLoop();
+    }, {passive:true});
 
     const ro=new ResizeObserver(resize);
     ro.observe(canvas);
     resize();
 
-    /* Start exactly one animation loop. ResizeObserver only rebuilds geometry;
-       it never starts another RAF chain. */
-    if(!reduce && !raf) raf=requestAnimationFrame(draw);
-
-    /* Avoid spending frames while the tab is hidden, then resume with one loop. */
     document.addEventListener('visibilitychange',()=>{
       if(document.hidden){
-        if(raf){
-          cancelAnimationFrame(raf);
-          raf=0;
-        }
-      }else if(!reduce && !raf){
-        raf=requestAnimationFrame(draw);
+        stopLoop();
+      }else{
+        updateRect();
+        if(inside) startLoop();
+        else render(performance.now(), false);
       }
     });
   })();
