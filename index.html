@@ -4600,6 +4600,18 @@
       rect=canvas.getBoundingClientRect();
     }
 
+    /* Keep the cached canvas position valid while the page is scrolling.
+       This is especially important for middle-button auto-scroll, where
+       the viewport moves without a resize event. */
+    let rectRaf=0;
+    function scheduleRectUpdate(){
+      if(rectRaf) return;
+      rectRaf=requestAnimationFrame(()=>{
+        rectRaf=0;
+        updateRect();
+      });
+    }
+
     function resize(){
       updateRect();
       const nextW=Math.max(1,rect.width);
@@ -4847,6 +4859,11 @@
     const ro=new ResizeObserver(resize);
     ro.observe(canvas);
     resize();
+
+    /* Scroll changes the canvas viewport position even when its size is unchanged. */
+    window.addEventListener('scroll',scheduleRectUpdate,{passive:true});
+    document.addEventListener('scroll',scheduleRectUpdate,{passive:true,capture:true});
+    zone.addEventListener('wheel',scheduleRectUpdate,{passive:true});
 
     document.addEventListener('visibilitychange',()=>{
       if(document.hidden){
