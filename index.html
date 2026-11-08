@@ -4706,12 +4706,16 @@
 
       const radius=Math.max(205,Math.min(345,w*.28));
       const inner=radius*.47;
+      /* Enlarge only the line-deformation interaction circle.
+         The visible yellow glow above remains at its current size. */
+      const interactionRadius=radius*1.5;
+      const interactionInner=interactionRadius*.47;
       const t=now*.00042;
 
       if(animate){
         drawTrail(now);
-        glow(mx,my,radius*.82,.72*influence);
-        glow(mx,my,inner*.74,1.02*influence);
+        glow(mx,my,radius*1.23,.72*influence);
+        glow(mx,my,inner*1.11,1.02*influence);
       }
 
       /* Keep line shadows off here. The two glow layers above provide the same
@@ -4723,8 +4727,8 @@
         const dx=mx-p.x;
         const dy=my-p.y;
         const dist=Math.sqrt(dx*dx+dy*dy);
-        const near=animate ? clamp(1-dist/radius)*influence : 0;
-        const core=animate ? clamp(1-dist/inner)*influence : 0;
+        const near=animate ? clamp(1-dist/interactionRadius)*influence : 0;
+        const core=animate ? clamp(1-dist/interactionInner)*influence : 0;
 
         const drift=(animate && !reduce)
           ? Math.sin(t+p.phase)*.045 + Math.cos(t*.61+p.phase*1.55)*.024
@@ -4771,14 +4775,14 @@
       if(animate && influence>.02){
         ctx.save();
         ctx.globalCompositeOperation='screen';
-        const g=ctx.createRadialGradient(mx,my,0,mx,my,35);
+        const g=ctx.createRadialGradient(mx,my,0,mx,my,52.5);
         g.addColorStop(0,`rgba(255,255,240,${.68*influence})`);
         g.addColorStop(.18,`rgba(255,230,159,${.50*influence})`);
         g.addColorStop(.55,`rgba(255,166,61,${.21*influence})`);
         g.addColorStop(1,'rgba(255,153,51,0)');
         ctx.fillStyle=g;
         ctx.beginPath();
-        ctx.arc(mx,my,35,0,Math.PI*2);
+        ctx.arc(mx,my,52.5,0,Math.PI*2);
         ctx.fill();
         ctx.restore();
       }
