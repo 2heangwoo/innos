@@ -3107,6 +3107,98 @@
     }
   }
 
+
+
+  /* =========================================================
+     MOBILE LANDSCAPE TYPOGRAPHY — COMPACT 4 SIZE SYSTEM
+     Applies to landscape viewport regardless of pointer mode.
+     PC portrait/desktop and portrait-mobile remain unchanged.
+     Sizes: 18 / 13 / 11 / 9 px
+     ========================================================= */
+  @media (orientation:landscape) and (max-width:1024px) and (max-height:700px){
+
+    /* 18px — major section / hero headings */
+    h1,
+    .section-title{
+      font-size:18px !important;
+      line-height:1.18 !important;
+    }
+
+    /* 13px — primary titles */
+    .brand-mark,
+    .focus-card h3,
+    #people .prof-card h3,
+    .member h4,
+    .news-title,
+    .resource-title,
+    .project-card h3,
+    .pub-title,
+    .contact-list .v,
+    #site-nav ul li a{
+      font-size:13px !important;
+      line-height:1.45 !important;
+    }
+
+    /* 11px — body text */
+    body,
+    .hero p.lead,
+    .about-text,
+    .focus-card p,
+    #people .prof-card p,
+    .news-detail p,
+    .pub-citation,
+    .pub-citation .pub-authors,
+    .pub-citation .venue,
+    .member-tab,
+    #people .member span,
+    .btn{
+      font-size:11px !important;
+      line-height:1.6 !important;
+    }
+
+    /* 9px — labels / metadata */
+    .brand-sub,
+    .eyebrow,
+    .section-label,
+    .section-note,
+    .about-caption,
+    .focus-card .metric,
+    #people .prof-card .role,
+    .member-tab .tab-ko,
+    .member-leader,
+    .lablog-tab,
+    .news-date,
+    .resource-date,
+    .news-tag,
+    .resource-download,
+    .project-period,
+    .pub-category-tab,
+    .pub-page-status,
+    .pub-year,
+    .pub-doi,
+    .contact-list .k,
+    .google-map-caption strong,
+    .google-map-caption a,
+    footer p,
+    .diagram-stat .k,
+    .diagram-stat .u,
+    .diagram-meta{
+      font-size:9px !important;
+      line-height:1.45 !important;
+    }
+
+    .diagram-stat .v{
+      font-size:13px !important;
+    }
+
+    /* Slightly tighter spacing for the short landscape viewport */
+    .section-head{margin-bottom:22px !important;}
+    .news-entry summary{padding:13px 0 !important;}
+    .news-detail{margin-bottom:13px !important;}
+    .pub-item{padding:13px 0 !important;}
+    .contact-list li{padding:10px 0 !important;}
+  }
+
 </style>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://2heangwoo.github.io/innos/"/>
