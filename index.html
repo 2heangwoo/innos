@@ -2919,6 +2919,22 @@
     }
   }
 
+
+
+  /* Mobile landscape: enlarge professor portrait and reduce role text. */
+  @media (max-width:900px) and (orientation:landscape) and (hover:none),
+         (max-width:900px) and (orientation:landscape) and (pointer:coarse){
+    #people .prof-card{
+      grid-template-columns:145px minmax(0,1fr) !important;
+      gap:24px !important;
+    }
+    #people .prof-card .role{
+      font-size:9.5px !important;
+      line-height:1.45 !important;
+      margin-bottom:7px !important;
+    }
+  }
+
 </style>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://2heangwoo.github.io/innos/"/>
