@@ -3019,6 +3019,94 @@
     footer p{font-size:9.5px !important; line-height:1.45 !important;}
   }
 
+
+
+  /* =========================================================
+     MOBILE LANDSCAPE TYPOGRAPHY — 4 SIZE SYSTEM
+     PC and portrait-mobile remain unchanged.
+     Sizes: 24 / 14 / 12 / 10 px
+     ========================================================= */
+  @media (orientation:landscape) and (max-width:1024px) and (max-height:600px) and (hover:none),
+         (orientation:landscape) and (max-width:1024px) and (max-height:600px) and (pointer:coarse){
+
+    /* 24px — major headings */
+    h1,
+    .section-title{
+      font-size:24px !important;
+      line-height:1.18 !important;
+    }
+
+    /* 14px — primary content titles */
+    .brand-mark,
+    .focus-card h3,
+    #people .prof-card h3,
+    .member h4,
+    .news-title,
+    .resource-title,
+    .project-card h3,
+    .pub-title,
+    .contact-list .v,
+    #site-nav ul li a{
+      font-size:14px !important;
+    }
+
+    /* 12px — body copy */
+    body,
+    .hero p.lead,
+    .about-text,
+    .focus-card p,
+    #people .prof-card p,
+    .news-detail p,
+    .pub-citation,
+    .pub-citation .pub-authors,
+    .pub-citation .venue,
+    .member-tab,
+    #people .member span{
+      font-size:12px !important;
+      line-height:1.65 !important;
+    }
+
+    /* 10px — labels / metadata / secondary information */
+    .brand-sub,
+    .eyebrow,
+    .section-label,
+    .section-note,
+    .about-caption,
+    .focus-card .metric,
+    #people .prof-card .role,
+    .member-tab .tab-ko,
+    .member-leader,
+    .lablog-tab,
+    .news-date,
+    .resource-date,
+    .news-tag,
+    .resource-download,
+    .project-period,
+    .pub-category-tab,
+    .pub-page-status,
+    .pub-year,
+    .pub-doi,
+    .contact-list .k,
+    .google-map-caption strong,
+    .google-map-caption a,
+    footer p,
+    .diagram-stat .k,
+    .diagram-stat .u,
+    .diagram-meta{
+      font-size:10px !important;
+    }
+
+    /* Keep numeric diagram values readable within the same compact system */
+    .diagram-stat .v{
+      font-size:14px !important;
+    }
+
+    /* Compact button text */
+    .btn{
+      font-size:12px !important;
+    }
+  }
+
 </style>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://2heangwoo.github.io/innos/"/>
